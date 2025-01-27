@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+/*.egg-info
+/.eggs
+/dist
+/.venv
+/.vs
+/.vscode
+.nox/
+.mypy_cache/
+
+# coverage
+/.coverage
+/htmlcov
+
+# tests
+*.vcd
+*.gtkw
+
+# misc user-created
+/*.il
+/*.v
+/*.sv
+/*.vhd
+/*.vhdl
+/build
+/examples/build
