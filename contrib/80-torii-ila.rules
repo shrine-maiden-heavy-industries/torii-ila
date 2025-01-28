@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# This file is part of the Torii ILA project
+# https://github.com/shrine-maiden-heavy-industries/torii-ila
+
+ACTION!="add|change|bind",GOTO="torii_ila_rules_end"
+
+# Squishy DFU Bootloader
+SUBSYSTEM=="usb", ATTR{idVendor}=="04a0", ATTR{idProduct}=="aca7", GROUP="plugdev", MODE="0660", TAG+="uaccess"
+# Squishy Applet mode
+SUBSYSTEM=="usb", ATTR{idVendor}=="04a0", ATTR{idProduct}=="aca7", GROUP="plugdev", MODE="0660", TAG+="uaccess"
+
+LABEL="torii_ila_rules_end"

@@ -8,6 +8,15 @@ except ImportError: # :nocov:
 
 from .ila import IntegratedLogicAnalyzer, StreamILA
 
+try:
+	from .usb import USBIntegratedLogicAnalyzer, USBIntegratedLogicAnalyzerBackhaul
+	_ILA_USB_IMPORTS = ('USBIntegratedLogicAnalyzer', 'USBIntegratedLogicAnalyzerBackhaul',)
+	ILA_HAS_USB_SUPPORT = True
+except ImportError:
+	_ILA_USB_IMPORTS = tuple()
+	ILA_HAS_USB_SUPPORT = False
+
 __all__ = (
 	'IntegratedLogicAnalyzer', 'StreamILA',
+	*_ILA_USB_IMPORTS,
 )
