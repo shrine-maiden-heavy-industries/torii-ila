@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 from abc             import ABCMeta, abstractmethod
-from collections.abc import Callable
-from typing          import Iterable, TypeAlias
+from collections.abc import Callable, Generator, Iterable
+from typing          import TypeAlias, Self, TYPE_CHECKING
 from pathlib         import Path
 
 
@@ -11,13 +11,17 @@ from vcd.common      import VarType as VCDVarType
 from vcd.writer      import Variable as VCDVar
 
 from .ila            import IntegratedLogicAnalyzer
+from ._bits          import bits
+
+if TYPE_CHECKING:
+	from .usb  import USBIntegratedLogicAnalyzer
 
 __all__ = (
 	'ILABackhaulInterface',
 )
 
-
-Sample: TypeAlias = dict[str, bytes]
+ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer'
+Sample: TypeAlias = dict[str, bits]
 Samples: TypeAlias = Iterable[Sample]
 
 class ILABackhaulInterface(metaclass = ABCMeta):
@@ -40,39 +44,28 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 		The collected samples from the ILA.
 	'''
 
-	def __init__(self, ila: IntegratedLogicAnalyzer) -> None:
+	def __init__(self: Self, ila: ILAInterface) -> None:
 		self.ila = ila
 		self.samples: Samples | None = None
 
 	@abstractmethod
-	def _ingest_samples(self) -> Iterable[bytes]:
+	def _ingest_samples(self: Self) -> Iterable[bits]:
 		''' Acquire ILA samples from the backhaul interface. '''
 
 		raise NotImplementedError('ILA backhaul interfaces must implement this method')
 
-	# TODO(aki): The dict[str, int] is not the /most efficient/ way to unpack sample data,
-	#            on top of being mutable, it's also a bit wasteful on space, specifically on
-	#            the sample storage side of things, while it's not too bad as it's on the host
-	#            having a more efficient storage mechanism might be helpful
-	def _parse_sample(self, raw: bytes) -> Sample:
+	def _parse_sample(self, raw: bits) -> Sample:
 		'''
 		Parse the raw sample into a dictionary that maps signal name to value.
 
-		Note
-		----
-		A limitation of the default implementation is that there is no bit-packing, meaning
-		every signal, even if only a single bit, takes up at minimum a whole byte of space
-		in a sample. While this makes thins easy to deal with, it is not very efficient on bandwidth constrained
-		backhaul interfaces such as slower UART links.
-
 		Parameters
 		----------
-		raw : bytes
+		raw : bits
 			The raw binary sample extracted out of the backhaul interface.
 
 		Returns
 		-------
-		dict[str, bytes]
+		dict[str, bits]
 			Signal name to value mapping
 
 		'''
@@ -97,12 +90,12 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 
 		return [ self._parse_sample(sample) for sample in raw ]
 
-	def refresh(self) -> None:
+	def refresh(self: Self) -> None:
 		''' Update the internal sample buffer with samples ingested from the backhaul interface. '''
 
 		self.samples = self._parse_samples(self._ingest_samples())
 
-	def enumerate(self):
+	def enumerate(self: Self) -> Generator[tuple[float, Sample]]:
 		''' Iterate over all of the samples received from our backhaul. '''
 
 		# BUG(aki): This assumes that `refresh()` will always populate the sample buffer, this
@@ -116,7 +109,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 			yield ts, sample
 			ts += self.ila.sample_period
 
-	def write_vcd(self, vcd_file: Path, inject_sample_clock: bool = True) -> None:
+	def write_vcd(self: Self, vcd_file: Path, inject_sample_clock: bool = True) -> None:
 		'''
 		Write the sample memory to a VCD file.
 
