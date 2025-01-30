@@ -32,6 +32,10 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 	'''
 	This represents the API for all ILA backhaul interfaces to implement.
 
+
+	Backhaul interfaces primarily deal with `Sample`s, which are `dict`s that map
+	signal names to :py:class:`torii_ila._bits.bits`
+
 	Parameters
 	----------
 	ila : IntegratedLogicAnalyzer
@@ -100,7 +104,11 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 		self.samples = self._parse_samples(self._ingest_samples())
 
 	def enumerate(self: Self) -> Generator[tuple[float, Sample]]:
-		''' Iterate over all of the samples received from our backhaul. '''
+		'''
+		Iterate over all of the samples received from our backhaul interface.
+
+		Returns timestamp, sample pairs.
+		'''
 
 		# BUG(aki): This assumes that `refresh()` will always populate the sample buffer, this
 		#           is not correct, and may cause issues.
@@ -115,7 +123,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 
 	def write_vcd(self: Self, vcd_file: Path, inject_sample_clock: bool = True, post_step: int = 1) -> None:
 		'''
-		Write the sample memory to a VCD file.
+		Dump all received ILA samples from the backhaul interface into a VCD file on disk.s
 
 		Parameters
 		----------
@@ -130,7 +138,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 			The number of post-sample steps to append to the VCD. This is used
 			so the last sample value is actually displayed as a transition.
 
-			This option is only meaningful if `inject_sample_clock` is true, as
+			This option is only meaningful if ``inject_sample_clock`` is true, as
 			we can't advance the VCD without it.
 			(default: 1)
 		'''

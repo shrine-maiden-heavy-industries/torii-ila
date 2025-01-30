@@ -18,6 +18,9 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	'''
 	A simple Integrated Logic Analyzer for Torii.
 
+	It exposes a very straight forward interface that can be used to build more capable ILAs, for
+	example the :py:class:`StreamILA` is built on this.
+
 	Parameters
 	----------
 	signals : Iterable[torii.Signal]
@@ -53,7 +56,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		The outwards facing sample rate used for formatting output
 
 	sample_period : float
-		``1 / sample_rate``
+		The period of time between samples in nanoseconds, equivalent to ``1 / sample_rate``.
 
 	prologue_samples : int
 		The number of samples to retain prior to the ILA ``trigger`` signal going high.
@@ -134,7 +137,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
-		Add a signal to the ILA.
+		Add a signal to the ILA capture list.
 
 		This can be used to internal module signals to the ILA, or
 		add signals after construction.
@@ -166,7 +169,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
 		'''
-		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA capture list.
 
 		Note
 		----
@@ -268,6 +271,10 @@ class StreamILA(Elaboratable):
 	'''
 	A simple implementation of a stream-based ILA for use in the the UART and USB ILA's.
 
+
+	It uses the :py:class:`torii_ila._stream.StreamInterface`, which for the moment is an implementation
+	detail.
+
 	Parameters
 	----------
 	signals : Iterable[torii.Signal]
@@ -313,7 +320,7 @@ class StreamILA(Elaboratable):
 		The outwards facing sample rate used for formatting output
 
 	sample_period : float
-		``1 / sample_rate``
+		The period of time between samples in nanoseconds, equivalent to ``1 / sample_rate``.
 
 	bits_per_sample : int
 		The nearest power of 2 number of bits per sample.
@@ -371,7 +378,7 @@ class StreamILA(Elaboratable):
 
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
-		Add a signal to the ILA.
+		Add a signal to the ILA capture list.
 
 		This can be used to internal module signals to the ILA, or
 		add signals after construction.
@@ -399,7 +406,7 @@ class StreamILA(Elaboratable):
 
 	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
 		'''
-		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA capture list.
 
 		Note
 		----

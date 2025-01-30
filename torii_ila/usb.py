@@ -36,8 +36,10 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	An instance of this class is typically created by calling :py:meth:`USBIntegratedLogicAnalyzer.get_backhaul`
 	which lets the ILA configure the backhaul as needed.
 
-	Alternatively you can pass the :py:class`USBIntegratedLogicAnalyzer` instance from the gateware
+	Alternatively you can pass the :py:class:`USBIntegratedLogicAnalyzer` instance from the gateware
 	to the constructor of this module.
+
+	See :py:class:`torii_ila.backhaul.ILABackhaulInterface` for public API.
 
 	Parameters
 	----------
@@ -86,6 +88,9 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 class USBIntegratedLogicAnalyzer(Elaboratable):
 	'''
 	A simple ILA that produces samples over a USB bulk endpoint.
+
+	This shows up as a USB device with VID:PID of ``04A0:ACA7`` on the host with the Product string
+	of ``Torii ILA`` and the Serial Number string of ``000000000``.
 
 	Parameters
 	----------
@@ -137,7 +142,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		The outwards facing sample rate used for formatting output
 
 	sample_period : float
-		``1 / sample_rate``
+		The period of time between samples in nanoseconds, equivalent to ``1 / sample_rate``.
 
 	bits_per_sample : int
 		The nearest power of 2 number of bits per sample.
@@ -153,6 +158,18 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	complete : Signal, out
 		Indicates when sampling is completed and the buffer is full.
+
+	BULK_EP_NUM : int
+		The fixed USB Bulk Endpoint number for the SOL USB Device.
+		Value is set to ``1``.
+
+	USB_VID : int
+		The fixed USB Vendor ID for the SOL USB Device.
+		Value is set to ``0x04A0``.
+
+	USB_PID : int
+		The fixed USB Product ID for the SOL USB Device.
+		Value is set to ``0xACA7``.
 	'''
 
 	BULK_EP_NUM = 1
@@ -214,7 +231,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
-		Add a signal to the ILA.
+		Add a signal to the ILA capture list.
 
 		This can be used to internal module signals to the ILA, or
 		add signals after construction.
@@ -239,7 +256,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
 		'''
-		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA capture list.
 
 		Note
 		----

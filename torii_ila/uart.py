@@ -34,8 +34,10 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	An instance of this class is typically created by calling :py:meth:`UARTIntegratedLogicAnalyzer.get_backhaul`
 	which lets the ILA configure the backhaul as needed.
 
-	Alternatively you can pass the :py:class`UARTIntegratedLogicAnalyzer` instance from the gateware
+	Alternatively you can pass the :py:class:`UARTIntegratedLogicAnalyzer` instance from the gateware
 	to the constructor of this module.
+
+	See :py:class:`torii_ila.backhaul.ILABackhaulInterface` for public API.
 
 	Parameters
 	----------
@@ -123,7 +125,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		The outwards facing sample rate used for formatting output
 
 	sample_period : float
-		``1 / sample_rate``
+		The period of time between samples in nanoseconds, equivalent to ``1 / sample_rate``.
 
 	bits_per_sample : int
 		The nearest power of 2 number of bits per sample.
@@ -203,7 +205,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
-		Add a signal to the ILA.
+		Add a signal to the ILA capture list.
 
 		This can be used to internal module signals to the ILA, or
 		add signals after construction.
@@ -228,7 +230,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
 		'''
-		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA capture list.
 
 		Note
 		----
