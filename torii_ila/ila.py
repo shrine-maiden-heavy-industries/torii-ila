@@ -77,25 +77,48 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 	sample_capture : Signal, out
 		The sample corresponding to the sample index.
-
 	'''
+
+	_is_elaborating: bool = False
+
+	def _recompute(self: Self, update_widths: bool = False) -> None:
+		'''
+		Re-compute the ILA sample internals
+
+		Note
+		----
+		Due to this call adjusting the ILA sample configuration, it **must not**
+		be called after elaboration of this module has started.
+
+		Parameters
+		----------
+		update_widths : bool
+			Update the ILAs sample memory parameters. This only needs to be done
+			if this method is called *after* the sample memory was constructed
+		'''
+
+		self._inputs          = Cat(*self._signals)
+		self.sample_width     = len(self._inputs)
+		self.bits_per_sample  = 2 ** ((self.sample_width - 1).bit_length())
+		self.bytes_per_sample = (self.bits_per_sample + 7) // 8
+
+		if update_widths:
+			self.sample_capture.width = self.sample_width
+			self._sample_memory.width = self.sample_width
 
 	def __init__(
 		self: Self, *,
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1
 	) -> None:
-		self._sampling_domain  = sampling_domain
-		self._signals          = signals
-		self._inputs           = Cat(*self._signals)
-		self.sample_width      = len(self._inputs)
-		self.sample_depth      = sample_depth
-		self.prologue_samples  = prologue_samples
-		self.sample_rate       = sample_rate
-		self.sample_period     = 1 / sample_rate
+		self._sampling_domain       = sampling_domain
+		self._signals: list[Signal] = list(signals)
+		self.sample_depth           = sample_depth
+		self.prologue_samples       = prologue_samples
+		self.sample_rate            = sample_rate
+		self.sample_period          = 1 / sample_rate
 
-		self.bits_per_sample = 2 ** ((self.sample_width - 1).bit_length())
-		self.bytes_per_sample = (self.bits_per_sample + 7) // 8
+		self._recompute()
 
 		self._sample_memory    = Memory(
 			width = self.sample_width, depth = sample_depth, name = 'ila_storage'
@@ -108,8 +131,72 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		self.sample_index   = Signal(range(self.sample_depth + 1))
 		self.sample_capture = Signal(self.sample_width)
 
+	def add_signal(self: Self, sig: Signal) -> None:
+		'''
+		Add a signal to the ILA.
+
+		This can be used to internal module signals to the ILA, or
+		add signals after construction.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		sig : torii.Signal
+			The signal to add to the ILA capture list.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+
+		'''
+
+		if self._is_elaborating:
+			raise RuntimeError('Can not add signal to ILA after it is elaborated')
+
+		# BUG(aki): We should check to make sure we are not already tracking this signal
+		self._signals.append(sig)
+
+		self._recompute(True)
+
+	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
+		'''
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		signals : Iterable[torii.Signal]
+			The list of additional signals to capture with the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		if self._is_elaborating:
+			raise RuntimeError('Can not add signal to ILA after it is elaborated')
+
+		# BUG(aki): We should check to make sure we are not already tracking this signal
+		self._signals.extend(signals)
+
+		self._recompute(True)
+
 	def elaborate(self: Self, _) -> Module:
 		m = Module()
+
+		# Ensure we guard `_recompute` and `add_signal`/`add_signals` so we don't adjust the
+		# sample memory width, as at this point the memory is fixed.
+		self._is_elaborating = True
 
 		m.submodules.write_port = wp = self._sample_memory.write_port()
 		m.submodules.read_port  = rp = self._sample_memory.read_port(domain = 'sync')
@@ -279,6 +366,59 @@ class StreamILA(Elaboratable):
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
+		self.stream = StreamInterface(data_width = self.bits_per_sample)
+
+	def add_signal(self: Self, sig: Signal) -> None:
+		'''
+		Add a signal to the ILA.
+
+		This can be used to internal module signals to the ILA, or
+		add signals after construction.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		sig : torii.Signal
+			The signal to add to the ILA capture list.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.add_signal(sig)
+
+		# We have the additional need here to update the stream
+		self.stream = StreamInterface(data_width = self.bits_per_sample)
+
+	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
+		'''
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		signals : Iterable[torii.Signal]
+			The list of additional signals to capture with the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.append_signals(signals)
+
+		# We have the additional need here to update the stream
 		self.stream = StreamInterface(data_width = self.bits_per_sample)
 
 	def elaborate(self: Self, _) -> Module:
