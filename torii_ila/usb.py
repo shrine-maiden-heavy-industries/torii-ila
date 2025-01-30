@@ -33,6 +33,12 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	USB-based ILA backhaul interface, used in combination with :py:class:`USBIntegratedLogicAnalyzer`
 	to automatically set up a communications channel to get ILA samples off-device.
 
+	An instance of this class is typically created by calling :py:meth:`USBIntegratedLogicAnalyzer.get_backhaul`
+	which lets the ILA configure the backhaul as needed.
+
+	Alternatively you can pass the :py:class`USBIntegratedLogicAnalyzer` instance from the gateware
+	to the constructor of this module.
+
 	Parameters
 	----------
 	ila : USBIntegratedLogicAnalyzer
@@ -52,6 +58,11 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 		self._device = usb.core.find(idVendor = self.ila.USB_VID, idProduct = self.ila.USB_PID)
 
 	def _split_samples(self: Self, samples: bytes) -> Generator[bits]:
+		'''
+		Splits the raw ingested bytes from the interface into a ``bits`` object,
+		clipping the padding.
+		'''
+
 		sample_width = self.ila.bytes_per_sample
 
 		for idx in range(0, len(samples), sample_width):
@@ -61,9 +72,12 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 			yield bits.from_bytes(sample_raw, sample_len)
 
 	def _ingest_samples(self: Self) -> Iterable[bits]:
+		''' Collect samples from the USB bulk endpoint. '''
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
+		# BUG(aki): We drain the full sample buffer all at once, which, while fine for smaller
+		#           capture depths might be a problem for wide/deep captures.
 		samples = self._device.read(0x80 | self.ila.BULK_EP_NUM, total_samples, timeout = 0)
 		return list(self._split_samples(samples))
 
