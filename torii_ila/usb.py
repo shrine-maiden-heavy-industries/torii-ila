@@ -198,6 +198,53 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
+	def add_signal(self: Self, sig: Signal) -> None:
+		'''
+		Add a signal to the ILA.
+
+		This can be used to internal module signals to the ILA, or
+		add signals after construction.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		sig : torii.Signal
+			The signal to add to the ILA capture list.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.add_signal(sig)
+
+	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
+		'''
+		Like :py:meth:`add_signal` but allows for adding an array of signals to the ILA.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		signals : Iterable[torii.Signal]
+			The list of additional signals to capture with the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.append_signals(signals)
+
 	def _make_descriptors(self: Self) -> DeviceDescriptorCollection:
 		desc = DeviceDescriptorCollection()
 
