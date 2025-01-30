@@ -7,9 +7,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://torii-ila.shmdn.link/index.html" />
 <meta property="og:site_name" content="Torii ILA" />
+<meta property="og:description" content="The Torii Integrated Logic Analyzer (ILA) allows for the introspection into a Torii based FPGA design that is running on real hardware. Whats in the box?: There are two primary ILA implementations ..." />
 <meta property="og:image" content="https://torii-ila.shmdn.link//_images/og-image.png" />
 <meta property="og:image:alt" content="Torii ILA" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Changelog" href="changelog.html" />
+<meta name="description" content="The Torii Integrated Logic Analyzer (ILA) allows for the introspection into a Torii based FPGA design that is running on real hardware. Whats in the box?: There are two primary ILA implementations ..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="install.html" />
         <link rel="canonical" href="https://torii-ila.shmdn.link/index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
@@ -209,8 +211,21 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="ila/index.html">Integrated Logic Analyzers</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Integrated Logic Analyzers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ila/uart.html">UART-Based Integrated Logic Analyzer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ila/usb.html">USB-Based Integrated Logic Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="backhaul/index.html">ILA Backhaul Interface</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of ILA Backhaul Interface</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="backhaul/uart.html">UART ILA Backhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backhaul/usb.html">USB ILA Backhaul</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="internal.html">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://shrine-maiden-heavy-industries.github.io/torii/">Torii</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
 
@@ -254,25 +269,37 @@
 <p class="admonition-title">Warning</p>
 <p>This manual is a work in progress and is seriously incomplete!</p>
 </div>
+<p>The Torii Integrated Logic Analyzer (ILA) allows for the introspection into a <a class="reference external" href="https://torii.shmdn.link">Torii</a> based FPGA design that is running on real hardware.</p>
+<section id="whats-in-the-box">
+<h2>Whats in the box?<a class="headerlink" href="#whats-in-the-box" title="Link to this heading">¶</a></h2>
+<p>There are two primary ILA implementations that are available for use:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer</span></code></a></p></li>
+<li><p><a class="reference internal" href="ila/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzer" title="torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a></p></li>
+</ul>
+<p>The simplest one is the <a class="reference internal" href="ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer</span></code></a>, it provides the ILA samples over a simple unidirectional UART stream. The <a class="reference internal" href="ila/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzer" title="torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a> is a touch more complex, however it provides the ILA samples over a USB bulk endpoint, which may be more ergonomic to work with, depending on the device.</p>
+</section>
+<section id="installation-and-getting-started">
+<h2>Installation and Getting Started<a class="headerlink" href="#installation-and-getting-started" title="Link to this heading">¶</a></h2>
+<p>To get set up with Torii ILA, follow the <a class="reference internal" href="install.html"><span class="std std-doc">installation instructions</span></a>, and then head over to the <a class="reference internal" href="getting_started.html"><span class="std std-doc">getting started</span></a> page for examples of both the USB and UART ILAs.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
+<p>Torii ILA is licensed under the <a class="reference external" href="https://spdx.org/licenses/BSD-3-Clause.html">BSD-3-Clause</a>, the full text of which can be found in the <a class="reference internal" href="license.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">LICENSE</span></code></span></a> file.</p>
+</section>
 </section>
 
-    <script type="text/javascript">
-        function init() {
-            WaveDrom.ProcessAll();
-        }
-        window.onload = init;
-    </script>
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="changelog.html">
+          <a class="next-page" href="install.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Changelog</div>
+                <div class="title">Installation</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -306,7 +333,5 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="_static/tabs.js?v=3ee01567"></script>
-    <script src="https://wavedrom.com/skins/default.js"></script>
-    <script src="https://wavedrom.com/wavedrom.min.js"></script>
     </body>
 </html>
