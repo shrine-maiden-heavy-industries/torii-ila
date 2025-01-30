@@ -109,7 +109,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 			yield ts, sample
 			ts += self.ila.sample_period
 
-	def write_vcd(self: Self, vcd_file: Path, inject_sample_clock: bool = True) -> None:
+	def write_vcd(self: Self, vcd_file: Path, inject_sample_clock: bool = True, post_step: int = 1) -> None:
 		'''
 		Write the sample memory to a VCD file.
 
@@ -119,8 +119,16 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 			The file to write to.
 
 		inject_sample_clock : bool
-			Add a clock that is timed to the ILA sample clock. (default: True)
+			Add a clock that is timed to the ILA sample clock.
+			(default: True)
 
+		post_step : int
+			The number of post-sample steps to append to the VCD. This is used
+			so the last sample value is actually displayed as a transition.
+
+			This option is only meaningful if `inject_sample_clock` is true, as
+			we can't advance the VCD without it.
+			(default: 1)
 		'''
 
 		with vcd_file.open('w') as vcd_stream:
@@ -149,8 +157,10 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 							'ila', sig.name, VCDVarType.wire, size = len(sig), init = sig.reset
 						)
 
+				last_ts: float = 0.0
 				# Wiggle out our captured samples
 				for ts, sample in self.enumerate():
+					last_ts = ts
 					# If we are injecting our sample clock, make sure we run it up to the time
 					# of the last sample before we add a new sample
 					if inject_sample_clock:
@@ -166,3 +176,13 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 							writer.change(vcd_signals[name], ts / 1e-9, decoded_val)
 						else:
 							writer.change(vcd_signals[name], ts / 1e-9, value.to_int())
+
+				# Append any needed post-steps, but only if we have a sample clock to tick
+				if inject_sample_clock:
+					for _ in range(post_step):
+						# Advance time
+						last_ts += self.ila.sample_period
+						while clk_time < last_ts:
+							writer.change(clk_signal, clk_time / 1e-9, clk_value)
+							clk_value ^= 1
+							clk_time += (self.ila.sample_period / 2)
