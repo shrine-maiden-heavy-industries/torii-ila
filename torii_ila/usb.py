@@ -6,7 +6,8 @@ USB Based ILA and backhaul interface.
 '''
 
 import time
-from typing                                     import Iterable
+from collections.abc                            import Generator, Iterable
+from typing                                     import Self
 
 from torii                                      import Cat, Elaboratable, Module, Signal
 from torii.build.plat                           import Platform
@@ -42,7 +43,7 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 
 	'''
 
-	def __init__(self, ila: 'USBIntegratedLogicAnalyzer', delay: int = 3) -> None:
+	def __init__(self: Self, ila: 'USBIntegratedLogicAnalyzer', delay: int = 3) -> None:
 		super().__init__(ila)
 
 		if delay > 0:
@@ -50,7 +51,7 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 
 		self._device = usb.core.find(idVendor = self.ila.USB_VID, idProduct = self.ila.USB_PID)
 
-	def _split_samples(self, samples):
+	def _split_samples(self: Self, samples: bytes) -> Generator[bits]:
 		sample_width = self.ila.bytes_per_sample
 
 		for idx in range(0, len(samples), sample_width):
@@ -59,7 +60,7 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 
 			yield bits.from_bytes(sample_raw, sample_len)
 
-	def _ingest_samples(self) -> Iterable[bytes]:
+	def _ingest_samples(self: Self) -> Iterable[bits]:
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
@@ -144,7 +145,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	_backhaul: USBIntegratedLogicAnalyzerBackhaul | None = None
 
-	def get_backhaul(self):
+	def get_backhaul(self: Self) -> USBIntegratedLogicAnalyzerBackhaul:
 		'''
 		Automatically construct a :py:class:`USBIntegratedLogicAnalyzerBackhaul` from this ILA
 		instance.
@@ -160,7 +161,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		return self._backhaul
 
 	def __init__(
-		self, *,
+		self: Self, *,
 		# ILA Settings
 		signals: Iterable[Signal], sample_depth: int, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1,
@@ -193,7 +194,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
-	def _make_descriptors(self) -> DeviceDescriptorCollection:
+	def _make_descriptors(self: Self) -> DeviceDescriptorCollection:
 		desc = DeviceDescriptorCollection()
 
 		with desc.DeviceDescriptor() as dev:
@@ -217,7 +218,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		return desc
 
 
-	def elaborate(self, platform: Platform) -> Module:
+	def elaborate(self: Self, platform: Platform) -> Module:
 		m = Module()
 
 		m.submodules.ila = ila = self.ila
