@@ -77,31 +77,36 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 	----------
 	signals : Iterable[torii.Signal]
 		The signals to capture with the ILA.
+		(default: list())
 
 	sample_depth : int
 		Number of samples we wish to capture.
+		(default: 32)
 
 	sampling_domain : str
 		The clock domain the ILA sampling will take place on.
-
-	output_domain : str
-		The clock domain the ILA stream will output on.
+		(default: sync)
 
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
 		to the ``sampling_domain``'s frequency if possible.
+		(default: 60e6 i.e 60MHz)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
+		(default: 1)
 
 	bus : str | tuple[str, int] | None
-		The USB Bus resource to use. (default: None)
+		The USB Bus resource to use.
+		(default: None)
 
 	delayed_connect : bool
-		Delay connection of the USB device. (default: False)
+		Delay connection of the USB device.
+		(default: False)
 
 	max_pkt_size : int
-		Max packet size. (default: 512)
+		Max packet size.
+		(default: 512)
 
 	Attributes
 	----------
@@ -134,7 +139,6 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	complete : Signal, out
 		Indicates when sampling is completed and the buffer is full.
-
 	'''
 
 	BULK_EP_NUM = 1
@@ -163,7 +167,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 	def __init__(
 		self: Self, *,
 		# ILA Settings
-		signals: Iterable[Signal], sample_depth: int, sampling_domain: str = 'sync',
+		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1,
 		# USB Device Settings
 		bus: str | tuple[str, int] | None = None, delayed_connect: bool = False, max_pkt_size: int = 512,
