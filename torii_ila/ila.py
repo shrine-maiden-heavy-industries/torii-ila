@@ -21,19 +21,24 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	----------
 	signals : Iterable[torii.Signal]
 		The signals to capture with the ILA.
+		(default: list())
 
 	sample_depth : int
 		Number of samples we wish to capture.
+		(default: 32)
 
 	sampling_domain : str
 		The clock domain the ILA sampling will take place on.
+		(default: sync)
 
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
-		to the ``sampling_domain``'s frequency if possible. (default: 60e6 i.e 60MHz)
+		to the ``sampling_domain``'s frequency if possible.
+		(default: 60e6 i.e 60MHz)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
+		(default: 1)
 
 	Attributes
 	----------
@@ -77,7 +82,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 	def __init__(
 		self, *,
-		signals: Iterable[Signal], sample_depth: int, sampling_domain: str = 'sync',
+		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1
 	) -> None:
 		self._sampling_domain  = sampling_domain
@@ -179,22 +184,28 @@ class StreamILA(Elaboratable):
 	----------
 	signals : Iterable[torii.Signal]
 		The signals to capture with the ILA.
+		(default: list())
 
 	sample_depth : int
 		Number of samples we wish to capture.
+		(default: 32)
 
 	sampling_domain : str
 		The clock domain the ILA sampling will take place on.
+		(default: 'sync')
 
-	output_domain : str
-		The clock domain the ILA stream will output on.
+	output_domain : str | None
+		The clock domain the ILA stream will output on. If ``None`` it will be the same as ``sampling_domain``
+		(default: None)
 
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
 		to the ``sampling_domain``'s frequency if possible.
+		(default: 60e6 i.e 60MHz)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
+		(default: 1)
 
 	Attributes
 	----------
@@ -238,7 +249,7 @@ class StreamILA(Elaboratable):
 
 	def __init__(
 		self, *,
-		signals: Iterable[Signal], sample_depth: int, sampling_domain: str = 'sync',
+		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1, output_domain: str | None = None
 	) -> None:
 
