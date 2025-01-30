@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
-from typing         import Iterable
+from typing         import Iterable, Self
 
 from torii          import Cat, DomainRenamer, Elaboratable, Memory, Module, Signal
 from torii.lib.cdc  import FFSynchronizer
@@ -81,7 +81,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	'''
 
 	def __init__(
-		self, *,
+		self: Self, *,
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1
 	) -> None:
@@ -108,7 +108,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		self.sample_index   = Signal(range(self.sample_depth + 1))
 		self.sample_capture = Signal(self.sample_width)
 
-	def elaborate(self, _) -> Module:
+	def elaborate(self: Self, _) -> Module:
 		m = Module()
 
 		m.submodules.write_port = wp = self._sample_memory.write_port()
@@ -244,11 +244,10 @@ class StreamILA(Elaboratable):
 
 	stream : StreamInterface
 		The output stream of ILA samples.
-
 	'''
 
 	def __init__(
-		self, *,
+		self: Self, *,
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 60e6, prologue_samples: int = 1, output_domain: str | None = None
 	) -> None:
@@ -282,8 +281,7 @@ class StreamILA(Elaboratable):
 
 		self.stream = StreamInterface(data_width = self.bits_per_sample)
 
-
-	def elaborate(self, _) -> Module:
+	def elaborate(self: Self, _) -> Module:
 		m = Module()
 
 		m.submodules.ila = ila = self.ila
