@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
-from typing         import Iterable, Self
+from collections.abc import Iterable
+from typing          import Self
 
-from torii          import Cat, DomainRenamer, Elaboratable, Memory, Module, Signal
-from torii.lib.cdc  import FFSynchronizer
-from torii.lib.fifo import AsyncFIFOBuffered
+from torii           import Cat, DomainRenamer, Elaboratable, Memory, Module, Signal
+from torii.lib.cdc   import FFSynchronizer
+from torii.lib.fifo  import AsyncFIFOBuffered
 
 from ._stream        import StreamInterface
 
