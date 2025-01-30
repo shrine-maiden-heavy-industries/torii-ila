@@ -15,15 +15,19 @@ from ._bits          import bits
 
 if TYPE_CHECKING:
 	from .usb  import USBIntegratedLogicAnalyzer
+	from .uart import UARTIntegratedLogicAnalyzer
 
 __all__ = (
 	'ILABackhaulInterface',
 )
 
-ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer'
+ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer | UARTIntegratedLogicAnalyzer'
 Sample: TypeAlias = dict[str, bits]
 Samples: TypeAlias = Iterable[Sample]
 
+# TODO(aki): We should probably provide a way to have a live, firehose-like stream output for the backhaul interfaces
+#            it's a little more useful with the UART interface, as the USB interface is capable of doing batching mostly
+#            by itself already.
 class ILABackhaulInterface(metaclass = ABCMeta):
 	'''
 	This represents the API for all ILA backhaul interfaces to implement.
