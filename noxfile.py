@@ -72,9 +72,8 @@ def docs(session: Session) -> None:
 	out_dir = (BUILD_DIR / 'docs')
 	shutil.rmtree(out_dir, ignore_errors = True)
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('.')
+	session.install('.[usb,serial]')
 	session.run('sphinx-build', '-b', 'html', str(DOCS_DIR), str(out_dir))
-	shutil.copy(ROOT_DIR / 'LICENSE', out_dir / 'LICENSE')
 
 @nox.session
 def docs_linkcheck(session: Session) -> None:

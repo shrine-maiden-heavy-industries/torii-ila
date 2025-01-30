@@ -23,8 +23,8 @@ extensions = [
 	'sphinx.ext.napoleon',
 	'sphinx.ext.todo',
 	'sphinxcontrib.mermaid',
-	'sphinxcontrib.wavedrom',
 	'myst_parser',
+	'sphinx_autodoc_typehints',
 	'sphinx_inline_tabs',
 	'sphinxext.opengraph',
 ]
@@ -44,6 +44,7 @@ intersphinx_mapping = {
 	'python': ('https://docs.python.org/3', None),
 	'torii':  ('https://torii.shmdn.link/', None),
 	'sol_usb':  ('https://sol.shmdn.link/', None),
+	'serial': ('https://pythonhosted.org/pyserial/', None),
 }
 
 napoleon_google_docstring              = True
@@ -78,7 +79,7 @@ ogp_image    = f'{html_baseurl}/_images/og-image.png'
 
 autosectionlabel_prefix_document = True
 
-
+always_use_bars_union = True
 
 linkcheck_anchors_ignore_for_url = [
 	r'^https://web\.libera\.chat/',
