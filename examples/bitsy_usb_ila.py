@@ -23,7 +23,7 @@ from subprocess                            import CalledProcessError
 from torii                                 import (
 	ClockDomain, ClockSignal, Const, Elaboratable, Instance, Module, Signal, ResetSignal
 )
-from torii.build                           import Resource, Pins, Attrs, Platform
+from torii.build                           import Platform
 
 from torii_boards.lattice.icebreaker_bitsy import ICEBreakerBitsyPlatform
 
@@ -107,15 +107,20 @@ class Top(Elaboratable):
 		self.flops      = Signal(range(8), reset = 1)
 		self.other      = Signal(8)
 
+		# Create a USB-Based ILA
 		self.ila = USBIntegratedLogicAnalyzer(
+			# The initial set of signals we care about
 			signals = [
 				self.pll_locked,
 				self.timer,
 				self.flops,
 				self.other,
 			],
+			# How many samples we want to capture
 			sample_depth = 32,
-			sample_rate  = 48e6, # Match the PLL clock
+			# How fast our sample domain is, in this case `sync`
+			sample_rate  = 48e6,
+			# The name of the USB resource to pull from the platform.
 			bus = 'usb',
 		)
 
@@ -123,13 +128,20 @@ class Top(Elaboratable):
 	def elaborate(self, platform: ICEBreakerBitsyPlatform) -> Module:
 		m = Module()
 
+		# Status LEDs
+		led_r = platform.request('led_r', dir = 'o')
+		led_g = platform.request('led_g', dir = 'o')
+
 		m.submodules.pll = pll = PLL()
 
 		# Add the ILA so we actually build it
 		m.submodules.ila = self.ila
 
-		led_r = platform.request('led_r', dir = 'o')
-		led_g = platform.request('led_g', dir = 'o')
+		wiggle = Signal()
+		woggle = Signal()
+
+		# Add some "Private" signals to the ILA
+		self.ila.append_signals([wiggle, woggle])
 
 		# Dummy logic wiggles
 		with m.If(self.timer == 0):
@@ -147,6 +159,12 @@ class Top(Elaboratable):
 		with m.If(self.other[7]):
 			m.d.comb += [ self.ila.trigger.eq(1) ]
 
+		m.d.sync += [
+			wiggle.eq(self.timer[0]),
+			woggle.eq(~wiggle),
+		]
+
+		# Glue for the PLL and LEDs
 		m.d.comb += [
 			self.pll_locked.eq(pll.locked),
 			led_r.eq(self.ila.sampling),
@@ -157,24 +175,21 @@ class Top(Elaboratable):
 
 
 def main() -> int:
-
 	top      = Top()
 	vcd_file = Path.cwd() / 'bitsy_usb_ila.vcd'
+	plat     = ICEBreakerBitsyPlatform()
 
-	plat = ICEBreakerBitsyPlatform()
-	plat.add_resources([
-		Resource('uart_tx', 0, Pins('edge_0:6', dir = 'o'), Attrs(IO_STANDARD = 'SB_LVCMOS')),
-	])
-
+	print('Building gateware...')
 	try:
 		plat.build(
-			top, name = 'bitsy_usb_ila', verbose = True, do_program = True,
+			top, name = 'bitsy_usb_ila', do_program = True,
 			script_after_read = 'scratchpad -copy abc9.script.flow3 abc9.script\n',
 			synth_opts = ['-abc9'],
-			nextpnr_opts = [ '--seed 0' ]
+			nextpnr_opts = [ '--seed 1' ]
 		)
 	except CalledProcessError as e:
 		# dfu-util complains because we don't come back as a DFU device
+		# In that case we don't care there was an error
 		if e.returncode != 251:
 			raise e
 
@@ -184,6 +199,7 @@ def main() -> int:
 	print(f'  bits per sample:  {top.ila.bits_per_sample}')
 	print(f'  sample rate:      {top.ila.sample_rate / 1e6} MHz')
 	print(f'  sample period:    {top.ila.sample_period / 1e-9} ns')
+	# Get the backhaul interface from the ILA module
 	backhaul = top.ila.get_backhaul()
 	print('Collecting ILA Samples')
 	for ts, sample in backhaul.enumerate():
