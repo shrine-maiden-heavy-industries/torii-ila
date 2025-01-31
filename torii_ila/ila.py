@@ -98,8 +98,8 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 		self._inputs              = Cat(*self._signals)
 		self.sample_width         = len(self._inputs)
-		self.bits_per_sample      = 2 ** ((self.sample_width - 1).bit_length())
-		self.bytes_per_sample     = (self.bits_per_sample + 7) // 8
+		self.bytes_per_sample     = (self.sample_width + 7) // 8
+		self.bits_per_sample      = self.bytes_per_sample * 8
 		self.sample_capture.width = self.sample_width
 		self._sample_memory.width = self.sample_width
 
@@ -117,8 +117,8 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		self.sample_rate            = sample_rate
 		self.sample_period          = 1 / sample_rate
 
-		self.bits_per_sample        = 2 ** ((self.sample_width - 1).bit_length())
-		self.bytes_per_sample       = (self.bits_per_sample + 7) // 8
+		self.bytes_per_sample       = (self.sample_width + 7) // 8
+		self.bits_per_sample        = self.bytes_per_sample * 8
 
 		self._sample_memory    = Memory(
 			width = self.sample_width, depth = sample_depth, name = 'ila_storage'
