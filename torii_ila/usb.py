@@ -195,6 +195,18 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 			self._backhaul = USBIntegratedLogicAnalyzerBackhaul(self)
 		return self._backhaul
 
+	@property
+	def sample_width(self) -> int:
+		return self.ila.sample_width
+
+	@property
+	def bits_per_sample(self) -> int:
+		return self.ila.bits_per_sample
+
+	@property
+	def bytes_per_sample(self) -> int:
+		return self.ila.bytes_per_sample
+
 	def __init__(
 		self: Self, *,
 		# ILA Settings
@@ -218,12 +230,9 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		)
 
 		self._signals         = self.ila._signals
-		self.sample_width     = self.ila.sample_width
 		self.sample_depth     = self.ila.sample_depth
 		self.sample_rate      = self.ila.sample_rate
 		self.sample_period    = self.ila.sample_period
-		self.bits_per_sample  = self.ila.bits_per_sample
-		self.bytes_per_sample = self.ila.bytes_per_sample
 
 		self.trigger  = self.ila.trigger
 		self.sampling = self.ila.sampling
