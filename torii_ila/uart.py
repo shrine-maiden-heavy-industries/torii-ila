@@ -9,6 +9,7 @@ from collections.abc        import Iterable, Generator
 from typing                 import Self
 
 from torii                  import Cat, DomainRenamer, Elaboratable, Module, Signal
+from torii.hdl.dsl          import FSM
 from torii.lib.stdio.serial import AsyncSerialTX
 
 from serial                 import Serial
@@ -258,6 +259,45 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		'''
 
 		self.ila.append_signals(signals)
+
+	def add_fsm(self: Self, fsm: FSM) -> None:
+		'''
+		Add a Torii FSM state to the ILA.
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_fsm(fsm)
+
+
+		This is effectively equivalent to:
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_signal(fsm.state)
+
+		Note
+		----
+		The FSM you add to the ILA should be named, as to prevent name collisions.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		fsm : torii.hdl.dsl.FSM
+			The FSM to add to the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.add_fsm(fsm)
 
 	def elaborate(self: Self, _) -> Module:
 		m = Module()

@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from typing          import Self
 
 from torii           import Cat, DomainRenamer, Elaboratable, Memory, Module, Signal
+from torii.hdl.dsl   import FSM
 from torii.lib.cdc   import FFSynchronizer
 from torii.lib.fifo  import AsyncFIFOBuffered
 
@@ -187,6 +188,50 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 		# BUG(aki): We should check to make sure we are not already tracking this signal
 		self._signals.extend(signals)
+
+		self._recompute()
+
+	def add_fsm(self: Self, fsm: FSM) -> None:
+		'''
+		Add a Torii FSM state to the ILA.
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_fsm(fsm)
+
+
+		This is effectively equivalent to:
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_signal(fsm.state)
+
+		Note
+		----
+		The FSM you add to the ILA should be named, as to prevent name collisions.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		fsm : torii.hdl.dsl.FSM
+			The FSM to add to the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		if self._is_elaborating:
+			raise RuntimeError('Can not add signal to ILA after it is elaborated')
+
+		self._signals.append(fsm.state)
 
 		self._recompute()
 
@@ -429,6 +474,48 @@ class StreamILA(Elaboratable):
 		'''
 
 		self.ila.append_signals(signals)
+
+		# We have the additional need here to update the stream
+		self.stream = StreamInterface(data_width = self.bits_per_sample)
+
+	def add_fsm(self: Self, fsm: FSM) -> None:
+		'''
+		Add a Torii FSM state to the ILA.
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_fsm(fsm)
+
+
+		This is effectively equivalent to:
+
+		.. code-block:: python
+
+			with m.FSM(name = 'Thing') as fsm:
+				ila.add_signal(fsm.state)
+
+		Note
+		----
+		The FSM you add to the ILA should be named, as to prevent name collisions.
+
+		Note
+		----
+		This method **must not** be called post elaboration, as we are unable to adjust
+		the sample memory size after is it made concrete.
+
+		Parameters
+		----------
+		fsm : torii.hdl.dsl.FSM
+			The FSM to add to the ILA.
+
+		Raises
+		------
+		RuntimeError
+			If called during the elaboration of the ILA module
+		'''
+
+		self.ila.add_fsm(fsm)
 
 		# We have the additional need here to update the stream
 		self.stream = StreamInterface(data_width = self.bits_per_sample)
