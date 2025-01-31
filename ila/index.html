@@ -353,6 +353,41 @@ the sample memory size after is it made concrete.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="torii_ila.ila.IntegratedLogicAnalyzer.add_fsm">
+<span class="sig-name descname"><span class="pre">add_fsm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fsm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.IntegratedLogicAnalyzer.add_fsm" title="Link to this definition">¶</a></dt>
+<dd><p>Add a Torii FSM state to the ILA.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
+        <span class="n">ila</span><span class="o">.</span><span class="n">add_fsm</span><span class="p">(</span><span class="n">fsm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is effectively equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
+        <span class="n">ila</span><span class="o">.</span><span class="n">add_signal</span><span class="p">(</span><span class="n">fsm</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The FSM you add to the ILA should be named, as to prevent name collisions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method <strong>must not</strong> be called post elaboration, as we are unable to adjust
+the sample memory size after is it made concrete.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fsm</strong> (<em>torii.hdl.dsl.FSM</em>) – The FSM to add to the ILA.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If called during the elaboration of the ILA module</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -442,6 +477,41 @@ the sample memory size after is it made concrete.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="torii_ila.ila.StreamILA.add_fsm">
+<span class="sig-name descname"><span class="pre">add_fsm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fsm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.StreamILA.add_fsm" title="Link to this definition">¶</a></dt>
+<dd><p>Add a Torii FSM state to the ILA.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
+        <span class="n">ila</span><span class="o">.</span><span class="n">add_fsm</span><span class="p">(</span><span class="n">fsm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is effectively equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
+        <span class="n">ila</span><span class="o">.</span><span class="n">add_signal</span><span class="p">(</span><span class="n">fsm</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The FSM you add to the ILA should be named, as to prevent name collisions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method <strong>must not</strong> be called post elaboration, as we are unable to adjust
+the sample memory size after is it made concrete.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fsm</strong> (<em>torii.hdl.dsl.FSM</em>) – The FSM to add to the ILA.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If called during the elaboration of the ILA module</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <p>These are used in conjunction with a <a class="reference internal" href="../backhaul/index.html"><span class="std std-doc">backhaul</span></a> interface to extract data off the device and on to the host system.</p>
@@ -506,11 +576,13 @@ the sample memory size after is it made concrete.</p>
 <li><a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer"><code class="docutils literal notranslate"><span class="pre">IntegratedLogicAnalyzer</span></code></a><ul>
 <li><a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="docutils literal notranslate"><span class="pre">IntegratedLogicAnalyzer.add_signal()</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="docutils literal notranslate"><span class="pre">IntegratedLogicAnalyzer.append_signals()</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer.add_fsm"><code class="docutils literal notranslate"><span class="pre">IntegratedLogicAnalyzer.add_fsm()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#torii_ila.ila.StreamILA"><code class="docutils literal notranslate"><span class="pre">StreamILA</span></code></a><ul>
 <li><a class="reference internal" href="#torii_ila.ila.StreamILA.add_signal"><code class="docutils literal notranslate"><span class="pre">StreamILA.add_signal()</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila.ila.StreamILA.append_signals"><code class="docutils literal notranslate"><span class="pre">StreamILA.append_signals()</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.ila.StreamILA.add_fsm"><code class="docutils literal notranslate"><span class="pre">StreamILA.add_fsm()</span></code></a></li>
 </ul>
 </li>
 </ul>
