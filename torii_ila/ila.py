@@ -85,7 +85,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 	_is_elaborating: bool = False
 
-	def _recompute(self: Self, update_widths: bool = False) -> None:
+	def _recompute(self: Self) -> None:
 		'''
 		Re-compute the ILA sample internals
 
@@ -93,22 +93,14 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		----
 		Due to this call adjusting the ILA sample configuration, it **must not**
 		be called after elaboration of this module has started.
-
-		Parameters
-		----------
-		update_widths : bool
-			Update the ILAs sample memory parameters. This only needs to be done
-			if this method is called *after* the sample memory was constructed
 		'''
 
-		self._inputs          = Cat(*self._signals)
-		self.sample_width     = len(self._inputs)
-		self.bits_per_sample  = 2 ** ((self.sample_width - 1).bit_length())
-		self.bytes_per_sample = (self.bits_per_sample + 7) // 8
-
-		if update_widths:
-			self.sample_capture.width = self.sample_width
-			self._sample_memory.width = self.sample_width
+		self._inputs              = Cat(*self._signals)
+		self.sample_width         = len(self._inputs)
+		self.bits_per_sample      = 2 ** ((self.sample_width - 1).bit_length())
+		self.bytes_per_sample     = (self.bits_per_sample + 7) // 8
+		self.sample_capture.width = self.sample_width
+		self._sample_memory.width = self.sample_width
 
 	def __init__(
 		self: Self, *,
@@ -117,12 +109,15 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	) -> None:
 		self._sampling_domain       = sampling_domain
 		self._signals: list[Signal] = list(signals)
+		self._inputs                = Cat(*self._signals)
+		self.sample_width           = len(self._inputs)
 		self.sample_depth           = sample_depth
 		self.prologue_samples       = prologue_samples
 		self.sample_rate            = sample_rate
 		self.sample_period          = 1 / sample_rate
 
-		self._recompute()
+		self.bits_per_sample        = 2 ** ((self.sample_width - 1).bit_length())
+		self.bytes_per_sample       = (self.bits_per_sample + 7) // 8
 
 		self._sample_memory    = Memory(
 			width = self.sample_width, depth = sample_depth, name = 'ila_storage'
@@ -165,7 +160,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		# BUG(aki): We should check to make sure we are not already tracking this signal
 		self._signals.append(sig)
 
-		self._recompute(True)
+		self._recompute()
 
 	def append_signals(self: Self, signals: Iterable[Signal]) -> None:
 		'''
@@ -193,7 +188,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		# BUG(aki): We should check to make sure we are not already tracking this signal
 		self._signals.extend(signals)
 
-		self._recompute(True)
+		self._recompute()
 
 	def elaborate(self: Self, _) -> Module:
 		m = Module()
