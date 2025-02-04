@@ -23,6 +23,10 @@ Unreleased template stuff
 
 - rCOBS encoder/decoder
 
+### Changed
+
+- UART ILA output is now rCOBS encoded with `0x00` end-of-frame indicators for re-syncing serial streams.
+
 ## [v0.1.0]
 
 This is the first beta release of the Torii ILA module. It's not fully stable but it works

@@ -17,6 +17,7 @@ from serial                 import Serial
 from .ila                   import StreamILA
 from .backhaul              import ILABackhaulInterface
 from ._bits                 import bits
+from ._cobs                 import RCOBSEncoder, decode_rcobs
 
 
 __all__ = (
@@ -69,8 +70,10 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
-		samples = self._port.read(total_samples)
-		return list(self._split_samples(samples))
+		# Consume up to the EOF marker
+		samples = self._port.read_until(b'\x00')
+		# Split the decoded rCOBS samples
+		return list(self._split_samples(decode_rcobs(samples[0:total_samples + 1])))
 
 class UARTIntegratedLogicAnalyzer(Elaboratable):
 	'''
@@ -302,15 +305,21 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 	def elaborate(self: Self, _) -> Module:
 		m = Module()
 
-		m.submodules.ila  = ila  = self.ila
-		m.submodules.uart = uart = AsyncSerialTX(divisor = self.divisor)
+		m.submodules.ila   = ila   = self.ila
+		m.submodules.rcobs = rcobs = RCOBSEncoder()
+		m.submodules.uart  = uart  = AsyncSerialTX(divisor = self.divisor)
 
-		data    = Signal.like(ila.stream.payload)
-		to_send = Signal(range(ila.bytes_per_sample + 1))
+		data     = Signal.like(ila.stream.payload)
+		to_send  = Signal(range(ila.bytes_per_sample + 1))
+		finalize = Signal()
 
 		m.d.comb += [
 			self.tx.eq(uart.o),
-			uart.data.eq(data[0:8]),
+			# Glue the rCOBS encoder to the UARTs face
+			rcobs.raw.eq(data[0:8]),
+			uart.data.eq(rcobs.enc),
+			uart.ack.eq(rcobs.vld),
+			rcobs.ack.eq(uart.rdy),
 		]
 
 		with m.FSM() as fsm:
@@ -322,16 +331,18 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 				with m.If(ila.stream.valid):
 					m.d.sync += [
 						data.eq(ila.stream.payload),
-						to_send.eq(ila.bytes_per_sample - 1)
+						to_send.eq(ila.bytes_per_sample - 1),
 					]
+					m.d.comb += [ rcobs.strb.eq(1), ]
+
 					m.next = 'TRANSMIT'
 
 			with m.State('TRANSMIT'):
-				# Tell the UART the byte is ready
-				m.d.comb += [ uart.ack.eq(1), ]
+				# Tell the rCOBS encoder to do the thing
+				m.d.comb += [ rcobs.strb.eq(1), ]
 
-				# Have the UART Transmitter tell us when it's ready
-				with m.If(uart.rdy):
+				# Wait for the rCOBS encoder to tell us to advance
+				with m.If(rcobs.rdy):
 					# If we still have bytes to send, shift over and send the next one
 					with m.If(to_send > 0):
 						m.d.sync += [
@@ -346,11 +357,30 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						with m.If(ila.stream.valid):
 							m.d.sync += [
 								data.eq(ila.stream.payload),
-								to_send.eq(ila.bytes_per_sample - 1)
+								to_send.eq(ila.bytes_per_sample - 1),
 							]
-						# Otherwise go back to idle
+						with m.Elif(finalize):
+							m.d.sync += [ finalize.eq(0), ]
+							m.next = 'FLUSH'
 						with m.Else():
+							with m.If(ila.stream.last):
+								m.d.sync += [ finalize.eq(1), ]
 							m.next = 'IDLE'
+
+			with m.State('FLUSH'):
+				with m.If(rcobs.rdy):
+					m.d.comb += [ rcobs.finish.eq(1), ]
+					m.next = 'FRAME'
+
+			with m.State('FRAME'):
+				# Let the rCOBS encoder settle and wait for the UART to become ready so we can
+				# emit our framing byte
+				with m.If(uart.rdy & rcobs.rdy):
+					m.d.comb += [
+						uart.data.eq(0x00),
+						uart.ack.eq(1),
+					]
+					m.next = 'IDLE'
 
 		# Fix up the lock domain, if needed
 		if self._domain != 'sync':
