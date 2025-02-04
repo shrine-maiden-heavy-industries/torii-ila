@@ -65,10 +65,7 @@ class RCOBSEncoder(Elaboratable):
 
 			with m.State('IDLE'):
 				with m.If(self.strb):
-					m.d.sync += [
-						self.run.inc(),
-						self.enc.eq(self.raw),
-					]
+					m.d.sync += [ self.run.inc(), ]
 					m.next = 'ENC'
 				with m.Elif(self.finish):
 					m.d.sync += [
@@ -79,19 +76,17 @@ class RCOBSEncoder(Elaboratable):
 					m.next = 'FINISH'
 
 			with m.State('ENC'):
+				m.d.sync += [ self.vld.eq(1), ]
 				with m.If(self.raw == 0):
 					# If the incoming byte is 0, then we write out the run and reset it
 					m.d.sync += [
 						self.enc.eq(self.run),
 						self.run.eq(0),
-						self.vld.eq(1),
 					]
-					m.next = 'DLY'
 				with m.Else():
 					# If the byte is non-zero, then we can just pass it along
 					m.d.sync += [
 						self.enc.eq(self.raw),
-						self.vld.eq(1),
 					]
 					# If we have hit an almost max-run, then we need to reset the run and flag it
 					with m.If(self.run == 254):
@@ -100,14 +95,10 @@ class RCOBSEncoder(Elaboratable):
 							self.enc.eq(0xFF),
 							self.run.eq(0),
 						]
-					m.next = 'DLY'
-			with m.State('DLY'):
 				m.next = 'FINISH'
 			with m.State('FINISH'):
 				with m.If(self.ack):
-					m.d.sync += [
-						self.vld.eq(0),
-					]
+					m.d.sync += [ self.vld.eq(0), ]
 					m.next = 'IDLE'
 
 		return m
