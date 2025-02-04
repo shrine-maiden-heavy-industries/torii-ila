@@ -17,6 +17,12 @@ Unreleased template stuff
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- rCOBS encoder/decoder
+
 ## [v0.1.0]
 
 This is the first beta release of the Torii ILA module. It's not fully stable but it works
