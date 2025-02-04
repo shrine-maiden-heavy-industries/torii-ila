@@ -46,7 +46,7 @@ def test(session: Session) -> None:
 
 	unitest_args = ('-m', 'unittest', 'discover', '-v', '-s', str(ROOT_DIR))
 
-	session.install('.')
+	session.install('.[usb,serial]')
 	if ENABLE_COVERAGE:
 		session.log('Coverage support enabled')
 		session.install('coverage')
