@@ -225,6 +225,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internal.html">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">Torii ILA Licenses</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
@@ -281,7 +282,7 @@ signal names to :py:class:`torii_ila._bits.bits</cite></p>
 <li><p><strong>ila</strong> (<a class="reference internal" href="../ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer" title="torii_ila.ila.IntegratedLogicAnalyzer"><em>IntegratedLogicAnalyzer</em></a>) – The instance of the ILA used on the device. This is used to allow the backhaul
 to automatically configure itself appropriately and also know what signals are being
 captures and the like.</p></li>
-<li><p><strong>samples</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a><em>]</em><em>] </em><em>| </em><em>None</em>) – The collected samples from the ILA.</p></li>
+<li><p><strong>samples</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference internal" href="../internal.html#torii_ila._bits.bits" title="torii_ila._bits.bits"><em>bits</em></a><em>]</em><em>] </em><em>| </em><em>None</em>) – The collected samples from the ILA.</p></li>
 </ul>
 </dd>
 </dl>
@@ -299,11 +300,14 @@ captures and the like.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="torii_ila.backhaul.ILABackhaulInterface.enumerate">
 <span class="sig-name descname"><span class="pre">enumerate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.backhaul.ILABackhaulInterface.enumerate" title="Link to this definition">¶</a></dt>
-<dd><p>Iterate over all of the samples received from our backhaul interface.</p>
-<p>Returns timestamp, sample pairs.</p>
+<dd><p>Iterate over all of the samples received from our backhaul interface and format them
+in a way that is easy to consume.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="../internal.html#torii_ila._bits.bits" title="torii_ila._bits.bits"><code class="xref py py-class docutils literal notranslate"><span class="pre">bits</span></code></a>]]]</span></p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A stream of (timestamp, sample) tuples</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>, Sample]]</p>
 </dd>
 </dl>
 </dd></dl>

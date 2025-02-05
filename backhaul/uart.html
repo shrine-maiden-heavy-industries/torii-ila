@@ -225,6 +225,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internal.html">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">Torii ILA Licenses</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
@@ -273,6 +274,8 @@ to automatically set up a communications channel to get ILA samples off-device.<
 which lets the ILA configure the backhaul as needed.</p>
 <p>Alternatively you can pass the <a class="reference internal" href="../ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer</span></code></a> instance from the gateware
 to the constructor of this module.</p>
+<p>The data coming off the ILA is <a class="reference external" href="https://github.com/Dirbaio/rcobs">rCOBS</a> encoded and the samples are
+byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
 <p>See <a class="reference internal" href="index.html#torii_ila.backhaul.ILABackhaulInterface" title="torii_ila.backhaul.ILABackhaulInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii_ila.backhaul.ILABackhaulInterface</span></code></a> for public API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

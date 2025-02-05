@@ -225,6 +225,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internal.html">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">Torii ILA Licenses</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
@@ -273,6 +274,9 @@ to automatically set up a communications channel to get ILA samples off-device.<
 which lets the ILA configure the backhaul as needed.</p>
 <p>Alternatively you can pass the <a class="reference internal" href="../ila/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzer" title="torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a> instance from the gateware
 to the constructor of this module.</p>
+<p>This backhaul interface works by sending a request to the bulk endpoint
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">BULK_EP_NUM</span></code> that is provided by the
+ILA backend for the USB device with the VID/PID also specified by the ILA.</p>
 <p>See <a class="reference internal" href="index.html#torii_ila.backhaul.ILABackhaulInterface" title="torii_ila.backhaul.ILABackhaulInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii_ila.backhaul.ILABackhaulInterface</span></code></a> for public API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
