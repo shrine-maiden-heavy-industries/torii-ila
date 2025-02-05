@@ -28,7 +28,7 @@ The first big chunk is the PLL elaboratable, this is platform specific, but it s
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 41-93
+   :lines: 42-94
 ```
 
 The big thing to note here, as we will need it later, is the resulting frequency of the `sync` domain, which in this case is `48e6Hz` or `48MHz`.
@@ -41,7 +41,7 @@ Next up is the main elaboratable module we will be synthesizing, in this case ca
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 101-108
+   :lines: 102-109
 ```
 
 The `timer` signal has an enum based decoder attached to it, this helps us show that the resulting VCD from the ILA retains signal decoders and emits them properly in the trace, it looks as follows:
@@ -50,7 +50,7 @@ The `timer` signal has an enum based decoder attached to it, this helps us show 
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 95-99
+   :lines: 96-100
 ```
 
 Last thing in the constructor is the actual creation of the {py:class}`USBIntegratedLogicAnalyzer <torii_ila.usb.USBIntegratedLogicAnalyzer>` itself, we give it all the signals we want to keep track of, how deep we want our sample memory, as well as the sample rate which we got from the PLL config and the USB resource name for it to use.
@@ -59,7 +59,7 @@ Last thing in the constructor is the actual creation of the {py:class}`USBIntegr
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 111-125
+   :lines: 112-126
 ```
 
 Now we move on to the `elaborate` method, most of the stuff in here is just to support the example, but here we also ensure the ILA is a submodule, and also show an example of adding "private" signals to the ILA for capture.
@@ -70,7 +70,7 @@ Adding the ILA as a submodule is typical to torii:
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 138
+   :lines: 139
 ```
 
 The important thing in here is just below that, it's where we create two module internal signals, and add them to the ILA for capture.
@@ -79,7 +79,7 @@ The important thing in here is just below that, it's where we create two module 
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 140-144
+   :lines: 141-145
 ```
 
 Along with {py:meth}`append_signals <torii_ila.ila.IntegratedLogicAnalyzer.append_signals>` there is also an {py:meth}`add_signal <torii_ila.ila.IntegratedLogicAnalyzer.add_signal>` that lets you add a single {py:class}`Signal <torii.hdl.ast.Signal>` at a time rather than an iterable of them.
@@ -90,7 +90,7 @@ The remainder of the logic in `elaborate` is simply just driving the example sig
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 146-165
+   :lines: 147-166
 ```
 
 ### Building and Backhaul
@@ -105,7 +105,7 @@ The first handful of lines after `main()` are just setup, we create an instance 
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 178-180
+   :lines: 179-181
 ```
 
 After that is the actual gateware synthesis and upload, we simply call `plat.build` with a handful of arguments to get everything handled for us.
@@ -114,7 +114,7 @@ After that is the actual gateware synthesis and upload, we simply call `plat.bui
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 183-194
+   :lines: 184-195
 ```
 
 Some of these options need explaining, the `name`, and `do_program` are self explanatory, but the last three are a bit more archaic.
@@ -137,7 +137,7 @@ That is a lot more straightforward than it seems:
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 203
+   :lines: 204
 ```
 
 See? It's that easy!
@@ -154,7 +154,7 @@ Next, we dump the decoded samples to `stdout`, this has a whole lot of machinery
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 205-208
+   :lines: 206-209
 ```
 
 After we list out the collected samples to `stdout`, we then write a VCD file:
@@ -163,7 +163,7 @@ After we list out the collected samples to `stdout`, we then write a VCD file:
 .. literalinclude:: ../examples/bitsy_usb_ila.py
    :linenos:
    :lineno-match:
-   :lines: 210
+   :lines: 211
 ```
 
 ### Running the Example
@@ -218,7 +218,7 @@ The [UART] ILA is much the same, the interface for everything is basically ident
 .. literalinclude:: ../examples/bitsy_uart_ila.py
    :linenos:
    :lineno-match:
-   :lines: 109-113
+   :lines: 110-114
 ```
 
 It has 2 extra kwargs, the first being `divisor`, this is the divisor used to drive the UART to reach the requested baud on the output clock domain, it should be `int(clk_speed // baud)`. The second is the `tx` parameter, this is an input signal that should be tied to the boards UART transmit pin, as the UART ILA is unidirectional it only needs `tx`, not `rx`.
@@ -229,7 +229,7 @@ The second difference is in the backhaul interface:
 .. literalinclude:: ../examples/bitsy_uart_ila.py
    :linenos:
    :lineno-match:
-   :lines: 213-216
+   :lines: 214-217
 ```
 
 The UART backhaul specifically wants a pre-configured [pyserial] {py:class}`Serial <serial.Serial>` object due to the nature of the interface.
