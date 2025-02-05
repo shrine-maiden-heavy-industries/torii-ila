@@ -39,7 +39,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
 		to the ``sampling_domain``'s frequency if possible.
-		(default: 60e6 i.e 60MHz)
+		(default: ``50e6`` i.e ``50MHz``)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
@@ -106,7 +106,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 	def __init__(
 		self: Self, *,
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
-		sample_rate: float = 60e6, prologue_samples: int = 1
+		sample_rate: float = 50e6, prologue_samples: int = 1
 	) -> None:
 		self._sampling_domain       = sampling_domain
 		self._signals: list[Signal] = list(signals)
@@ -336,7 +336,7 @@ class StreamILA(Elaboratable):
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
 		to the ``sampling_domain``'s frequency if possible.
-		(default: 60e6 i.e 60MHz)
+		(default: ``50e6`` i.e ``50MHz``)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
@@ -396,7 +396,7 @@ class StreamILA(Elaboratable):
 	def __init__(
 		self: Self, *,
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
-		sample_rate: float = 60e6, prologue_samples: int = 1, output_domain: str | None = None
+		sample_rate: float = 50e6, prologue_samples: int = 1, output_domain: str | None = None
 	) -> None:
 
 		self.domain = sampling_domain

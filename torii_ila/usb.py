@@ -110,7 +110,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 	sample_rate : float
 		The outwards facing sample rate used for formatting output. This should be tied
 		to the ``sampling_domain``'s frequency if possible.
-		(default: 60e6 i.e 60MHz)
+		(default: ``50e6`` i.e ``50MHz``)
 
 	prologue_samples : int
 		The number of samples to capture **before** the trigger.
@@ -212,7 +212,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		self: Self, *,
 		# ILA Settings
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
-		sample_rate: float = 60e6, prologue_samples: int = 1,
+		sample_rate: float = 50e6, prologue_samples: int = 1,
 		# USB Device Settings
 		bus: str | tuple[str, int] | None = None, delayed_connect: bool = False, max_pkt_size: int = 512,
 	) -> None:
