@@ -6,6 +6,7 @@ UART Based ILA and backhaul interface.
 '''
 
 from collections.abc        import Iterable, Generator
+from itertools              import chain, islice
 from typing                 import Self
 
 from torii                  import Cat, DomainRenamer, Elaboratable, Module, Signal
@@ -70,10 +71,30 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
+		def _batch(data: bytes):
+			itr = iter(data)
+			while (chunk := tuple(islice(itr, sample_width))):
+				yield chunk
+
+		# TODO(aki): We still need to figure out how to deal with the firehose if we start
+		#            capturing in the middle.
+		#
+		#            There are two things we can possibly do:
+		#            	1. Read until we hit the EOF marker, then read again to the next marker,
+		#                  then throw away the first read as it may have been partial
+		#               2. Have a lockout so the ILA will only send data when requested, and prevent
+		#                  re-triggering when the UART is still sending data.
+		#
+		#            I'm not sure which is the best option tbh.
+
 		# Consume up to the EOF marker
-		samples = self._port.read_until(b'\x00')
-		# Split the decoded rCOBS samples
-		return list(self._split_samples(decode_rcobs(samples[0:total_samples + 1])))
+		raw = self._port.read_until(b'\x00')
+		# Decode the rCOBS samples up to the \x00 byte
+		decoded_samples = decode_rcobs(raw[0:total_samples + 1])
+		# The samples from the UART come in byte-reversed, so we need to swap them then flatten to bytes
+		samples = bytes(chain.from_iterable((samp[::1] for samp in _batch(decoded_samples))))
+		# Split the decoded and fixed samples
+		return list(self._split_samples(samples))
 
 class UARTIntegratedLogicAnalyzer(Elaboratable):
 	'''
