@@ -85,6 +85,9 @@ class StreamInterface(Record):
 			(default: {})
 		'''
 
+		if omit is None:
+			omit = set()
+
 		rhs = ('valid', 'first', 'last', 'payload', )
 		lhs = ('ready', )
 		att = [
