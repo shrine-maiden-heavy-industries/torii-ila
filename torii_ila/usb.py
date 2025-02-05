@@ -360,7 +360,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 			dev.idVendor  = self.USB_VID
 			dev.idProduct = self.USB_PID
 
-			dev.iManufacturer = ''
+			dev.iManufacturer = 'Shrine Maiden Heavy Industries'
 			dev.iProduct      = 'Torii ILA'
 			dev.iSerialNumber = '000000000'
 
