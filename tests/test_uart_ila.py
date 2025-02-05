@@ -53,6 +53,22 @@ class UARTILATests(ToriiTestCase):
 	dut_args = {}
 	domains = (('sync', 48e6), )
 
+	def uart_read_byte(self):
+		# Wait for Start bit
+		yield from self.wait_until_low(uart_tx)
+		yield
+		byte = 0
+		# Read in byte
+		for idx in range(8):
+			byte |= (yield uart_tx) << idx
+			yield Settle()
+			yield
+		# Read stop bit
+		self.assertEqual((yield uart_tx), 1)
+		yield
+
+		return byte
+
 	@ToriiTestCase.simulation
 	def test_capture(self):
 		self.assertEqual(self.dut.ila.bits_per_sample, 32)
@@ -70,6 +86,26 @@ class UARTILATests(ToriiTestCase):
 				yield d.eq(d.rotate_left(1))
 			yield Settle()
 			yield
+
+		@ToriiTestCase.sync_domain(domain = 'sync')
+		def ingest_uart(self: UARTILATests):
+			data = bytearray()
+			while True:
+				byte = (yield from self.uart_read_byte())
+				if byte == 0x00:
+					break
+				data.append(byte)
+
+			self.assertEqual(
+				data,
+				b'\xf1\x2e\x03\x01\xe2\x4e\x03\x01\xd5\x8e\x03\x01\xc6\x0e\x01\x04\x01'
+			)
+			self.assertEqual(
+				decode_rcobs(data),
+				b'\xf1\x2e\x00\x00\xe2\x4e\x00\x00\xd5\x8e\x00\x00\xc6\x0e\x01\x00'
+			)
+
+
 		@ToriiTestCase.sync_domain(domain = 'sync')
 		def ila(self: UARTILATests):
 			yield from self.step(16)
@@ -83,6 +119,8 @@ class UARTILATests(ToriiTestCase):
 
 		sig_gen(self)
 		ila(self)
+		ingest_uart(self)
+
 
 if __name__ == '__main__':
 	from unittest import main
