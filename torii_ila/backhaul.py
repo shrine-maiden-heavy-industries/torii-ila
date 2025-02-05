@@ -49,7 +49,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 		to automatically configure itself appropriately and also know what signals are being
 		captures and the like.
 
-	samples : Iterable[dict[str, bytes]] | None
+	samples : Iterable[dict[str, bits]] | None
 		The collected samples from the ILA.
 	'''
 
@@ -94,8 +94,20 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 
 		return sample
 
-	def _parse_samples(self, raw: Iterable[bytes]) -> Samples:
-		''' Parse all given samples '''
+	def _parse_samples(self, raw: Iterable[bits]) -> Samples:
+		'''
+		Parse raw sample bit-vectors into unpacked samples.
+
+		Parameters
+		----------
+		raw : Iterable[torii_ila._bits.bits]
+			Raw sample stream, usually from the ``_ingest_samples`` method.
+
+		Returns
+		-------
+		Iterable[dict[str, bits]]
+			A collection of samples, which are dictionaries containing signal name to bit-vector mappings
+		'''
 
 		return [ self._parse_sample(sample) for sample in raw ]
 
@@ -106,9 +118,13 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 
 	def enumerate(self: Self) -> Generator[tuple[float, Sample]]:
 		'''
-		Iterate over all of the samples received from our backhaul interface.
+		Iterate over all of the samples received from our backhaul interface and format them
+		in a way that is easy to consume.
 
-		Returns timestamp, sample pairs.
+		Returns
+		-------
+		Generator[tuple[float, Sample]]
+			A stream of (timestamp, sample) tuples
 		'''
 
 		# BUG(aki): This assumes that `refresh()` will always populate the sample buffer, this

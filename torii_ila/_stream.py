@@ -57,18 +57,77 @@ class StreamInterface(Record):
 		])
 
 
-	def attach(self, iface: 'StreamInterface', omit):
-		''' '''
+	def attach(self, iface: 'StreamInterface', omit: set = set()):
+		'''
+		Attach to a target stream.
+
+		This method connects our ``valid``, ``first``, ``last``, and ``data`` fields to
+		the downstream facing ``stream``, and their ``ready`` field to ours.
+
+		This establishes a connection to where we are the originating stream, and ``stream``
+		is the receiving stream.
+
+		.. code-block::
+
+			self.data  -> stream.data
+			self.valid -> stream.valid
+			self.first -> stream.first
+			self.last  -> stream.last
+			self.ready <- stream.ready
+
+		Parameters
+		----------
+		stream : torii_ila._stream.StreamInterface
+			The stream we are attaching to.
+
+		omit : set[str]
+			A set of additional stream fields to exclude from the tap connection.
+			(default: {})
+		'''
 
 		rhs = ('valid', 'first', 'last', 'payload', )
 		lhs = ('ready', )
 		att = [
-			*[ iface[field].eq(self[field]) for field in rhs ],
-			*[ self[field].eq(iface[field]) for field in lhs ],
+			*[ iface[field].eq(self[field]) for field in rhs if field not in omit ],
+			*[ self[field].eq(iface[field]) for field in lhs if field not in omit ],
 		]
 
 		return att
 
-	def stream_eq(self, iface: 'StreamInterface', omit):
-		'''  '''
+	def stream_eq(self, iface: 'StreamInterface', omit: set = set()):
+		'''
+		Receive from target stream.
+
+		This method connects the ``valid``, ``first``, ``last``, and ``data`` from ``stream`` to ours,
+		and our ``ready`` field to theirs.
+
+		This establishes a connection to where ``stream`` is the originating stream, and we are the receiving
+		stream.
+
+		.. code-block::
+
+			self.data  <- stream.data
+			self.valid <- stream.valid
+			self.first <- stream.first
+			self.last  <- stream.last
+			self.ready -> stream.ready
+
+		This function is effectively the inverse of :py:meth:`attach`, in fact, it's implementation
+		is just:
+
+		.. code-block:: python
+
+			stream.attach(self, ...)
+
+		It is provided as a more logical way to connect streams.
+
+		Parameters
+		----------
+		stream : torii_ila._stream.StreamInterface
+			The stream to attach to this stream.
+
+		omit : set[str]
+			A set of additional stream fields to exclude from the tap connection.
+			(default: {})
+		'''
 		return iface.attach(self, omit)

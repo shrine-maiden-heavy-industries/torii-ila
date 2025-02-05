@@ -27,9 +27,6 @@ __all__ = (
 	'UARTIntegratedLogicAnalyzer',
 )
 
-# TODO(aki): We should probably have a transaction sync-word, that way we can re-sync mid ILA stream
-#            for a continuous transaction.
-
 class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	'''
 	UART-based ILA backhaul interface, used in combination with :py:class:`UARTIntegratedLogicAnalyzer`
@@ -40,6 +37,9 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 
 	Alternatively you can pass the :py:class:`UARTIntegratedLogicAnalyzer` instance from the gateware
 	to the constructor of this module.
+
+	The data coming off the ILA is `rCOBS <https://github.com/Dirbaio/rcobs>`_ encoded and the samples are
+	byte-wise swizzled, we automatically decode and de-swizzle the samples.
 
 	See :py:class:`torii_ila.backhaul.ILABackhaulInterface` for public API.
 
@@ -60,6 +60,20 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 		self._port.reset_input_buffer()
 
 	def _split_samples(self: Self, samples: bytes) -> Generator[bits]:
+		'''
+		Split the raw sample data stream into a stream of bit-vectors.
+
+		Parameters
+		----------
+		samples : bytes
+			The ILA sample data to be split.
+
+		Returns
+		-------
+		Generator[torii.ila._bits.bits]
+			Stream of samples as appropriately sized bit-vectors.
+		'''
+
 		sample_width = self.ila.bytes_per_sample
 
 		for idx in range(0, len(samples), sample_width):
@@ -69,6 +83,20 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 			yield bits.from_bytes(sample_raw, sample_len)
 
 	def _ingest_samples(self: Self) -> Iterable[bits]:
+		'''
+		Collect samples from the ILA backhaul interface.
+
+		In the case of the UART backhaul interface, we read until we hit an
+		EOF marker, then rCOBS decode and then de-swizzle the samples.
+
+		Those are then transformed into bit-vectors with the padding truncated.
+
+		Returns
+		-------
+		Iterable[torii_ila._bits.bits]
+			Collection of sample bit-vectors.
+		'''
+
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
@@ -103,6 +131,16 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	The configuration is 8n1 at the baud dictated by the divisor, which should
 	be ``int(clk // baud)`` for the desired baud rate.
+
+	The output data from this ILA is an `rCOBS <https://github.com/Dirbaio/rcobs>`_ encoded byte
+	stream with a ``0x00`` :abbr:`EOF (End Of Frame)` marker indicating the end of an ILA capture
+	sample buffer.
+
+	Due to the way the UART works, each sample is byte-reversed, meaning the LSB is output first, then
+	bytes up to the MSB. The :py:class:`UARTIntegratedLogicAnalyzerBackhaul` deals with all of the
+	implementation details, meaning the samples that come out from it are already rCOBS decoded and
+	swizzled back into the correct order.
+
 
 	Parameters
 	----------
@@ -355,6 +393,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						data.eq(ila.stream.payload),
 						to_send.eq(ila.bytes_per_sample - 1),
 					]
+					# If we're coming out of idle we need to strobe the rCOBS encode to latch
 					m.d.comb += [ rcobs.strb.eq(1), ]
 
 					m.next = 'TRANSMIT'
@@ -364,7 +403,9 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 				with m.If(rcobs.rdy):
 					# If we still have bytes to send, shift over and send the next one
 					with m.If(to_send > 0):
+						# Tell the rCOBS encoder that data is valid
 						m.d.comb += [ rcobs.strb.eq(1), ]
+
 						m.d.sync += [
 							to_send.eq(to_send - 1),
 							data.eq(data[8:]),
@@ -380,14 +421,18 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 								to_send.eq(ila.bytes_per_sample - 1),
 							]
 						with m.Elif(finalize):
+							# We just got done with the last transfer, flush the state and end the frame
 							m.d.sync += [ finalize.eq(0), ]
 							m.next = 'FLUSH'
 						with m.Else():
+							# If we are about to hit the last bit of the stream, we need to tell
+							# the rCOBS encoder to finalize at the end of the next transfer.
 							with m.If(ila.stream.last):
 								m.d.sync += [ finalize.eq(1), ]
 							m.next = 'IDLE'
 
 			with m.State('FLUSH'):
+				# Wait for the rCOBS encoder to become ready, then tell it to wrap up
 				with m.If(rcobs.rdy):
 					m.d.comb += [ rcobs.finish.eq(1), ]
 					m.next = 'FRAME'

@@ -41,6 +41,10 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	Alternatively you can pass the :py:class:`USBIntegratedLogicAnalyzer` instance from the gateware
 	to the constructor of this module.
 
+	This backhaul interface works by sending a request to the bulk endpoint
+	:py:attr:`BULK_EP_NUM <torii_ila.usb.USBIntegratedLogicAnalyzer.BULK_EP_NUM>` that is provided by the
+	ILA backend for the USB device with the VID/PID also specified by the ILA.
+
 	See :py:class:`torii_ila.backhaul.ILABackhaulInterface` for public API.
 
 	Parameters
@@ -63,8 +67,17 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 
 	def _split_samples(self: Self, samples: bytes) -> Generator[bits]:
 		'''
-		Splits the raw ingested bytes from the interface into a ``bits`` object,
-		clipping the padding.
+		Split the raw sample data stream into a stream of bit-vectors.
+
+		Parameters
+		----------
+		samples : bytes
+			The ILA sample data to be split.
+
+		Returns
+		-------
+		Generator[torii.ila._bits.bits]
+			Stream of samples as appropriately sized bit-vectors.
 		'''
 
 		sample_width = self.ila.bytes_per_sample
@@ -76,7 +89,20 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 			yield bits.from_bytes(sample_raw, sample_len)
 
 	def _ingest_samples(self: Self) -> Iterable[bits]:
-		''' Collect samples from the USB bulk endpoint. '''
+		'''
+		Collect samples from the ILA backhaul interface.
+
+		In the case of the USB backhaul, we have a bulk endpoint which sends us the ILA
+		buffer when requested.
+
+		Those are then transformed into bit-vectors with the padding truncated.
+
+		Returns
+		-------
+		Iterable[torii_ila._bits.bits]
+			Collection of sample bit-vectors.
+		'''
+
 		sample_width  = self.ila.bytes_per_sample
 		total_samples = self.ila.sample_depth * sample_width
 
