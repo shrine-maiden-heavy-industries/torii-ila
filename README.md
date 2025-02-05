@@ -15,8 +15,12 @@ It provides several backhaul interfaces for getting the ILA samples off of the d
 
 Torii ILA is licensed under the [BSD-3-Clause], the full text of which can be found in the [`LICENSE`] file.
 
+The documentation is licensed under the Creative Commons [CC-BY-SA 4.0] and can be found in the [`LICENSE.docs`] file
+
 [Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl/
 [SOL]: https://github.com/shrine-maiden-heavy-industries/sol/
 [`torii.lib.serial`]: https://github.com/shrine-maiden-heavy-industries/torii-hdl/blob/main/torii/lib/stdio/serial.py
 [BSD-3-Clause]: https://spdx.org/licenses/BSD-3-Clause.html
 [`LICENSE`]: ./LICENSE
+[CC-BY-SA 4.0]: https://creativecommons.org/licenses/by-sa/4.0/
+[`LICENSE.docs`]: ./LICENSE.docs

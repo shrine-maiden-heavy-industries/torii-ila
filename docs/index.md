@@ -8,8 +8,8 @@ ila/index
 backhaul/index
 
 internal
-
 changelog
+license
 
 Torii <https://torii.shmdn.link>
 Source Code <https://github.com/shrine-maiden-heavy-industries/torii-ila/>

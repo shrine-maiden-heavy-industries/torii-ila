@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
+
 import os, sys, datetime
 from pathlib import Path
 sys.path.insert(0, os.path.abspath('.'))
