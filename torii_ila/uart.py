@@ -338,13 +338,11 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 					m.next = 'TRANSMIT'
 
 			with m.State('TRANSMIT'):
-				# Tell the rCOBS encoder to do the thing
-				m.d.comb += [ rcobs.strb.eq(1), ]
-
 				# Wait for the rCOBS encoder to tell us to advance
 				with m.If(rcobs.rdy):
 					# If we still have bytes to send, shift over and send the next one
 					with m.If(to_send > 0):
+						m.d.comb += [ rcobs.strb.eq(1), ]
 						m.d.sync += [
 							to_send.eq(to_send - 1),
 							data.eq(data[8:]),
