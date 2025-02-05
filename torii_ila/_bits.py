@@ -1,6 +1,12 @@
 # SPDX-License-Identifier: 0-BSD
-# This file is adapted from the file with the same name in the Glasgow Interface Explorer project.
+# SPDX-FileCopyrightText: 2023 Catherine <whitequark@whitequark.org>
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
+
+# This file is adapted from the file with the same name in the
+# Glasgow Interface Explorer project.
 # It has been modified here, and retains the 0-BSD license of the original
+#
+# This will be replaced with `ferroxyl` when thats ready.
 
 
 import re

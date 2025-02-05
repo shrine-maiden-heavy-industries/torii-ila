@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
 
 from setuptools import setup, find_packages
 from pathlib    import Path

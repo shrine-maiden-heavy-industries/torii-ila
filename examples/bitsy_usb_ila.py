@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
 #
 # This example show the use of the USB ILA with iCEBreaker Bitsy for 1BitSquared:
 # (https://1bitsquared.com/products/icebreaker-bitsy)

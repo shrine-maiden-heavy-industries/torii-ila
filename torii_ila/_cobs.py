@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: BSD-3-Clause
-# rCOBS implementation for UART ILA Framing
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
 
 from typing    import Self
 

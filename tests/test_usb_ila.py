@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2025 Rachel Mant <git@dragonmux.network>
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>c
 
 import sys
 from pathlib       import Path

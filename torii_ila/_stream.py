@@ -1,4 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2020 Great Scott Gadgets <info@greatscottgadgets.com>
+# SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
+
 # This file is adapted from SOL and is only used for compatibility with it,
 # It can be removed once Torii gets a sane stream impl internally and SOL is
 # ported to use that.
