@@ -122,6 +122,11 @@ class USBILATests(ToriiTestCase):
 
 		@ToriiTestCase.sync_domain(domain = 'usb')
 		def usb(self: USBILATests):
+			# Tell the reset sequencer engine that the bus is active
+			yield UTMI_BUS.vbus_valid.eq(1)
+			# And in a valid non-SE0 state (we don't care which,
+			# we just don't want the reset sequencer doing bad things)
+			yield UTMI_BUS.line_state.eq(0b01)
 			yield
 			yield from self.usb_sof()
 			yield from self.usb_set_addr(ADDR)
