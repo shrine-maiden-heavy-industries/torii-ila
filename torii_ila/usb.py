@@ -193,18 +193,17 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 	USB_VID : int
 		The fixed USB Vendor ID for the SOL USB Device.
-		Value is set to ``0x04A0``.
+		Value is set to ``0x1D50``.
 
 	USB_PID : int
 		The fixed USB Product ID for the SOL USB Device.
-		Value is set to ``0xACA7``.
+		Value is set to ``0x6190``.
 	'''
 
 	BULK_EP_NUM = 1
 
-	# TODO(aki): Replace VID/PID when we get our hands on a proper set
-	USB_VID = 0x04A0 # DEC
-	USB_PID = 0xACA7 # A CAT :3
+	USB_VID = 0x1D50
+	USB_PID = 0x6190
 
 	_backhaul: USBIntegratedLogicAnalyzerBackhaul | None = None
 
