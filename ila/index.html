@@ -14,8 +14,8 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="UART-Based Integrated Logic Analyzer" href="uart.html" /><link rel="prev" title="Getting Started" href="../getting_started.html" />
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/index.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev22 documentation</title>
+    <!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
+        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev23 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev22 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev23 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev22 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev23 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -271,7 +271,7 @@
 <p><a class="reference internal" href="#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> wraps the <a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer" title="torii_ila.ila.IntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegratedLogicAnalyzer</span></code></a> in a stream API that allows for the <a class="reference internal" href="usb.html"><span class="std std-doc">USB</span></a> an <a class="reference internal" href="uart.html"><span class="std std-doc">UART</span></a> ILA modules to ingest the data in a streaming way.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.ila.IntegratedLogicAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">IntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.IntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">IntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.IntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
 <dd><p>A simple Integrated Logic Analyzer for Torii.</p>
 <p>It exposes a very straight forward interface that can be used to build more capable ILAs, for
 example the <a class="reference internal" href="#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> is built on this.</p>
@@ -393,7 +393,7 @@ the sample memory size after is it made concrete.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.ila.StreamILA">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">StreamILA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.StreamILA" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">StreamILA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.StreamILA" title="Link to this definition">¶</a></dt>
 <dd><p>A simple implementation of a stream-based ILA for use in the the UART and USB ILA’s.</p>
 <p>It uses the <a class="reference internal" href="../internal.html#torii_ila._stream.StreamInterface" title="torii_ila._stream.StreamInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii_ila._stream.StreamInterface</span></code></a>, which for the moment is an implementation
 detail.</p>
@@ -597,7 +597,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=cadf1945"></script>
+</div><script src="../_static/documentation_options.js?v=ae10c901"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

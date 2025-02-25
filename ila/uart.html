@@ -14,8 +14,8 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="USB-Based Integrated Logic Analyzer" href="usb.html" /><link rel="prev" title="Integrated Logic Analyzers" href="index.html" />
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/uart.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>UART-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev22 documentation</title>
+    <!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
+        <title>UART-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev23 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev22 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev23 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev22 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev23 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -264,11 +264,11 @@
         <article role="main" id="furo-main-content">
           <section id="uart-based-integrated-logic-analyzer">
 <h1>UART-Based Integrated Logic Analyzer<a class="headerlink" href="#uart-based-integrated-logic-analyzer" title="Link to this heading">¶</a></h1>
-<p>This module provides the ILA as a streaming UART device, for use with the <a class="reference internal" href="../backhaul/uart.html"><span class="std std-doc">UART backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a UART port using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-hdl">Torii</a> <a class="reference external" href="https://torii.shmdn.link/library/stdio/index.html#torii.lib.stdio.serial.AsyncSerialTX" title="(in Torii-HDL v0.7.2.dev26+gddfd5c8e)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncSerialTX</span></code></a></p>
+<p>This module provides the ILA as a streaming UART device, for use with the <a class="reference internal" href="../backhaul/uart.html"><span class="std std-doc">UART backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a UART port using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-hdl">Torii</a> <a class="reference external" href="https://torii.shmdn.link/library/stdio/index.html#torii.lib.stdio.serial.AsyncSerialTX" title="(in Torii-HDL v0.7.2.dev136+gd74a06ee)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncSerialTX</span></code></a></p>
 <p>The baud rate for the UART stream is adjustable, but the UART stream itself is fixed to <code class="docutils literal notranslate"><span class="pre">8n1</span></code>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.uart.UARTIntegratedLogicAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.uart.</span></span><span class="sig-name descname"><span class="pre">UARTIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.uart.</span></span><span class="sig-name descname"><span class="pre">UARTIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">divisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
 <dd><p>A simple ILA that dumps sample memory down a UART pipe.</p>
 <p>The configuration is 8n1 at the baud dictated by the divisor, which should
 be <code class="docutils literal notranslate"><span class="pre">int(clk</span> <span class="pre">//</span> <span class="pre">baud)</span></code> for the desired baud rate.</p>
@@ -491,7 +491,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=cadf1945"></script>
+</div><script src="../_static/documentation_options.js?v=ae10c901"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
