@@ -4,9 +4,6 @@
 
 ACTION!="add|change|bind",GOTO="torii_ila_rules_end"
 
-# Squishy DFU Bootloader
-SUBSYSTEM=="usb", ATTR{idVendor}=="04a0", ATTR{idProduct}=="aca7", GROUP="plugdev", MODE="0660", TAG+="uaccess"
-# Squishy Applet mode
-SUBSYSTEM=="usb", ATTR{idVendor}=="04a0", ATTR{idProduct}=="aca7", GROUP="plugdev", MODE="0660", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1d50", ATTR{idProduct}=="6190", GROUP="plugdev", MODE="0660", TAG+="uaccess"
 
 LABEL="torii_ila_rules_end"
