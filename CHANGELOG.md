@@ -26,6 +26,11 @@ Unreleased template stuff
 ### Changed
 
 - UART ILA output is now rCOBS encoded with `0x00` end-of-frame indicators for re-syncing serial streams.
+- USB ILA VID:PID changed from `04A0:ACA7` to `1D50:6190`.
+
+### Deprecated
+
+### Removed
 
 ### Fixed
 
