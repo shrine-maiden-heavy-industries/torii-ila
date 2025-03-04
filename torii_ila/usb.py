@@ -155,6 +155,13 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		Max packet size.
 		(default: 512)
 
+
+	discard_string_descriptors : bool
+		Discard the device Manufacturer, Product, and Serial Number string descriptors,
+		this may help some devices which are having problems passing PnR timing with doing
+		so, or devices that are under heavy BRAM pressure.
+		(default: False)
+
 	Attributes
 	----------
 	ila : StreamILA
@@ -241,11 +248,13 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		sample_rate: float = 50e6, prologue_samples: int = 1,
 		# USB Device Settings
 		bus: str | tuple[str, int] | None = None, delayed_connect: bool = False, max_pkt_size: int = 512,
+		discard_string_descriptors: bool = False
 	) -> None:
 
-		self._bus             = bus
-		self._delayed_connect = delayed_connect
-		self._max_pkt_size    = max_pkt_size
+		self._bus              = bus
+		self._delayed_connect  = delayed_connect
+		self._max_pkt_size     = max_pkt_size
+		self._discard_str_desc = discard_string_descriptors
 
 		self.ila = StreamILA(
 			signals          = signals,
@@ -359,9 +368,10 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 			dev.idVendor  = self.USB_VID
 			dev.idProduct = self.USB_PID
 
-			dev.iManufacturer = 'Shrine Maiden Heavy Industries'
-			dev.iProduct      = 'Torii ILA'
-			dev.iSerialNumber = '000000000'
+			if not self._discard_str_desc:
+				dev.iManufacturer = 'Shrine Maiden Heavy Industries'
+				dev.iProduct      = 'Torii ILA'
+				dev.iSerialNumber = '000000000'
 
 			dev.bNumConfigurations = 1
 
