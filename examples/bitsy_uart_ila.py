@@ -150,6 +150,22 @@ class Top(Elaboratable):
 		# Add some "Private" signals to the ILA
 		self.ila.append_signals([wiggle, woggle])
 
+		with m.FSM(name = 'meow') as f:
+			self.ila.add_fsm(f)
+
+			with m.State('IDLE'):
+				with m.If(self.flops[1]):
+					m.next = 'WIGGLE'
+
+			with m.State('WIGGLE'):
+				m.d.sync += [
+					wiggle.eq(self.timer[0]),
+					woggle.eq(~wiggle),
+				]
+
+				with m.If(self.flops[2]):
+					m.next = 'IDLE'
+
 		# Dummy logic wiggles
 		with m.If(self.timer == 0):
 			m.d.sync += [
@@ -165,11 +181,6 @@ class Top(Elaboratable):
 
 		with m.If(self.other[7] & self.ila.idle):
 			m.d.comb += [ self.ila.trigger.eq(1) ]
-
-		m.d.sync += [
-			wiggle.eq(self.timer[0]),
-			woggle.eq(~wiggle),
-		]
 
 		# Glue for the PLL, LEDs, and UART transmit
 		m.d.comb += [
