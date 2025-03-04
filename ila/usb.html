@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/usb.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev25 documentation</title>
+        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev27 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev25 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev27 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev25 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev27 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -267,7 +267,7 @@
 <p>This module provides the ILA as a streaming USB device, for use with the <a class="reference internal" href="../backhaul/usb.html"><span class="std std-doc">USB backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a USB device using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/sol">SOL</a> <code class="xref py py-class docutils literal notranslate"><span class="pre">USBMultibyteStreamInEndpoint</span></code></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.usb.</span></span><span class="sig-name descname"><span class="pre">USBIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayed_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pkt_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.usb.</span></span><span class="sig-name descname"><span class="pre">USBIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayed_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pkt_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discard_string_descriptors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
 <dd><p>A simple ILA that produces samples over a USB bulk endpoint.</p>
 <p>This shows up as a USB device with VID:PID of <code class="docutils literal notranslate"><span class="pre">04A0:ACA7</span></code> on the host with the Product string
 of <code class="docutils literal notranslate"><span class="pre">Torii</span> <span class="pre">ILA</span></code> and the Serial Number string of <code class="docutils literal notranslate"><span class="pre">000000000</span></code>.</p>
@@ -293,8 +293,17 @@ to the <code class="docutils literal notranslate"><span class="pre">sampling_dom
 (default: 512)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+</dl>
+<dl class="simple">
+<dt>discard_string_descriptors<span class="classifier">bool</span></dt><dd><p>Discard the device Manufacturer, Product, and Serial Number string descriptors,
+this may help some devices which are having problems passing PnR timing with doing
+so, or devices that are under heavy BRAM pressure.
+(default: False)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><strong>ila</strong> (<a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><em>StreamILA</em></a>) – The inner ILA module used for actually ingesting the sample data.</p></li>
 <li><p><strong>sample_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The width of the sample vector in bits.</p></li>
 <li><p><strong>sample_depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The depth of the ILA sample buffer in samples.</p></li>
@@ -488,7 +497,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=2fc12ed8"></script>
+</div><script src="../_static/documentation_options.js?v=e65e8e50"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

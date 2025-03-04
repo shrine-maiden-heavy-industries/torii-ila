@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/getting_started.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Getting Started - Torii ILA 0.1.1.dev25 documentation</title>
+        <title>Getting Started - Torii ILA 0.1.1.dev27 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev25 documentation</div></a>
+      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev27 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev25 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev27 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -392,26 +392,26 @@
 </div>
 <p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii-HDL v0.7.2.dev136+gd74a06ee)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
 <p>The remainder of the logic in <code class="docutils literal notranslate"><span class="pre">elaborate</span></code> is simply just driving the example signals:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">147</span>		<span class="c1"># Dummy logic wiggles</span>
-<span class="linenos">148</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-<span class="linenos">149</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
-<span class="linenos">150</span>				<span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">),</span>
-<span class="linenos">151</span>				<span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="o">.</span><span class="n">rotate_left</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
-<span class="linenos">152</span>			<span class="p">]</span>
-<span class="linenos">153</span>			<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-<span class="linenos">154</span>				<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="o">.</span><span class="n">inc</span><span class="p">(),</span> <span class="p">]</span>
-<span class="linenos">155</span>
-<span class="linenos">156</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">Else</span><span class="p">():</span>
-<span class="linenos">157</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">]</span>
-<span class="linenos">158</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">147</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;meow&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos">148</span>			<span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">add_fsm</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="linenos">149</span>
+<span class="linenos">150</span>			<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">State</span><span class="p">(</span><span class="s1">&#39;IDLE&#39;</span><span class="p">):</span>
+<span class="linenos">151</span>				<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+<span class="linenos">152</span>					<span class="n">m</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="s1">&#39;WIGGLE&#39;</span>
+<span class="linenos">153</span>
+<span class="linenos">154</span>			<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">State</span><span class="p">(</span><span class="s1">&#39;WIGGLE&#39;</span><span class="p">):</span>
+<span class="linenos">155</span>				<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">156</span>					<span class="n">wiggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+<span class="linenos">157</span>					<span class="n">woggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="n">wiggle</span><span class="p">),</span>
+<span class="linenos">158</span>				<span class="p">]</span>
 <span class="linenos">159</span>
-<span class="linenos">160</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="p">[</span><span class="mi">7</span><span class="p">]):</span>
-<span class="linenos">161</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">comb</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">]</span>
+<span class="linenos">160</span>				<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+<span class="linenos">161</span>					<span class="n">m</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="s1">&#39;IDLE&#39;</span>
 <span class="linenos">162</span>
-<span class="linenos">163</span>		<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
-<span class="linenos">164</span>			<span class="n">wiggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-<span class="linenos">165</span>			<span class="n">woggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="n">wiggle</span><span class="p">),</span>
-<span class="linenos">166</span>		<span class="p">]</span>
+<span class="linenos">163</span>		<span class="c1"># Dummy logic wiggles</span>
+<span class="linenos">164</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">165</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">166</span>				<span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">),</span>
 </pre></div>
 </div>
 </section>
@@ -422,24 +422,24 @@
 <section id="platform-setup-and-building">
 <h4>Platform Setup and Building<a class="headerlink" href="#platform-setup-and-building" title="Link to this heading">¶</a></h4>
 <p>The first handful of lines after <code class="docutils literal notranslate"><span class="pre">main()</span></code> are just setup, we create an instance of our <code class="docutils literal notranslate"><span class="pre">Top</span></code> module, set the VCD destination file name, and create the platform for the <a class="reference external" href="https://1bitsquared.com/products/icebreaker-bitsy">iCEBreaker Bitsy</a> that we are targeting.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">179</span>	<span class="n">top</span>      <span class="o">=</span> <span class="n">Top</span><span class="p">()</span>
-<span class="linenos">180</span>	<span class="n">vcd_file</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;bitsy_usb_ila.vcd&#39;</span>
-<span class="linenos">181</span>	<span class="n">plat</span>     <span class="o">=</span> <span class="n">ICEBreakerBitsyPlatform</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">179</span>		<span class="c1"># Glue for the PLL and LEDs</span>
+<span class="linenos">180</span>		<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">comb</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">181</span>			<span class="bp">self</span><span class="o">.</span><span class="n">pll_locked</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">pll</span><span class="o">.</span><span class="n">locked</span><span class="p">),</span>
 </pre></div>
 </div>
 <p>After that is the actual gateware synthesis and upload, we simply call <code class="docutils literal notranslate"><span class="pre">plat.build</span></code> with a handful of arguments to get everything handled for us.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">184</span>	<span class="k">try</span><span class="p">:</span>
-<span class="linenos">185</span>		<span class="n">plat</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-<span class="linenos">186</span>			<span class="n">top</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bitsy_usb_ila&#39;</span><span class="p">,</span> <span class="n">do_program</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="linenos">187</span>			<span class="n">script_after_read</span> <span class="o">=</span> <span class="s1">&#39;scratchpad -copy abc9.script.flow3 abc9.script</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
-<span class="linenos">188</span>			<span class="n">synth_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-abc9&#39;</span><span class="p">],</span>
-<span class="linenos">189</span>			<span class="n">nextpnr_opts</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;--seed 1&#39;</span> <span class="p">]</span>
-<span class="linenos">190</span>		<span class="p">)</span>
-<span class="linenos">191</span>	<span class="k">except</span> <span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="linenos">192</span>		<span class="c1"># dfu-util complains because we don&#39;t come back as a DFU device</span>
-<span class="linenos">193</span>		<span class="c1"># In that case we don&#39;t care there was an error</span>
-<span class="linenos">194</span>		<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">251</span><span class="p">:</span>
-<span class="linenos">195</span>			<span class="k">raise</span> <span class="n">e</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">184</span>		<span class="p">]</span>
+<span class="linenos">185</span>
+<span class="linenos">186</span>		<span class="k">return</span> <span class="n">m</span>
+<span class="linenos">187</span>
+<span class="linenos">188</span>
+<span class="linenos">189</span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">190</span>	<span class="n">top</span>      <span class="o">=</span> <span class="n">Top</span><span class="p">()</span>
+<span class="linenos">191</span>	<span class="n">vcd_file</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;bitsy_usb_ila.vcd&#39;</span>
+<span class="linenos">192</span>	<span class="n">plat</span>     <span class="o">=</span> <span class="n">ICEBreakerBitsyPlatform</span><span class="p">()</span>
+<span class="linenos">193</span>
+<span class="linenos">194</span>	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building gateware...&#39;</span><span class="p">)</span>
+<span class="linenos">195</span>	<span class="k">try</span><span class="p">:</span>
 </pre></div>
 </div>
 <p>Some of these options need explaining, the <code class="docutils literal notranslate"><span class="pre">name</span></code>, and <code class="docutils literal notranslate"><span class="pre">do_program</span></code> are self explanatory, but the last three are a bit more archaic.</p>
@@ -452,7 +452,7 @@
 <p>Now that all the gateware specific details have been dealt with, we can get data off the device! Exciting!</p>
 <p>The first little bit just prints out the ILA configuration information for us, it’s not too important, the main focus here is getting our hands on a <a class="reference internal" href="backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code></a> interface.</p>
 <p>That is a lot more straightforward than it seems:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">204</span>	<span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">204</span>		<span class="c1"># In that case we don&#39;t care there was an error</span>
 </pre></div>
 </div>
 <p>See? It’s that easy!</p>
@@ -460,14 +460,14 @@
 <p>The other way is to manually construct a <a class="reference internal" href="backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code></a> and pass the ILA instance into it, so it can read the information it needs.</p>
 <p>In the case of the USB ILA, the VID/PID are fixed, and the backhaul interface looks for them by default.</p>
 <p>Next, we dump the decoded samples to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, this has a whole lot of machinery working behind the scenes to give us a simple signal name:value dictionary out from the USB device.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">206</span>	<span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">backhaul</span><span class="o">.</span><span class="n">enumerate</span><span class="p">():</span>
-<span class="linenos">207</span>		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ts</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e-9</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> ns:&#39;</span><span class="p">)</span>
-<span class="linenos">208</span>		<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="linenos">209</span>			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">206</span>			<span class="k">raise</span> <span class="n">e</span>
+<span class="linenos">207</span>
+<span class="linenos">208</span>
+<span class="linenos">209</span>	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ILA Info:&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After we list out the collected samples to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, we then write a VCD file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">211</span>	<span class="n">backhaul</span><span class="o">.</span><span class="n">write_vcd</span><span class="p">(</span><span class="n">vcd_file</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">211</span>	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  bits per sample:  </span><span class="si">{</span><span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">bits_per_sample</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -519,10 +519,10 @@
 </div>
 <p>It has 2 extra kwargs, the first being <code class="docutils literal notranslate"><span class="pre">divisor</span></code>, this is the divisor used to drive the UART to reach the requested baud on the output clock domain, it should be <code class="docutils literal notranslate"><span class="pre">int(clk_speed</span> <span class="pre">//</span> <span class="pre">baud)</span></code>. The second is the <code class="docutils literal notranslate"><span class="pre">tx</span></code> parameter, this is an input signal that should be tied to the boards UART transmit pin, as the UART ILA is unidirectional it only needs <code class="docutils literal notranslate"><span class="pre">tx</span></code>, not <code class="docutils literal notranslate"><span class="pre">rx</span></code>.</p>
 <p>The second difference is in the backhaul interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">214</span>	<span class="c1"># Set up the serial port we are going to use to ingest the data</span>
-<span class="linenos">215</span>	<span class="n">serialport</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="n">SERIAL_PORT_PATH</span><span class="p">,</span> <span class="n">baudrate</span> <span class="o">=</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">)</span>
-<span class="linenos">216</span>	<span class="c1"># Get the backhaul interface from the ILA module</span>
-<span class="linenos">217</span>	<span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">(</span><span class="n">serialport</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">214</span>	<span class="k">except</span> <span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="linenos">215</span>		<span class="c1"># dfu-util complains because we don&#39;t come back as a DFU device</span>
+<span class="linenos">216</span>		<span class="c1"># In that case we don&#39;t care there was an error</span>
+<span class="linenos">217</span>		<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">251</span><span class="p">:</span>
 </pre></div>
 </div>
 <p>The UART backhaul specifically wants a pre-configured <a class="reference external" href="https://github.com/pyserial/pyserial">pyserial</a> <a class="reference external" href="https://pythonhosted.org/pyserial/pyserial_api.html#serial.Serial" title="(in pySerial v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serial</span></code></a> object due to the nature of the interface.</p>
@@ -688,7 +688,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=2fc12ed8"></script>
+</div><script src="_static/documentation_options.js?v=e65e8e50"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
