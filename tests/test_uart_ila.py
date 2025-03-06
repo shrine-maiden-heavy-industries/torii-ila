@@ -33,7 +33,7 @@ uart_tx = Signal()
 class UARTILADut(Elaboratable):
 	def __init__(self) -> None:
 		self.ila = UARTIntegratedLogicAnalyzer(
-			divisor = 1,
+			divisor = 16,
 			tx = uart_tx,
 			signals = [
 				a, b, c, d
@@ -62,12 +62,11 @@ class UARTILATests(ToriiTestCase):
 		byte = 0
 		# Read in byte
 		for idx in range(8):
+			yield from self.step(15)
 			byte |= (yield uart_tx) << idx
-			yield Settle()
-			yield
 		# Read stop bit
+		yield from self.step(15)
 		self.assertEqual((yield uart_tx), 1)
-		yield
 
 		return byte
 
