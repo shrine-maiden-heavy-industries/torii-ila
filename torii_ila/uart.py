@@ -6,21 +6,22 @@ UART Based ILA and backhaul interface.
 
 '''
 
-from collections.abc        import Iterable, Generator
+from collections.abc        import Generator, Iterable
 from itertools              import chain, islice
 from typing                 import Self
 
-from torii                  import Cat, DomainRenamer, Elaboratable, Module, Signal
-from torii.hdl.dsl          import FSM
-from torii.lib.stdio.serial import AsyncSerialTX
-
 from serial                 import Serial
 
-from .ila                   import StreamILA
-from .backhaul              import ILABackhaulInterface
+from torii.hdl.ast          import Cat, Signal
+from torii.hdl.dsl          import FSM, Module
+from torii.hdl.ir           import Elaboratable
+from torii.hdl.xfrm         import DomainRenamer
+from torii.lib.stdio.serial import AsyncSerialTX
+
 from ._bits                 import bits
 from ._cobs                 import RCOBSEncoder, decode_rcobs
-
+from .backhaul              import ILABackhaulInterface
+from .ila                   import StreamILA
 
 __all__ = (
 	'UARTIntegratedLogicAnalyzerBackhaul',
@@ -449,6 +450,6 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 		# Fix up the lock domain, if needed
 		if self._domain != 'sync':
-			m = DomainRenamer({'sync': self._domain})(m)
+			m = DomainRenamer(sync = self._domain)(m)
 
 		return m

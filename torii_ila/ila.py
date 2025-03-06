@@ -4,8 +4,11 @@
 from collections.abc import Iterable
 from typing          import Self
 
-from torii           import Cat, DomainRenamer, Elaboratable, Memory, Module, Signal
-from torii.hdl.dsl   import FSM
+from torii.hdl.ast   import Cat, Signal
+from torii.hdl.dsl   import FSM, Module
+from torii.hdl.ir    import Elaboratable
+from torii.hdl.mem   import Memory
+from torii.hdl.xfrm  import DomainRenamer
 from torii.lib.cdc   import FFSynchronizer
 from torii.lib.fifo  import AsyncFIFOBuffered
 
@@ -304,7 +307,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 		# Adjust our sampling domain appropriately
 		if self._sampling_domain != 'sync':
-			return DomainRenamer({'sync': self._sampling_domain})(m)
+			return DomainRenamer(sync = self._sampling_domain)(m)
 
 		return m
 
@@ -618,6 +621,6 @@ class StreamILA(Elaboratable):
 
 		# Adjust our domain appropriately
 		if self.domain != 'sync':
-			return DomainRenamer({'sync': self.domain})(m)
+			return DomainRenamer(sync = self.domain)(m)
 
 		return m

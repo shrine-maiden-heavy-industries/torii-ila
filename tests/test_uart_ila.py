@@ -4,8 +4,9 @@
 import sys
 from pathlib       import Path
 
-
-from torii         import Elaboratable, Module, Signal
+from torii.hdl.ast import Signal
+from torii.hdl.dsl import Module
+from torii.hdl.ir  import Elaboratable
 from torii.sim     import Settle
 from torii.test    import ToriiTestCase
 

@@ -10,8 +10,9 @@ import time
 from collections.abc                            import Generator, Iterable
 from typing                                     import Self
 
-from torii                                      import Cat, Elaboratable, Module, Signal
-from torii.hdl.dsl                              import FSM
+from torii.hdl.ast                              import Cat, Signal
+from torii.hdl.dsl                              import FSM, Module
+from torii.hdl.ir                               import Elaboratable
 from torii.build.plat                           import Platform
 
 from usb_construct.emitters                     import DeviceDescriptorCollection

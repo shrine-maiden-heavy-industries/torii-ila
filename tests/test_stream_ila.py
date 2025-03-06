@@ -4,7 +4,10 @@
 import sys
 from pathlib       import Path
 
-from torii         import ClockDomain, Elaboratable, Module, Signal
+from torii.hdl.ast import Signal
+from torii.hdl.cd  import ClockDomain
+from torii.hdl.dsl import Module
+from torii.hdl.ir  import Elaboratable
 from torii.sim     import Settle
 from torii.test    import ToriiTestCase
 

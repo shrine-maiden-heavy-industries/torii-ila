@@ -21,7 +21,7 @@ from pathlib                               import Path
 from enum                                  import Enum
 from subprocess                            import CalledProcessError
 
-from torii                                 import (
+from torii.hdl                             import (
 	ClockDomain, ClockSignal, Const, Elaboratable, Instance, Module, Signal, ResetSignal
 )
 from torii.build                           import Platform

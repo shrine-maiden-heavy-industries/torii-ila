@@ -6,7 +6,8 @@
 # It can be removed once Torii gets a sane stream impl internally and SOL is
 # ported to use that.
 
-from torii import Signal, Record
+from torii.hdl.ast import Signal
+from torii.hdl.rec import Record
 
 __all__ = (
 	'StreamInterface',

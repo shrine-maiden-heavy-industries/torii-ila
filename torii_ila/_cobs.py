@@ -3,7 +3,9 @@
 
 from typing    import Self
 
-from torii     import Elaboratable, Module, Signal
+from torii.hdl.ast import Signal
+from torii.hdl.dsl import Module
+from torii.hdl.ir  import Elaboratable
 
 class RCOBSEncoder(Elaboratable):
 	'''
