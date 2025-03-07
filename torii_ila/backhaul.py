@@ -116,6 +116,24 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 
 		self.samples = self._parse_samples(self._ingest_samples())
 
+	def update(self: Self) -> None:
+		'''
+		Like :py:meth:`refresh` but appends the ingested samples rather than replacing them.
+
+		This allows you to build a bigger ILA sample buffer locally out of multiple captures from the
+		device under test.
+
+		Note
+		----
+		Due to the latency and other factors, the signals in the concatenated samples buffers will likely
+		not be contiguous.
+		'''
+
+		if self.samples is None:
+			self.refresh()
+		else:
+			self.samples.extend(self._parse_samples(self._ingest_samples()))
+
 	def enumerate(self: Self) -> Generator[tuple[float, Sample]]:
 		'''
 		Iterate over all of the samples received from our backhaul interface and format them
