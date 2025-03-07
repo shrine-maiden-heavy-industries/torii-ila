@@ -7,6 +7,7 @@ UART Based ILA and backhaul interface.
 '''
 
 from collections.abc        import Generator, Iterable
+from enum                   import IntEnum, unique
 from itertools              import chain, islice
 from typing                 import Self
 
@@ -16,7 +17,7 @@ from torii.hdl.ast          import Cat, Signal
 from torii.hdl.dsl          import FSM, Module
 from torii.hdl.ir           import Elaboratable
 from torii.hdl.xfrm         import DomainRenamer
-from torii.lib.stdio.serial import AsyncSerialTX
+from torii.lib.stdio.serial import AsyncSerial
 
 from ._bits                 import bits
 from ._cobs                 import RCOBSEncoder, decode_rcobs
@@ -24,9 +25,23 @@ from .backhaul              import ILABackhaulInterface
 from .ila                   import StreamILA
 
 __all__ = (
+	'UARTILACommand',
 	'UARTIntegratedLogicAnalyzerBackhaul',
 	'UARTIntegratedLogicAnalyzer',
 )
+
+@unique
+class UARTILACommand(IntEnum):
+	''' These are commands the UART ILA knows about '''
+
+	NONE   = 0x00
+	''' No command '''
+	FLUSH  = 0x01
+	''' Flush the ILA Sample memory down the UART. '''
+	STREAM = 0x02
+	''' Send the ILA sample memory down the UART until ``UARTILACommand.STOP`` is sent. '''
+	STOP   = 0x03
+	''' Stop the ILA from sending sample stream down the UART. '''
 
 class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 	'''
@@ -106,16 +121,7 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 			while (chunk := tuple(islice(itr, sample_width))):
 				yield chunk
 
-		# TODO(aki): We still need to figure out how to deal with the firehose if we start
-		#            capturing in the middle.
-		#
-		#            There are two things we can possibly do:
-		#            	1. Read until we hit the EOF marker, then read again to the next marker,
-		#                  then throw away the first read as it may have been partial
-		#               2. Have a lockout so the ILA will only send data when requested, and prevent
-		#                  re-triggering when the UART is still sending data.
-		#
-		#            I'm not sure which is the best option tbh.
+		self._port.write(UARTILACommand.FLUSH.to_bytes(length = 1))
 
 		# Consume up to the EOF marker
 		raw = self._port.read_until(b'\x00')
@@ -150,6 +156,9 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	tx : Signal
 		The UART Transmit signal to use.
+
+	rx : Signal
+		The UART Receive signal to use.
 
 	signals : Iterable[torii.Signal]
 		The signals to capture with the ILA.
@@ -249,7 +258,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 	def __init__(
 		self: Self, *,
 		# UART Settings
-		divisor: int, tx: Signal,
+		divisor: int, tx: Signal, rx: Signal,
 		# ILA Settings
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 50e6, prologue_samples: int = 1,
@@ -258,6 +267,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 		self.divisor = divisor
 		self.tx      = tx
+		self.rx      = rx
 		self.idle    = Signal()
 
 		self.ila = StreamILA(
@@ -368,30 +378,59 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 		m.submodules.ila   = ila   = self.ila
 		m.submodules.rcobs = rcobs = RCOBSEncoder()
-		m.submodules.uart  = uart  = AsyncSerialTX(divisor = self.divisor)
+		m.submodules.uart  = uart  = AsyncSerial(divisor = self.divisor)
 
-		data     = Signal.like(ila.stream.payload)
+		data_tx  = Signal.like(ila.stream.payload)
+		data_rx  = Signal.like(uart.rx.data, decoder = UARTILACommand)
 		to_send  = Signal(range(ila.bytes_per_sample + 1))
 		finalize = Signal()
+		send     = Signal()
+		stream   = Signal()
 
 		m.d.comb += [
-			self.tx.eq(uart.o),
+			# Connect the UART
+			self.tx.eq(uart.tx.o),
+			uart.rx.i.eq(self.rx),
 			# Glue the rCOBS encoder to the UARTs face
-			rcobs.raw.eq(data[0:8]),
-			uart.data.eq(rcobs.enc),
-			uart.ack.eq(rcobs.vld),
-			rcobs.ack.eq(uart.rdy),
+			rcobs.raw.eq(data_tx[0:8]),
+			uart.tx.data.eq(rcobs.enc),
+			uart.tx.ack.eq(rcobs.vld),
+			rcobs.ack.eq(uart.tx.rdy),
+
 		]
 
-		with m.FSM() as fsm:
+		with m.FSM(name = 'rx') as fsm:
+			m.d.comb += [ uart.rx.ack.eq(fsm.ongoing('IDLE')), ]
+
+			with m.State('IDLE'):
+				with m.If(uart.rx.rdy):
+					m.d.sync += [ data_rx.eq(uart.rx.data), ]
+					m.next = 'CMD'
+
+			with m.State('CMD'):
+				with m.Switch(data_rx):
+					with m.Case(UARTILACommand.FLUSH):
+						m.d.sync += [ send.eq(1), ]
+					with m.Case(UARTILACommand.STREAM):
+						m.d.sync += [
+							send.eq(1),
+							stream.eq(1),
+						]
+					with m.Case(UARTILACommand.STOP):
+						m.d.sync += [ stream.eq(0), ]
+
+				m.d.sync += [ data_rx.eq(0), ]
+				m.next = 'IDLE'
+
+		with m.FSM(name = 'tx') as fsm:
 			m.d.comb += [ self.idle.eq(fsm.ongoing('IDLE')), ]
 
 			with m.State('IDLE'):
-				m.d.comb += [ ila.stream.ready.eq(1), ]
+				m.d.comb += [ ila.stream.ready.eq(send), ]
 
-				with m.If(ila.stream.valid):
+				with m.If(ila.stream.valid & send):
 					m.d.sync += [
-						data.eq(ila.stream.payload),
+						data_tx.eq(ila.stream.payload),
 						to_send.eq(ila.bytes_per_sample - 1),
 					]
 					# If we're coming out of idle we need to strobe the rCOBS encode to latch
@@ -409,7 +448,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 						m.d.sync += [
 							to_send.eq(to_send - 1),
-							data.eq(data[8:]),
+							data_tx.eq(data_tx[8:]),
 						]
 					# Otherwise, wrap up
 					with m.Else():
@@ -418,7 +457,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						# In the case where the stream has data to be slurped out, do so for the next byte
 						with m.If(ila.stream.valid):
 							m.d.sync += [
-								data.eq(ila.stream.payload),
+								data_tx.eq(ila.stream.payload),
 								to_send.eq(ila.bytes_per_sample - 1),
 							]
 						with m.Elif(finalize):
@@ -441,11 +480,13 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 			with m.State('FRAME'):
 				# Let the rCOBS encoder settle and wait for the UART to become ready so we can
 				# emit our framing byte
-				with m.If(uart.rdy & rcobs.rdy):
+				with m.If(uart.tx.rdy & rcobs.rdy):
 					m.d.comb += [
-						uart.data.eq(0x00),
-						uart.ack.eq(1),
+						uart.tx.data.eq(0x00),
+						uart.tx.ack.eq(1),
 					]
+					with m.If(~stream):
+						m.d.sync += [ send.eq(0), ]
 					m.next = 'IDLE'
 
 		# Fix up the lock domain, if needed

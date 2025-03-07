@@ -105,13 +105,14 @@ class Top(Elaboratable):
 		self.other      = Signal(8)
 
 		self.tx  = Signal()
+		self.rx  = Signal()
 
 		# Create a UART-Based ILA
 		self.ila = UARTIntegratedLogicAnalyzer(
 			# UART Divisor (clk // baud)
 			divisor = int(48e6 // SERIAL_PORT_BAUD),
-			# UART Transmit pin
-			tx = self.tx,
+			# UART IO
+			tx = self.tx, rx = self.rx,
 			# The initial set of signals we care about
 			signals = [
 				self.pll_locked,
@@ -132,8 +133,9 @@ class Top(Elaboratable):
 		led_r = platform.request('led_r', dir = 'o')
 		led_g = platform.request('led_g', dir = 'o')
 
-		# UART Transmit pin
+		# UART
 		uart_tx = platform.request('uart_tx', dir = 'o')
+		uart_rx = platform.request('uart_rx', dir = 'i')
 
 		# We don't want the USB stuff flapping in the wind, it makes most hosts cranky.
 		usb   = platform.request('usb')
@@ -182,12 +184,13 @@ class Top(Elaboratable):
 		with m.If(self.other[7] & self.ila.idle):
 			m.d.comb += [ self.ila.trigger.eq(1) ]
 
-		# Glue for the PLL, LEDs, and UART transmit
+		# Glue for the PLL, LEDs, and UART
 		m.d.comb += [
 			self.pll_locked.eq(pll.locked),
 			led_r.eq(self.ila.sampling),
 			led_g.eq(self.ila.complete),
 			uart_tx.eq(self.tx),
+			self.rx.eq(uart_rx),
 		]
 
 		return m
@@ -201,6 +204,7 @@ def main() -> int:
 	# Add our `uart_tx` pin so we can get a handle on it in the gatewares
 	plat.add_resources([
 		Resource('uart_tx', 0, Pins('edge_0:6', dir = 'o'), Attrs(IO_STANDARD = 'SB_LVCMOS')),
+		Resource('uart_rx', 0, Pins('edge_0:8', dir = 'i'), Attrs(IO_STANDARD = 'SB_LVCMOS')),
 	])
 
 	print('Building gateware...')

@@ -11,7 +11,7 @@ from torii.sim     import Settle
 from torii.test    import ToriiTestCase
 
 try:
-	from torii_ila.uart  import UARTIntegratedLogicAnalyzer
+	from torii_ila.uart  import UARTIntegratedLogicAnalyzer, UARTILACommand
 	from torii_ila._cobs import decode_rcobs
 except ImportError:
 	torii_ila_path = Path(__file__).resolve().parent
@@ -19,7 +19,7 @@ except ImportError:
 	if (torii_ila_path.parent / 'torii_ila').is_dir():
 		sys.path.insert(0, str(torii_ila_path.parent))
 
-	from torii_ila.uart  import UARTIntegratedLogicAnalyzer
+	from torii_ila.uart  import UARTIntegratedLogicAnalyzer, UARTILACommand
 	from torii_ila._cobs import decode_rcobs
 
 
@@ -29,12 +29,13 @@ c = Signal(8)
 d = Signal(16)
 
 uart_tx = Signal()
+uart_rx = Signal(reset = 1)
 
 class UARTILADut(Elaboratable):
 	def __init__(self) -> None:
 		self.ila = UARTIntegratedLogicAnalyzer(
 			divisor = 16,
-			tx = uart_tx,
+			tx = uart_tx, rx = uart_rx,
 			signals = [
 				a, b, c, d
 			],
@@ -62,13 +63,25 @@ class UARTILATests(ToriiTestCase):
 		byte = 0
 		# Read in byte
 		for idx in range(8):
-			yield from self.step(15)
+			yield from self.step(16)
 			byte |= (yield uart_tx) << idx
 		# Read stop bit
-		yield from self.step(15)
+		yield from self.step(16)
 		self.assertEqual((yield uart_tx), 1)
 
 		return byte
+
+	def uart_write_byte(self, byte: int):
+		# Write the start bit
+		yield uart_rx.eq(0)
+		yield from self.step(16)
+		# Data bits
+		for idx in range(8):
+			yield uart_rx.eq(byte >> idx)
+			yield from self.step(16)
+		# Stop bits
+		yield uart_rx.eq(1)
+		yield from self.step(16)
 
 	@ToriiTestCase.simulation
 	def test_capture(self):
@@ -115,7 +128,11 @@ class UARTILATests(ToriiTestCase):
 			yield self.dut.ila.trigger.eq(0)
 			yield Settle()
 			yield
+			yield from self.wait_until_high(self.dut.ila.complete)
+			yield Settle()
+			yield
 			yield from self.step(512)
+			yield from self.uart_write_byte(UARTILACommand.FLUSH)
 
 
 		sig_gen(self)
