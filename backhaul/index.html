@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/backhaul/index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>ILA Backhaul Interface - Torii ILA 0.1.1.dev30 documentation</title>
+        <title>ILA Backhaul Interface - Torii ILA 0.1.1.dev31 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev30 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev31 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev30 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev31 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -295,6 +295,20 @@ captures and the like.</p></li>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torii_ila.backhaul.ILABackhaulInterface.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.backhaul.ILABackhaulInterface.update" title="Link to this definition">¶</a></dt>
+<dd><p>Like <a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface.refresh" title="torii_ila.backhaul.ILABackhaulInterface.refresh"><code class="xref py py-meth docutils literal notranslate"><span class="pre">refresh()</span></code></a> but appends the ingested samples rather than replacing them.</p>
+<p>This allows you to build a bigger ILA sample buffer locally out of multiple captures from the
+device under test.
+:rtype: <span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the latency and other factors, the signals in the concatenated samples buffers will likely
+not be contiguous.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -398,6 +412,7 @@ we can’t advance the VCD without it.
 <li><a class="reference internal" href="#">ILA Backhaul Interface</a><ul>
 <li><a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface"><code class="docutils literal notranslate"><span class="pre">ILABackhaulInterface</span></code></a><ul>
 <li><a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface.refresh"><code class="docutils literal notranslate"><span class="pre">ILABackhaulInterface.refresh()</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface.update"><code class="docutils literal notranslate"><span class="pre">ILABackhaulInterface.update()</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface.enumerate"><code class="docutils literal notranslate"><span class="pre">ILABackhaulInterface.enumerate()</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila.backhaul.ILABackhaulInterface.write_vcd"><code class="docutils literal notranslate"><span class="pre">ILABackhaulInterface.write_vcd()</span></code></a></li>
 </ul>
@@ -413,7 +428,7 @@ we can’t advance the VCD without it.
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=7295f394"></script>
+</div><script src="../_static/documentation_options.js?v=165a23d0"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
