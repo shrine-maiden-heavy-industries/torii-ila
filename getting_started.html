@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/getting_started.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Getting Started - Torii ILA 0.1.1.dev29 documentation</title>
+        <title>Getting Started - Torii ILA 0.1.1.dev30 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev29 documentation</div></a>
+      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev30 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev29 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev30 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -510,19 +510,19 @@
 <h3>Conclusion and UART Notes<a class="headerlink" href="#conclusion-and-uart-notes" title="Link to this heading">¶</a></h3>
 <p>And with that, you’re done! You’re all ready to go and use Torii ILA in your projects.</p>
 <p>The <a class="reference internal" href="ila/uart.html"><span class="std std-doc">UART</span></a> ILA is much the same, the interface for everything is basically identical except in two spots. The first being in the actual construction of the ILA module itself:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">110</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">UARTIntegratedLogicAnalyzer</span><span class="p">(</span>
-<span class="linenos">111</span>			<span class="c1"># UART Divisor (clk // baud)</span>
-<span class="linenos">112</span>			<span class="n">divisor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">48e6</span> <span class="o">//</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">),</span>
-<span class="linenos">113</span>			<span class="c1"># UART Transmit pin</span>
-<span class="linenos">114</span>			<span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">110</span>		<span class="c1"># Create a UART-Based ILA</span>
+<span class="linenos">111</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">UARTIntegratedLogicAnalyzer</span><span class="p">(</span>
+<span class="linenos">112</span>			<span class="c1"># UART Divisor (clk // baud)</span>
+<span class="linenos">113</span>			<span class="n">divisor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">48e6</span> <span class="o">//</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">),</span>
+<span class="linenos">114</span>			<span class="c1"># UART IO</span>
 </pre></div>
 </div>
 <p>It has 2 extra kwargs, the first being <code class="docutils literal notranslate"><span class="pre">divisor</span></code>, this is the divisor used to drive the UART to reach the requested baud on the output clock domain, it should be <code class="docutils literal notranslate"><span class="pre">int(clk_speed</span> <span class="pre">//</span> <span class="pre">baud)</span></code>. The second is the <code class="docutils literal notranslate"><span class="pre">tx</span></code> parameter, this is an input signal that should be tied to the boards UART transmit pin, as the UART ILA is unidirectional it only needs <code class="docutils literal notranslate"><span class="pre">tx</span></code>, not <code class="docutils literal notranslate"><span class="pre">rx</span></code>.</p>
 <p>The second difference is in the backhaul interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">214</span>	<span class="k">except</span> <span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="linenos">215</span>		<span class="c1"># dfu-util complains because we don&#39;t come back as a DFU device</span>
-<span class="linenos">216</span>		<span class="c1"># In that case we don&#39;t care there was an error</span>
-<span class="linenos">217</span>		<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">251</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">214</span>			<span class="n">script_after_read</span> <span class="o">=</span> <span class="s1">&#39;scratchpad -copy abc9.script.flow3 abc9.script</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="linenos">215</span>			<span class="n">synth_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-abc9&#39;</span><span class="p">],</span>
+<span class="linenos">216</span>			<span class="n">nextpnr_opts</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;--seed 0&#39;</span> <span class="p">]</span>
+<span class="linenos">217</span>		<span class="p">)</span>
 </pre></div>
 </div>
 <p>The UART backhaul specifically wants a pre-configured <a class="reference external" href="https://github.com/pyserial/pyserial">pyserial</a> <a class="reference external" href="https://pythonhosted.org/pyserial/pyserial_api.html#serial.Serial" title="(in pySerial v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serial</span></code></a> object due to the nature of the interface.</p>
@@ -576,8 +576,8 @@
 <span class="linenos"> 7</span>     <span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">UARTIntegratedLogicAnalyzer</span><span class="p">(</span>
 <span class="linenos"> 8</span>             <span class="c1"># UART Divisor (clk // baud)</span>
 <span class="linenos"> 9</span>             <span class="n">divisor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">48e6</span> <span class="o">//</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">),</span>
-<span class="linenos">10</span>             <span class="c1"># UART Transmit pin</span>
-<span class="linenos">11</span>             <span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span>
+<span class="linenos">10</span>             <span class="c1"># UART IO</span>
+<span class="linenos">11</span>             <span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span> <span class="n">rx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">,</span>
 <span class="linenos">12</span>             <span class="c1"># The initial set of signals we care about</span>
 <span class="linenos">13</span>             <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span>
 <span class="linenos">14</span>                     <span class="c1"># List of Signals</span>
@@ -688,7 +688,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=f713e72b"></script>
+</div><script src="_static/documentation_options.js?v=7295f394"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

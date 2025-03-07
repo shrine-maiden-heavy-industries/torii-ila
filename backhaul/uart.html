@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/backhaul/uart.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>UART ILA Backhaul - Torii ILA 0.1.1.dev29 documentation</title>
+        <title>UART ILA Backhaul - Torii ILA 0.1.1.dev30 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev29 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev30 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev29 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev30 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -287,6 +287,36 @@ byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.uart.</span></span><span class="sig-name descname"><span class="pre">UARTILACommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.uart.UARTILACommand" title="Link to this definition">¶</a></dt>
+<dd><p>These are commands the UART ILA knows about</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.NONE" title="Link to this definition">¶</a></dt>
+<dd><p>No command</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.FLUSH">
+<span class="sig-name descname"><span class="pre">FLUSH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.FLUSH" title="Link to this definition">¶</a></dt>
+<dd><p>Flush the ILA Sample memory down the UART.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.STREAM">
+<span class="sig-name descname"><span class="pre">STREAM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.STREAM" title="Link to this definition">¶</a></dt>
+<dd><p>Send the ILA sample memory down the UART until <code class="docutils literal notranslate"><span class="pre">UARTILACommand.STOP</span></code> is sent.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.STOP">
+<span class="sig-name descname"><span class="pre">STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.STOP" title="Link to this definition">¶</a></dt>
+<dd><p>Stop the ILA from sending sample stream down the UART.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -346,6 +376,13 @@ byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
             <ul>
 <li><a class="reference internal" href="#">UART ILA Backhaul</a><ul>
 <li><a class="reference internal" href="#torii_ila.uart.UARTIntegratedLogicAnalyzerBackhaul"><code class="docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzerBackhaul</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand"><code class="docutils literal notranslate"><span class="pre">UARTILACommand</span></code></a><ul>
+<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.NONE"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.NONE</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.FLUSH"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.FLUSH</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.STREAM"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.STREAM</span></code></a></li>
+<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.STOP"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.STOP</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -357,7 +394,7 @@ byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f713e72b"></script>
+</div><script src="../_static/documentation_options.js?v=7295f394"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

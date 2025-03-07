@@ -291,8 +291,8 @@ If you really just need something to drop in,
 		self.ila = UARTIntegratedLogicAnalyzer(
 			# UART Divisor (clk // baud)
 			divisor = int(48e6 // SERIAL_PORT_BAUD),
-			# UART Transmit pin
-			tx = self.tx,
+			# UART IO
+			tx = self.tx, rx = self.rx,
 			# The initial set of signals we care about
 			signals = [
 				# List of Signals
