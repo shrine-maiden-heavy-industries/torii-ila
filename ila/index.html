@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev33 documentation</title>
+        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev37 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev33 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev37 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev33 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev37 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -394,9 +394,8 @@ the sample memory size after is it made concrete.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.ila.StreamILA">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">StreamILA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.StreamILA" title="Link to this definition">¶</a></dt>
-<dd><p>A simple implementation of a stream-based ILA for use in the the UART and USB ILA’s.</p>
-<p>It uses the <a class="reference internal" href="../internal.html#torii_ila._stream.StreamInterface" title="torii_ila._stream.StreamInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii_ila._stream.StreamInterface</span></code></a>, which for the moment is an implementation
-detail.</p>
+<dd><p>A simple implementation of a stream-based ILA for use in the the UART and USB ILA’s based on
+the Torii <code class="xref py py-class docutils literal notranslate"><span class="pre">torii.lib.stream.simple.StreamInterface</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -428,7 +427,7 @@ to the <code class="docutils literal notranslate"><span class="pre">sampling_dom
 <li><p><strong>trigger</strong> (<em>Signal</em><em>, </em><em>in</em>) – ILA Sample start trigger strobe.</p></li>
 <li><p><strong>sampling</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when the ILA is actively sampling.</p></li>
 <li><p><strong>complete</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
-<li><p><strong>stream</strong> (<a class="reference internal" href="../internal.html#torii_ila._stream.StreamInterface" title="torii_ila._stream.StreamInterface"><em>StreamInterface</em></a>) – The output stream of ILA samples.</p></li>
+<li><p><strong>stream</strong> (<em>StreamInterface</em>) – The output stream of ILA samples.</p></li>
 </ul>
 </dd>
 </dl>
@@ -597,7 +596,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=dfc58358"></script>
+</div><script src="../_static/documentation_options.js?v=978bc409"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

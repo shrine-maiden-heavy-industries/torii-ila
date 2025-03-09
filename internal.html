@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/internal.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Internal Implementation Details - Torii ILA 0.1.1.dev33 documentation</title>
+        <title>Internal Implementation Details - Torii ILA 0.1.1.dev37 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev33 documentation</div></a>
+      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev37 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev33 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev37 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -331,85 +331,6 @@ complete rCOBS message.</p>
 </dl>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="torii_ila._stream.StreamInterface">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila._stream.</span></span><span class="sig-name descname"><span class="pre">StreamInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila._stream.StreamInterface" title="Link to this definition">¶</a></dt>
-<dd><p>A very simple record implementing a unidirectional stream interface.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Stream width in bits.</p>
-</dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ready</strong> (<em>Signal</em><em>, </em><em>recv</em>) – Indicates that the receiver will accept the data at the next active
-clock edge.</p></li>
-<li><p><strong>first</strong> (<em>Signal</em><em>, </em><em>send</em>) – Indicates that the data is the first of the current packet.</p></li>
-<li><p><strong>last</strong> (<em>Signal</em><em>, </em><em>send</em>) – Indicates that the data is the last of the current packet.</p></li>
-<li><p><strong>payload</strong> (<em>Signal</em><em>(</em><em>data_width</em><em>)</em><em>, </em><em>send</em>) – The data to be transmitted.</p></li>
-<li><p><strong>valid</strong> (<em>Signal</em><em>(</em><em>valid_width</em><em>)</em><em>, </em><em>send</em>) – Indicates  <code class="docutils literal notranslate"><span class="pre">data</span></code> is part of this transfer.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila._stream.StreamInterface.attach">
-<span class="sig-name descname"><span class="pre">attach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila._stream.StreamInterface.attach" title="Link to this definition">¶</a></dt>
-<dd><p>Attach to a target stream.</p>
-<p>This method connects our <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code>, and <code class="docutils literal notranslate"><span class="pre">data</span></code> fields to
-the downstream facing <code class="docutils literal notranslate"><span class="pre">stream</span></code>, and their <code class="docutils literal notranslate"><span class="pre">ready</span></code> field to ours.</p>
-<p>This establishes a connection to where we are the originating stream, and <code class="docutils literal notranslate"><span class="pre">stream</span></code>
-is the receiving stream.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">data</span>  <span class="o">-&gt;</span> <span class="n">stream</span><span class="o">.</span><span class="n">data</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">-&gt;</span> <span class="n">stream</span><span class="o">.</span><span class="n">valid</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">first</span> <span class="o">-&gt;</span> <span class="n">stream</span><span class="o">.</span><span class="n">first</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">last</span>  <span class="o">-&gt;</span> <span class="n">stream</span><span class="o">.</span><span class="n">last</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">&lt;-</span> <span class="n">stream</span><span class="o">.</span><span class="n">ready</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>stream</strong> (<a class="reference internal" href="#torii_ila._stream.StreamInterface" title="torii_ila._stream.StreamInterface"><em>torii_ila._stream.StreamInterface</em></a>) – The stream we are attaching to.</p></li>
-<li><p><strong>omit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><em>set</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – A set of additional stream fields to exclude from the tap connection.
-(default: {})</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila._stream.StreamInterface.stream_eq">
-<span class="sig-name descname"><span class="pre">stream_eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila._stream.StreamInterface.stream_eq" title="Link to this definition">¶</a></dt>
-<dd><p>Receive from target stream.</p>
-<p>This method connects the <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code>, and <code class="docutils literal notranslate"><span class="pre">data</span></code> from <code class="docutils literal notranslate"><span class="pre">stream</span></code> to ours,
-and our <code class="docutils literal notranslate"><span class="pre">ready</span></code> field to theirs.</p>
-<p>This establishes a connection to where <code class="docutils literal notranslate"><span class="pre">stream</span></code> is the originating stream, and we are the receiving
-stream.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">data</span>  <span class="o">&lt;-</span> <span class="n">stream</span><span class="o">.</span><span class="n">data</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">&lt;-</span> <span class="n">stream</span><span class="o">.</span><span class="n">valid</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">first</span> <span class="o">&lt;-</span> <span class="n">stream</span><span class="o">.</span><span class="n">first</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">last</span>  <span class="o">&lt;-</span> <span class="n">stream</span><span class="o">.</span><span class="n">last</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">-&gt;</span> <span class="n">stream</span><span class="o">.</span><span class="n">ready</span>
-</pre></div>
-</div>
-<p>This function is effectively the inverse of <a class="reference internal" href="#torii_ila._stream.StreamInterface.attach" title="torii_ila._stream.StreamInterface.attach"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach()</span></code></a>, in fact, it’s implementation
-is just:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stream</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>It is provided as a more logical way to connect streams.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>stream</strong> (<a class="reference internal" href="#torii_ila._stream.StreamInterface" title="torii_ila._stream.StreamInterface"><em>torii_ila._stream.StreamInterface</em></a>) – The stream to attach to this stream.</p></li>
-<li><p><strong>omit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><em>set</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – A set of additional stream fields to exclude from the tap connection.
-(default: {})</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 
         </article>
@@ -471,11 +392,6 @@ is just:</p>
 <li><a class="reference internal" href="#torii_ila._bits.bits"><code class="docutils literal notranslate"><span class="pre">bits</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila._cobs.RCOBSEncoder"><code class="docutils literal notranslate"><span class="pre">RCOBSEncoder</span></code></a></li>
 <li><a class="reference internal" href="#torii_ila._cobs.decode_rcobs"><code class="docutils literal notranslate"><span class="pre">decode_rcobs()</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila._stream.StreamInterface"><code class="docutils literal notranslate"><span class="pre">StreamInterface</span></code></a><ul>
-<li><a class="reference internal" href="#torii_ila._stream.StreamInterface.attach"><code class="docutils literal notranslate"><span class="pre">StreamInterface.attach()</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila._stream.StreamInterface.stream_eq"><code class="docutils literal notranslate"><span class="pre">StreamInterface.stream_eq()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -487,7 +403,7 @@ is just:</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=dfc58358"></script>
+</div><script src="_static/documentation_options.js?v=978bc409"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
