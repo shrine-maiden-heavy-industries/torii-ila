@@ -1,18 +1,17 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
 
-from collections.abc import Iterable
-from typing          import Self
+from collections.abc         import Iterable
+from typing                  import Self
 
-from torii.hdl.ast   import Cat, Signal
-from torii.hdl.dsl   import FSM, Module
-from torii.hdl.ir    import Elaboratable
-from torii.hdl.mem   import Memory
-from torii.hdl.xfrm  import DomainRenamer
-from torii.lib.cdc   import FFSynchronizer
-from torii.lib.fifo  import AsyncFIFOBuffered
-
-from ._stream        import StreamInterface
+from torii.hdl.ast           import Cat, Signal
+from torii.hdl.dsl           import FSM, Module
+from torii.hdl.ir            import Elaboratable
+from torii.hdl.mem           import Memory
+from torii.hdl.xfrm          import DomainRenamer
+from torii.lib.cdc           import FFSynchronizer
+from torii.lib.fifo          import AsyncFIFOBuffered
+from torii.lib.stream.simple import StreamInterface
 
 __all__ = (
 	'IntegratedLogicAnalyzer',
@@ -313,11 +312,8 @@ class IntegratedLogicAnalyzer(Elaboratable):
 
 class StreamILA(Elaboratable):
 	'''
-	A simple implementation of a stream-based ILA for use in the the UART and USB ILA's.
-
-
-	It uses the :py:class:`torii_ila._stream.StreamInterface`, which for the moment is an implementation
-	detail.
+	A simple implementation of a stream-based ILA for use in the the UART and USB ILA's based on
+	the Torii :py:class:`torii.lib.stream.simple.StreamInterface`
 
 	Parameters
 	----------
@@ -538,7 +534,7 @@ class StreamILA(Elaboratable):
 
 		m.d.comb += [
 			ila.sample_index.eq(curr_sample),
-			i_domain_stream.payload.eq(ila.sample_capture),
+			i_domain_stream.data.eq(ila.sample_capture),
 		]
 
 		with m.FSM(name = 'StreamILA'):
@@ -590,13 +586,13 @@ class StreamILA(Elaboratable):
 		if self._o_domain != self.domain:
 			i_domain_signals = Cat(
 				i_domain_stream.first,
-				i_domain_stream.payload,
+				i_domain_stream.data,
 				i_domain_stream.last,
 			)
 
 			o_domain_signals = Cat(
 				self.stream.first,
-				self.stream.payload,
+				self.stream.data,
 				self.stream.last
 			)
 

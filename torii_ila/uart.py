@@ -380,7 +380,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		m.submodules.rcobs = rcobs = RCOBSEncoder()
 		m.submodules.uart  = uart  = AsyncSerial(divisor = self.divisor)
 
-		data_tx  = Signal.like(ila.stream.payload)
+		data_tx  = Signal.like(ila.stream.data)
 		data_rx  = Signal.like(uart.rx.data, decoder = UARTILACommand)
 		to_send  = Signal(range(ila.bytes_per_sample + 1))
 		finalize = Signal()
@@ -430,7 +430,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 				with m.If(ila.stream.valid & send):
 					m.d.sync += [
-						data_tx.eq(ila.stream.payload),
+						data_tx.eq(ila.stream.data),
 						to_send.eq(ila.bytes_per_sample - 1),
 					]
 					# If we're coming out of idle we need to strobe the rCOBS encode to latch
@@ -457,7 +457,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						# In the case where the stream has data to be slurped out, do so for the next byte
 						with m.If(ila.stream.valid):
 							m.d.sync += [
-								data_tx.eq(ila.stream.payload),
+								data_tx.eq(ila.stream.data),
 								to_send.eq(ila.bytes_per_sample - 1),
 							]
 						with m.Elif(finalize):
