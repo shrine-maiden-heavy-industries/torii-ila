@@ -7,23 +7,23 @@ USB Based ILA and backhaul interface.
 '''
 
 import time
-from collections.abc                            import Generator, Iterable
-from typing                                     import Self
+from collections.abc                     import Generator, Iterable
+from typing                              import Self
 
-from torii.hdl.ast                              import Cat, Signal
-from torii.hdl.dsl                              import FSM, Module
-from torii.hdl.ir                               import Elaboratable
-from torii.build.plat                           import Platform
+from torii.hdl.ast                       import Cat, Signal
+from torii.hdl.dsl                       import FSM, Module
+from torii.hdl.ir                        import Elaboratable
+from torii.build.plat                    import Platform
 
-from usb_construct.emitters                     import DeviceDescriptorCollection
-from sol_usb.gateware.usb.usb2.device           import USBDevice
-from sol_usb.gateware.usb.usb2.endpoints.stream import USBMultibyteStreamInEndpoint
+from usb_construct.emitters              import DeviceDescriptorCollection
+from torii_usb.usb.usb2.device           import USBDevice
+from torii_usb.usb.usb2.endpoints.stream import USBMultibyteStreamInEndpoint
 
 import usb
 
-from .ila                                       import StreamILA
-from .backhaul                                  import ILABackhaulInterface
-from ._bits                                     import bits
+from .ila                                import StreamILA
+from .backhaul                           import ILABackhaulInterface
+from ._bits                              import bits
 
 __all__ = (
 	'USBIntegratedLogicAnalyzerBackhaul',
@@ -196,15 +196,15 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		Indicates when sampling is completed and the buffer is full.
 
 	BULK_EP_NUM : int
-		The fixed USB Bulk Endpoint number for the SOL USB Device.
+		The fixed USB Bulk Endpoint number for the Torii-USB USB Device.
 		Value is set to ``1``.
 
 	USB_VID : int
-		The fixed USB Vendor ID for the SOL USB Device.
+		The fixed USB Vendor ID for the Torii-USB USB Device.
 		Value is set to ``0x1D50``.
 
 	USB_PID : int
-		The fixed USB Product ID for the SOL USB Device.
+		The fixed USB Product ID for the Torii-USB USB Device.
 		Value is set to ``0x6190``.
 	'''
 

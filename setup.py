@@ -54,7 +54,7 @@ setup(
 
 		# USB Backhaul
 		'usb': [
-			'sol-usb>=0.4.1,<1.0',
+			'torii-usb>=0.7.0,<1.0',
 			'libusb1>=1.8.1',
 			'pyusb',
 		],
@@ -68,7 +68,7 @@ setup(
 			# Board definition files
 			'torii-boards>=0.7.5,<1.0',
 			# USB ILA Example
-			'sol-usb>=0.4.1,<1.0',
+			'torii-usb>=0.7.0,<1.0',
 			'libusb1>=1.8.1',
 			'pyusb',
 			# UART ILA Example

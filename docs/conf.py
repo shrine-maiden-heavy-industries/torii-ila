@@ -45,7 +45,7 @@ todo_include_todos          = True
 intersphinx_mapping = {
 	'python': ('https://docs.python.org/3', None),
 	'torii':  ('https://torii.shmdn.link/', None),
-	'sol_usb':  ('https://sol.shmdn.link/', None),
+	'torii_usb':  ('https://torii-usb.shmdn.link/', None),
 	'serial': ('https://pythonhosted.org/pyserial/', None),
 }
 

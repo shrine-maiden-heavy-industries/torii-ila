@@ -8,7 +8,7 @@ Torii ILA is as the name implies, a [Torii] library, so make sure you have [Tori
 
 Depending on which [ILA Interface] you want, if any, there are some needed prerequisites.
 
-For the [USB] based ILA and backhaul interface, you need [pyusb] and [SOL] installed, and for [UART] support you need [pyserial]. There is also a [pyvcd] dependency regardless if you want USB and or UART ILA support, but that came free with the [Torii] install.
+For the [USB] based ILA and backhaul interface, you need [pyusb] and [Torii-USB] installed, and for [UART] support you need [pyserial]. There is also a [pyvcd] dependency regardless if you want USB and or UART ILA support, but that came free with the [Torii] install.
 
 To install Torii ILA as either [standalone](#standalone), with [USB support](#usb), with [UART support](#uart), or with [everything](#everything) simply follow the steps below.
 
@@ -89,6 +89,6 @@ From here on you can head over to [Getting Started] to see the basic usage and t
 [UART]: ./ila/uart.md
 [pyserial]: https://github.com/pyserial/pyserial
 [pyusb]: https://github.com/pyusb/pyusb
-[SOL]: https://github.com/shrine-maiden-heavy-industries/sol
+[Torii-USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb
 [pyvcd]: https://github.com/westerndigitalcorporation/pyvcd
 [Getting Started]: ./getting_started.md

@@ -8,7 +8,7 @@ aims to replace it directly.
 
 It provides several backhaul interfaces for getting the ILA samples off of the device and on to a host:
 
-* [USB] - Using [SOL]
+* [USB] - Using [Torii-USB]
 * [UART] - Using [`torii.lib.serial`]
 
 ## Getting Started
@@ -22,6 +22,7 @@ Torii ILA is licensed under the [BSD-3-Clause], the full text of which can be fo
 The documentation is licensed under the Creative Commons [CC-BY-SA 4.0] and can be found in the [`LICENSE.docs`] file
 
 [Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl/
+[Torii-USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb/
 [SOL]: https://github.com/shrine-maiden-heavy-industries/sol/
 [`torii.lib.serial`]: https://github.com/shrine-maiden-heavy-industries/torii-hdl/blob/main/torii/lib/stdio/serial.py
 [installation]: https://torii-ila.shmdn.link/install.html

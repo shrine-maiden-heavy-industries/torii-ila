@@ -22,7 +22,7 @@ First up is the actual gateware that will be run on the device, it's the example
 
 #### PLL Module
 
-The first big chunk is the PLL elaboratable, this is platform specific, but it shows how to set up an ICE40UP5K PLL for use as a USB device with [SOL].
+The first big chunk is the PLL elaboratable, this is platform specific, but it shows how to set up an ICE40UP5K PLL for use as a USB device with [Torii-USB].
 
 ```{eval-rst}
 .. literalinclude:: ../examples/bitsy_usb_ila.py
@@ -322,7 +322,7 @@ If you really just need something to drop in,
 [Torii Boards]: https://torii-boards.shmdn.link/
 [Surfer]: https://surfer-project.org/
 [gtkwave]: https://gtkwave.github.io/gtkwave/
-[SOL]: https://github.com/shrine-maiden-heavy-industries/sol
+[Torii-USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb
 [USB]: ./ila/usb.md
 [UART]: ./ila/uart.md
 [pyserial]: https://github.com/pyserial/pyserial
