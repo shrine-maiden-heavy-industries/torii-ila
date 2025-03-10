@@ -1,8 +1,0 @@
-sphinx
-furo
-sphinx-inline-tabs
-sphinxext-opengraph
-sphinxcontrib-mermaid
-sphinx-autodoc-typehints
-matplotlib
-myst-parser
