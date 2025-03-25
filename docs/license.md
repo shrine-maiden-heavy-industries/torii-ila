@@ -6,12 +6,18 @@ The Torii ILA documentation is licensed under the [CC-BY-SA 4.0], the full text 
 
 ## BSD-3-Clause
 
-```{include} ../LICENSE
+```{literalinclude} ../LICENSE
+---
+language: text
+---
 ```
 
 ## CC-BY-SA 4.0
 
-```{include} ../LICENSE.docs
+```{literalinclude} ../LICENSE.docs
+---
+language: text
+---
 ```
 
 [BSD-3-Clause]: https://spdx.org/licenses/BSD-3-Clause.html

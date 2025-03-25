@@ -7,12 +7,18 @@ getting_started
 ila/index
 backhaul/index
 
+Torii <https://torii.shmdn.link>
+```
+
+```{toctree}
+:caption: Development
+:hidden:
+
+Source Code <https://github.com/shrine-maiden-heavy-industries/torii-ila/>
+
 internal
 changelog
 license
-
-Torii <https://torii.shmdn.link>
-Source Code <https://github.com/shrine-maiden-heavy-industries/torii-ila/>
 ```
 
 # Torii ILA

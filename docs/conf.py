@@ -18,9 +18,8 @@ language  = 'en'
 
 extensions = [
 	'sphinx.ext.autodoc',
-	'sphinx.ext.doctest',
+	'sphinx.ext.extlinks',
 	'sphinx.ext.githubpages',
-	'sphinx.ext.graphviz',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.napoleon',
 	'sphinx.ext.todo',
@@ -36,10 +35,15 @@ source_suffix = {
 	'.md': 'markdown',
 }
 
-pygments_style              = 'monokai'
+extlinks = {
+	'issue': ('https://github.com/shrine-maiden-heavy-industries/torii-ila/issues/%s', 'torii-ila/%s'),
+	'pypi':  ('https://pypi.org/project/%s/', '%s'),
+}
+
+pygments_style              = 'default'
+pygments_dark_style         = 'monokai'
 autodoc_member_order        = 'bysource'
 autodoc_docstring_signature = False
-graphviz_output_format      = 'svg'
 todo_include_todos          = True
 
 intersphinx_mapping = {
@@ -49,12 +53,15 @@ intersphinx_mapping = {
 	'serial': ('https://pythonhosted.org/pyserial/', None),
 }
 
-napoleon_google_docstring              = True
+napoleon_google_docstring              = False
 napoleon_numpy_docstring               = True
 napoleon_use_ivar                      = True
 napoleon_use_admonition_for_notes      = True
 napoleon_use_admonition_for_examples   = True
 napoleon_use_admonition_for_references = True
+napoleon_custom_sections  = [
+	('Attributes', 'params_style'),
+]
 
 
 myst_heading_anchors = 3
