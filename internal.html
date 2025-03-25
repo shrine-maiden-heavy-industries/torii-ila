@@ -15,10 +15,9 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/internal.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Internal Implementation Details - Torii ILA 0.1.1.dev41 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
+        <title>Internal Implementation Details - Torii ILA 0.1.1.dev42 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/css/styles.css?v=582b5d23" />
@@ -28,20 +27,20 @@
 
 <style>
   body {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -178,7 +177,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev41 documentation</div></a>
+      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev42 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +201,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev41 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev42 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -210,7 +209,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="ila/index.html">Integrated Logic Analyzers</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Integrated Logic Analyzers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -223,11 +222,14 @@
 <li class="toctree-l2"><a class="reference internal" href="backhaul/usb.html">USB ILA Backhaul</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">Torii ILA Licenses</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
 
 </div>
@@ -296,14 +298,14 @@ algorithm was originally a Rust crate and can be found at: <a class="reference e
 <p>This encoder is just a pure implementation of the encoding logic for a single byte, and as such
 has a collection of status and control signals to indicate to the outside world its status.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw</strong> (<em>Signal</em><em>(</em><em>8</em><em>)</em><em>, </em><em>in</em>) – The raw byte to encode.</p></li>
-<li><p><strong>enc</strong> (<em>Signal</em><em>(</em><em>8</em><em>)</em><em>, </em><em>out</em>) – The rCOBS encoded byte. Not valid unless <code class="docutils literal notranslate"><span class="pre">vld</span></code> signal is high.</p></li>
-<li><p><strong>strb</strong> (<em>Signal</em><em>, </em><em>in</em>) – Strobe to signal to encode the byte in <code class="docutils literal notranslate"><span class="pre">raw</span></code>.</p></li>
-<li><p><strong>finish</strong> (<em>Signal</em><em>, </em><em>in</em>) – Flush the state of the encoder in preparation for next stream.</p></li>
-<li><p><strong>rdy</strong> (<em>Signal</em><em>, </em><em>out</em>) – Encoder ready signal, indicates when the encoder is ready for the next byte.</p></li>
-<li><p><strong>vld</strong> (<em>Signal</em><em>, </em><em>out</em>) – Value in <code class="docutils literal notranslate"><span class="pre">enc</span></code> is valid and can be latched.</p></li>
+<li><p><strong>raw</strong> (<em>Signal(8), in</em>) – The raw byte to encode.</p></li>
+<li><p><strong>enc</strong> (<em>Signal(8), out</em>) – The rCOBS encoded byte. Not valid unless <code class="docutils literal notranslate"><span class="pre">vld</span></code> signal is high.</p></li>
+<li><p><strong>strb</strong> (<em>Signal, in</em>) – Strobe to signal to encode the byte in <code class="docutils literal notranslate"><span class="pre">raw</span></code>.</p></li>
+<li><p><strong>finish</strong> (<em>Signal, in</em>) – Flush the state of the encoder in preparation for next stream.</p></li>
+<li><p><strong>rdy</strong> (<em>Signal, out</em>) – Encoder ready signal, indicates when the encoder is ready for the next byte.</p></li>
+<li><p><strong>vld</strong> (<em>Signal, out</em>) – Value in <code class="docutils literal notranslate"><span class="pre">enc</span></code> is valid and can be latched.</p></li>
 </ul>
 </dd>
 </dl>
@@ -403,7 +405,7 @@ complete rCOBS message.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=9801d21e"></script>
+</div><script src="_static/documentation_options.js?v=3551a2d2"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

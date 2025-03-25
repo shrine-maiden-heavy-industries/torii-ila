@@ -15,10 +15,9 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev41 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+        <title>Integrated Logic Analyzers - Torii ILA 0.1.1.dev42 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../_static/css/styles.css?v=582b5d23" />
@@ -28,20 +27,20 @@
 
 <style>
   body {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
       }
     }
@@ -178,7 +177,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev41 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev42 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +201,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev41 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev42 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -223,11 +222,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../backhaul/usb.html">USB ILA Backhaul</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../internal.html">Internal Implementation Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">Torii ILA Licenses</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
 </ul>
 
 </div>
@@ -291,20 +293,20 @@ to the <code class="docutils literal notranslate"><span class="pre">sampling_dom
 (default: 1)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>sample_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The width of the sample vector in bits.</p></li>
-<li><p><strong>sample_depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The depth of the ILA sample buffer in samples.</p></li>
-<li><p><strong>sample_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The outwards facing sample rate used for formatting output</p></li>
-<li><p><strong>sample_period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The period of time between samples in nanoseconds, equivalent to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sample_rate</span></code>.</p></li>
-<li><p><strong>prologue_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of samples to retain prior to the ILA <code class="docutils literal notranslate"><span class="pre">trigger</span></code> signal going high.</p></li>
-<li><p><strong>bits_per_sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The nearest power of 2 number of bits per sample.</p></li>
-<li><p><strong>bytes_per_sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of whole bytes per sample.</p></li>
-<li><p><strong>trigger</strong> (<em>Signal</em><em>, </em><em>in</em>) – ILA Sample start trigger strobe.</p></li>
-<li><p><strong>sampling</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when the ILA is actively sampling.</p></li>
-<li><p><strong>complete</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
-<li><p><strong>sample_index</strong> (<em>Signal</em><em>, </em><em>in</em>) – The sample the ILA will output.</p></li>
-<li><p><strong>sample_capture</strong> (<em>Signal</em><em>, </em><em>out</em>) – The sample corresponding to the sample index.</p></li>
+<li><p><strong>sample_width</strong> (<em>int</em>) – The width of the sample vector in bits.</p></li>
+<li><p><strong>sample_depth</strong> (<em>int</em>) – The depth of the ILA sample buffer in samples.</p></li>
+<li><p><strong>sample_rate</strong> (<em>float</em>) – The outwards facing sample rate used for formatting output</p></li>
+<li><p><strong>sample_period</strong> (<em>float</em>) – The period of time between samples in nanoseconds, equivalent to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sample_rate</span></code>.</p></li>
+<li><p><strong>prologue_samples</strong> (<em>int</em>) – The number of samples to retain prior to the ILA <code class="docutils literal notranslate"><span class="pre">trigger</span></code> signal going high.</p></li>
+<li><p><strong>bits_per_sample</strong> (<em>int</em>) – The nearest power of 2 number of bits per sample.</p></li>
+<li><p><strong>bytes_per_sample</strong> (<em>int</em>) – The number of whole bytes per sample.</p></li>
+<li><p><strong>trigger</strong> (<em>Signal, in</em>) – ILA Sample start trigger strobe.</p></li>
+<li><p><strong>sampling</strong> (<em>Signal, out</em>) – Indicates when the ILA is actively sampling.</p></li>
+<li><p><strong>complete</strong> (<em>Signal, out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
+<li><p><strong>sample_index</strong> (<em>Signal, in</em>) – The sample the ILA will output.</p></li>
+<li><p><strong>sample_capture</strong> (<em>Signal, out</em>) – The sample corresponding to the sample index.</p></li>
 </ul>
 </dd>
 </dl>
@@ -395,7 +397,7 @@ the sample memory size after is it made concrete.</p>
 <dt class="sig sig-object py" id="torii_ila.ila.StreamILA">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.ila.</span></span><span class="sig-name descname"><span class="pre">StreamILA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.ila.StreamILA" title="Link to this definition">¶</a></dt>
 <dd><p>A simple implementation of a stream-based ILA for use in the the UART and USB ILA’s based on
-the Torii <code class="xref py py-class docutils literal notranslate"><span class="pre">torii.lib.stream.simple.StreamInterface</span></code></p>
+the Torii <a class="reference external" href="https://torii.shmdn.link/library/stream/simple.html#torii.lib.stream.simple.StreamInterface" title="(in Torii-HDL v0.7.8.dev43+g4411058f)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii.lib.stream.simple.StreamInterface</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -414,19 +416,19 @@ to the <code class="docutils literal notranslate"><span class="pre">sampling_dom
 (default: 1)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The domain the ILA is sampling on.</p></li>
-<li><p><strong>ila</strong> (<a class="reference internal" href="#torii_ila.ila.IntegratedLogicAnalyzer" title="torii_ila.ila.IntegratedLogicAnalyzer"><em>IntegratedLogicAnalyzer</em></a>) – The inner ILA module used for actually ingesting the sample data.</p></li>
-<li><p><strong>sample_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The width of the sample vector in bits.</p></li>
-<li><p><strong>sample_depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The depth of the ILA sample buffer in samples.</p></li>
-<li><p><strong>sample_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The outwards facing sample rate used for formatting output</p></li>
-<li><p><strong>sample_period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The period of time between samples in nanoseconds, equivalent to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sample_rate</span></code>.</p></li>
-<li><p><strong>bits_per_sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The nearest power of 2 number of bits per sample.</p></li>
-<li><p><strong>bytes_per_sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of whole bytes per sample.</p></li>
-<li><p><strong>trigger</strong> (<em>Signal</em><em>, </em><em>in</em>) – ILA Sample start trigger strobe.</p></li>
-<li><p><strong>sampling</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when the ILA is actively sampling.</p></li>
-<li><p><strong>complete</strong> (<em>Signal</em><em>, </em><em>out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
+<li><p><strong>domain</strong> (<em>str</em>) – The domain the ILA is sampling on.</p></li>
+<li><p><strong>ila</strong> (<em>IntegratedLogicAnalyzer</em>) – The inner ILA module used for actually ingesting the sample data.</p></li>
+<li><p><strong>sample_width</strong> (<em>int</em>) – The width of the sample vector in bits.</p></li>
+<li><p><strong>sample_depth</strong> (<em>int</em>) – The depth of the ILA sample buffer in samples.</p></li>
+<li><p><strong>sample_rate</strong> (<em>float</em>) – The outwards facing sample rate used for formatting output</p></li>
+<li><p><strong>sample_period</strong> (<em>float</em>) – The period of time between samples in nanoseconds, equivalent to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sample_rate</span></code>.</p></li>
+<li><p><strong>bits_per_sample</strong> (<em>int</em>) – The nearest power of 2 number of bits per sample.</p></li>
+<li><p><strong>bytes_per_sample</strong> (<em>int</em>) – The number of whole bytes per sample.</p></li>
+<li><p><strong>trigger</strong> (<em>Signal, in</em>) – ILA Sample start trigger strobe.</p></li>
+<li><p><strong>sampling</strong> (<em>Signal, out</em>) – Indicates when the ILA is actively sampling.</p></li>
+<li><p><strong>complete</strong> (<em>Signal, out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
 <li><p><strong>stream</strong> (<em>StreamInterface</em>) – The output stream of ILA samples.</p></li>
 </ul>
 </dd>
@@ -596,7 +598,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=9801d21e"></script>
+</div><script src="../_static/documentation_options.js?v=3551a2d2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
