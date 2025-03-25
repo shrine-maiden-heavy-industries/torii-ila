@@ -23,11 +23,11 @@ extensions = [
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.napoleon',
 	'sphinx.ext.todo',
-	'sphinxcontrib.mermaid',
 	'myst_parser',
 	'sphinx_autodoc_typehints',
 	'sphinx_inline_tabs',
 	'sphinxext.opengraph',
+	'sphinx_copybutton',
 ]
 
 source_suffix = {
