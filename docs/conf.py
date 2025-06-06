@@ -90,10 +90,10 @@ autosectionlabel_prefix_document = True
 
 always_use_bars_union = True
 
+linkcheck_retries = 2
+linkcheck_workers = 1 # At the cost of speed try to prevent rate-limiting
+linkcheck_ignore  = []
+
 linkcheck_anchors_ignore_for_url = [
 	r'^https://web\.libera\.chat/',
-]
-
-linkcheck_ignore = [
-
 ]
