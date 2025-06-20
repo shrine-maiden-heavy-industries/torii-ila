@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -31,10 +32,6 @@ Unreleased template stuff
 - UART ILA now has an RX line and no longer sends the stream of ILA data right away after capture completion
 - Bumped minimum Torii version to `v0.7.7`
 - Bumped minimum Torii-USB version to `v0.7.1`
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
