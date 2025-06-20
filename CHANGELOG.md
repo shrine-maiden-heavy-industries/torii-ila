@@ -37,7 +37,7 @@ Unreleased template stuff
 
 - Fixed missing or incomplete documentation
 
-## [v0.1.0]
+## [v0.1.0] - 2025-01-30
 
 This is the first beta release of the Torii ILA module. It's not fully stable but it works
 enough to have it's tires kicked.
