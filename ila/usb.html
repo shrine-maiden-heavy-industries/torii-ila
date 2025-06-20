@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/usb.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev46 documentation</title>
+        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev49 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev46 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev49 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev46 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev49 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -267,7 +267,7 @@
         <article role="main" id="furo-main-content">
           <section id="usb-based-integrated-logic-analyzer">
 <h1>USB-Based Integrated Logic Analyzer<a class="headerlink" href="#usb-based-integrated-logic-analyzer" title="Link to this heading">¶</a></h1>
-<p>This module provides the ILA as a streaming USB device, for use with the <a class="reference internal" href="../backhaul/usb.html"><span class="std std-doc">USB backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a USB device using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-usb">Torii-USB</a> <a class="reference external" href="https://torii-usb.shmdn.link/gateware/usb/usb2/endpoints.html#torii_usb.usb.usb2.endpoints.stream.USBMultibyteStreamInEndpoint" title="(in Torii-USB v0.7.2.dev6+gad021da)"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBMultibyteStreamInEndpoint</span></code></a></p>
+<p>This module provides the ILA as a streaming USB device, for use with the <a class="reference internal" href="../backhaul/usb.html"><span class="std std-doc">USB backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a USB device using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-usb">Torii-USB</a> <a class="reference external" href="https://torii-usb.shmdn.link/gateware/usb/usb2/endpoints.html#torii_usb.usb.usb2.endpoints.stream.USBMultibyteStreamInEndpoint" title="(in Torii-USB v0.7.2.dev9+g331b98d)"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBMultibyteStreamInEndpoint</span></code></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.usb.</span></span><span class="sig-name descname"><span class="pre">USBIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayed_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pkt_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discard_string_descriptors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
@@ -500,7 +500,7 @@ the sample memory size after is it made concrete.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=7d1fe583"></script>
+</div><script src="../_static/documentation_options.js?v=089d5cbc"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
