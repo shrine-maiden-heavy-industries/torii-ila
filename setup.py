@@ -43,7 +43,7 @@ setup(
 	],
 
 	install_requires = [
-		'torii>=0.7.6,<1.0',
+		'torii>=0.8.0,<1.0',
 		'pyvcd', # NOTE(aki): This is constrained by the same dep in Torii
 	],
 
@@ -54,7 +54,7 @@ setup(
 
 		# USB Backhaul
 		'usb': [
-			'torii-usb>=0.7.1,<1.0',
+			'torii-usb>=0.8.0,<1.0',
 			'libusb1>=1.8.1',
 			'pyusb',
 		],
@@ -66,9 +66,9 @@ setup(
 
 		'examples': [
 			# Board definition files
-			'torii-boards>=0.7.5,<1.0',
+			'torii-boards>=0.8.0,<1.0',
 			# USB ILA Example
-			'torii-usb>=0.7.1,<1.0',
+			'torii-usb>=0.8.0,<1.0',
 			'libusb1>=1.8.1',
 			'pyusb',
 			# UART ILA Example

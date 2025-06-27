@@ -30,8 +30,9 @@ Unreleased template stuff
 - UART ILA output is now rCOBS encoded with `0x00` end-of-frame indicators for re-syncing serial streams.
 - USB ILA VID:PID changed from `04A0:ACA7` to `1D50:6190`.
 - UART ILA now has an RX line and no longer sends the stream of ILA data right away after capture completion
-- Bumped minimum Torii version to `v0.7.7`
-- Bumped minimum Torii-USB version to `v0.7.1`
+- Bumped minimum [Torii] version to `v0.8.0`
+- Bumped minimum [Torii-USB] version to `v0.8.0`
+- Bumped minimum [Torii-Boards] version to `v0.8.0`
 
 ### Fixed
 
@@ -52,3 +53,7 @@ enough to have it's tires kicked.
 
 [Unreleased]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/v0.1.0...main
 [v0.1.0]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/aa8b192...v0.1.0
+
+[Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl
+[Torii-USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb
+[Torii-Boards]: https://github.com/shrine-maiden-heavy-industries/torii-boards
