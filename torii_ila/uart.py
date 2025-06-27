@@ -400,10 +400,10 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		]
 
 		with m.FSM(name = 'rx') as fsm:
-			m.d.comb += [ uart.rx.ack.eq(fsm.ongoing('IDLE')), ]
+			m.d.comb += [ uart.rx.start.eq(fsm.ongoing('IDLE')), ]
 
 			with m.State('IDLE'):
-				with m.If(uart.rx.rdy):
+				with m.If(uart.rx.done):
 					m.d.sync += [ data_rx.eq(uart.rx.data), ]
 					m.next = 'CMD'
 
