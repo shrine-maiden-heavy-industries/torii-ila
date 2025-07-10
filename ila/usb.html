@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/ila/usb.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev54 documentation</title>
+        <title>USB-Based Integrated Logic Analyzer - Torii ILA 0.1.1.dev58 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev54 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev58 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev54 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev58 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -259,7 +259,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -267,163 +267,7 @@
         <article role="main" id="furo-main-content">
           <section id="usb-based-integrated-logic-analyzer">
 <h1>USB-Based Integrated Logic Analyzer<a class="headerlink" href="#usb-based-integrated-logic-analyzer" title="Link to this heading">¶</a></h1>
-<p>This module provides the ILA as a streaming USB device, for use with the <a class="reference internal" href="../backhaul/usb.html"><span class="std std-doc">USB backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a USB device using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-usb">Torii-USB</a> <a class="reference external" href="https://torii-usb.shmdn.link/gateware/usb/usb2/endpoints.html#torii_usb.usb.usb2.endpoints.stream.USBMultibyteStreamInEndpoint" title="(in Torii-USB v0.8.1.dev1+g2a04df5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBMultibyteStreamInEndpoint</span></code></a></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.usb.</span></span><span class="sig-name descname"><span class="pre">USBIntegratedLogicAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sync'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prologue_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayed_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pkt_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discard_string_descriptors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer" title="Link to this definition">¶</a></dt>
-<dd><p>A simple ILA that produces samples over a USB bulk endpoint.</p>
-<p>This shows up as a USB device with VID:PID of <code class="docutils literal notranslate"><span class="pre">04A0:ACA7</span></code> on the host with the Product string
-of <code class="docutils literal notranslate"><span class="pre">Torii</span> <span class="pre">ILA</span></code> and the Serial Number string of <code class="docutils literal notranslate"><span class="pre">000000000</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>signals</strong> (<em>Iterable</em><em>[</em><em>torii.Signal</em><em>]</em>) – The signals to capture with the ILA.
-(default: list())</p></li>
-<li><p><strong>sample_depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of samples we wish to capture.
-(default: 32)</p></li>
-<li><p><strong>sampling_domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The clock domain the ILA sampling will take place on.
-(default: sync)</p></li>
-<li><p><strong>sample_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The outwards facing sample rate used for formatting output. This should be tied
-to the <code class="docutils literal notranslate"><span class="pre">sampling_domain</span></code>’s frequency if possible.
-(default: <code class="docutils literal notranslate"><span class="pre">50e6</span></code> i.e <code class="docutils literal notranslate"><span class="pre">50MHz</span></code>)</p></li>
-<li><p><strong>prologue_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of samples to capture <strong>before</strong> the trigger.
-(default: 1)</p></li>
-<li><p><strong>bus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – The USB Bus resource to use.
-(default: None)</p></li>
-<li><p><strong>delayed_connect</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Delay connection of the USB device.
-(default: False)</p></li>
-<li><p><strong>max_pkt_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Max packet size.
-(default: 512)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>discard_string_descriptors<span class="classifier">bool</span></dt><dd><p>Discard the device Manufacturer, Product, and Serial Number string descriptors,
-this may help some devices which are having problems passing PnR timing with doing
-so, or devices that are under heavy BRAM pressure.
-(default: False)</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ila</strong> (<em>StreamILA</em>) – The inner ILA module used for actually ingesting the sample data.</p></li>
-<li><p><strong>sample_width</strong> (<em>int</em>) – The width of the sample vector in bits.</p></li>
-<li><p><strong>sample_depth</strong> (<em>int</em>) – The depth of the ILA sample buffer in samples.</p></li>
-<li><p><strong>sample_rate</strong> (<em>float</em>) – The outwards facing sample rate used for formatting output</p></li>
-<li><p><strong>sample_period</strong> (<em>float</em>) – The period of time between samples in nanoseconds, equivalent to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sample_rate</span></code>.</p></li>
-<li><p><strong>bits_per_sample</strong> (<em>int</em>) – The nearest power of 2 number of bits per sample.</p></li>
-<li><p><strong>bytes_per_sample</strong> (<em>int</em>) – The number of whole bytes per sample.</p></li>
-<li><p><strong>trigger</strong> (<em>Signal, in</em>) – ILA Sample start trigger strobe.</p></li>
-<li><p><strong>sampling</strong> (<em>Signal, out</em>) – Indicates when the ILA is actively sampling.</p></li>
-<li><p><strong>complete</strong> (<em>Signal, out</em>) – Indicates when sampling is completed and the buffer is full.</p></li>
-<li><p><strong>BULK_EP_NUM</strong> (<em>int</em>) – The fixed USB Bulk Endpoint number for the Torii-USB USB Device.
-Value is set to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
-<li><p><strong>USB_VID</strong> (<em>int</em>) – The fixed USB Vendor ID for the Torii-USB USB Device.
-Value is set to <code class="docutils literal notranslate"><span class="pre">0x1D50</span></code>.</p></li>
-<li><p><strong>USB_PID</strong> (<em>int</em>) – The fixed USB Product ID for the Torii-USB USB Device.
-Value is set to <code class="docutils literal notranslate"><span class="pre">0x6190</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer.get_backhaul">
-<span class="sig-name descname"><span class="pre">get_backhaul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.get_backhaul" title="Link to this definition">¶</a></dt>
-<dd><p>Automatically construct a <a class="reference internal" href="../backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code></a> from this ILA
-instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The newly constructed backhaul interface or the already constructed instance.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul">USBIntegratedLogicAnalyzerBackhaul</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer.add_signal">
-<span class="sig-name descname"><span class="pre">add_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.add_signal" title="Link to this definition">¶</a></dt>
-<dd><p>Add a signal to the ILA capture list.</p>
-<p>This can be used to internal module signals to the ILA, or
-add signals after construction.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method <strong>must not</strong> be called post elaboration, as we are unable to adjust
-the sample memory size after is it made concrete.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>sig</strong> (<em>torii.Signal</em>) – The signal to add to the ILA capture list.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If called during the elaboration of the ILA module</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer.append_signals">
-<span class="sig-name descname"><span class="pre">append_signals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.append_signals" title="Link to this definition">¶</a></dt>
-<dd><p>Like <a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.add_signal" title="torii_ila.usb.USBIntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal()</span></code></a> but allows for adding an array of signals to the ILA capture list.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method <strong>must not</strong> be called post elaboration, as we are unable to adjust
-the sample memory size after is it made concrete.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>signals</strong> (<em>Iterable</em><em>[</em><em>torii.Signal</em><em>]</em>) – The list of additional signals to capture with the ILA.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If called during the elaboration of the ILA module</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torii_ila.usb.USBIntegratedLogicAnalyzer.add_fsm">
-<span class="sig-name descname"><span class="pre">add_fsm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fsm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.add_fsm" title="Link to this definition">¶</a></dt>
-<dd><p>Add a Torii FSM state to the ILA.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
-        <span class="n">ila</span><span class="o">.</span><span class="n">add_fsm</span><span class="p">(</span><span class="n">fsm</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This is effectively equivalent to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">FSM</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Thing&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsm</span><span class="p">:</span>
-        <span class="n">ila</span><span class="o">.</span><span class="n">add_signal</span><span class="p">(</span><span class="n">fsm</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The FSM you add to the ILA should be named, as to prevent name collisions.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method <strong>must not</strong> be called post elaboration, as we are unable to adjust
-the sample memory size after is it made concrete.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>fsm</strong> (<em>torii.hdl.dsl.FSM</em>) – The FSM to add to the ILA.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If called during the elaboration of the ILA module</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<p>This module provides the ILA as a streaming USB device, for use with the <a class="reference internal" href="../backhaul/usb.html"><span class="std std-doc">USB backhaul</span></a> interface. It does this by wrapping the <a class="reference internal" href="index.html#torii_ila.ila.StreamILA" title="torii_ila.ila.StreamILA"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamILA</span></code></a> and providing the output stream of the ILA capture data as a USB device using the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-usb">Torii-USB</a> <code class="xref py py-class docutils literal notranslate"><span class="pre">USBMultibyteStreamInEndpoint</span></code></p>
 </section>
 
         </article>
@@ -469,38 +313,13 @@ the sample memory size after is it made concrete.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">USB-Based Integrated Logic Analyzer</a><ul>
-<li><a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a><ul>
-<li><a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.get_backhaul"><code class="docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer.get_backhaul()</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.add_signal"><code class="docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer.add_signal()</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.append_signals"><code class="docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer.append_signals()</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.usb.USBIntegratedLogicAnalyzer.add_fsm"><code class="docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer.add_fsm()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c5550f52"></script>
+</div><script src="../_static/documentation_options.js?v=1d87c6a1"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

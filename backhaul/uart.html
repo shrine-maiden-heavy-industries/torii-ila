@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/backhaul/uart.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>UART ILA Backhaul - Torii ILA 0.1.1.dev54 documentation</title>
+        <title>UART ILA Backhaul - Torii ILA 0.1.1.dev58 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev54 documentation</div></a>
+      <a href="../index.html"><div class="brand">Torii ILA 0.1.1.dev58 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -202,7 +202,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev54 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev58 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -259,7 +259,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -268,58 +268,6 @@
           <section id="uart-ila-backhaul">
 <h1>UART ILA Backhaul<a class="headerlink" href="#uart-ila-backhaul" title="Link to this heading">¶</a></h1>
 <p>This module provides the interface for consuming data from the <a class="reference internal" href="../ila/uart.html"><span class="std std-doc">UART ILA</span></a> over an arbitrary serial port.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTIntegratedLogicAnalyzerBackhaul">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.uart.</span></span><span class="sig-name descname"><span class="pre">UARTIntegratedLogicAnalyzerBackhaul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ila</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.uart.UARTIntegratedLogicAnalyzerBackhaul" title="Link to this definition">¶</a></dt>
-<dd><p>UART-based ILA backhaul interface, used in combination with <a class="reference internal" href="../ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer</span></code></a>
-to automatically set up a communications channel to get ILA samples off-device.</p>
-<p>An instance of this class is typically created by calling <a class="reference internal" href="../ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer.get_backhaul" title="torii_ila.uart.UARTIntegratedLogicAnalyzer.get_backhaul"><code class="xref py py-meth docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer.get_backhaul()</span></code></a>
-which lets the ILA configure the backhaul as needed.</p>
-<p>Alternatively you can pass the <a class="reference internal" href="../ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzer</span></code></a> instance from the gateware
-to the constructor of this module.</p>
-<p>The data coming off the ILA is <a class="reference external" href="https://github.com/Dirbaio/rcobs">rCOBS</a> encoded and the samples are
-byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
-<p>See <a class="reference internal" href="index.html#torii_ila.backhaul.ILABackhaulInterface" title="torii_ila.backhaul.ILABackhaulInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">torii_ila.backhaul.ILABackhaulInterface</span></code></a> for public API.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ila</strong> (<a class="reference internal" href="../ila/uart.html#torii_ila.uart.UARTIntegratedLogicAnalyzer" title="torii_ila.uart.UARTIntegratedLogicAnalyzer"><em>UARTIntegratedLogicAnalyzer</em></a>) – The ILA being used.</p></li>
-<li><p><strong>serial</strong> (<em>Serial</em>) – The serial port the ILA is connected over.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila.uart.</span></span><span class="sig-name descname"><span class="pre">UARTILACommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila.uart.UARTILACommand" title="Link to this definition">¶</a></dt>
-<dd><p>These are commands the UART ILA knows about</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.NONE">
-<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.NONE" title="Link to this definition">¶</a></dt>
-<dd><p>No command</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.FLUSH">
-<span class="sig-name descname"><span class="pre">FLUSH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.FLUSH" title="Link to this definition">¶</a></dt>
-<dd><p>Flush the ILA Sample memory down the UART.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.STREAM">
-<span class="sig-name descname"><span class="pre">STREAM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.STREAM" title="Link to this definition">¶</a></dt>
-<dd><p>Send the ILA sample memory down the UART until <code class="docutils literal notranslate"><span class="pre">UARTILACommand.STOP</span></code> is sent.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="torii_ila.uart.UARTILACommand.STOP">
-<span class="sig-name descname"><span class="pre">STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#torii_ila.uart.UARTILACommand.STOP" title="Link to this definition">¶</a></dt>
-<dd><p>Stop the ILA from sending sample stream down the UART.</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 
         </article>
@@ -365,39 +313,13 @@ byte-wise swizzled, we automatically decode and de-swizzle the samples.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">UART ILA Backhaul</a><ul>
-<li><a class="reference internal" href="#torii_ila.uart.UARTIntegratedLogicAnalyzerBackhaul"><code class="docutils literal notranslate"><span class="pre">UARTIntegratedLogicAnalyzerBackhaul</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand"><code class="docutils literal notranslate"><span class="pre">UARTILACommand</span></code></a><ul>
-<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.NONE"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.NONE</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.FLUSH"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.FLUSH</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.STREAM"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.STREAM</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila.uart.UARTILACommand.STOP"><code class="docutils literal notranslate"><span class="pre">UARTILACommand.STOP</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c5550f52"></script>
+</div><script src="../_static/documentation_options.js?v=1d87c6a1"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
