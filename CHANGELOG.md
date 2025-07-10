@@ -20,6 +20,9 @@ Unreleased template stuff
 
 ## [Unreleased]
 
+> [!IMPORTANT]
+> The minimum Python version for Torii and Torii ILA is now 3.11
+
 ### Added
 
 - rCOBS encoder/decoder
