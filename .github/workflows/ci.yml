@@ -1,5 +1,21 @@
-name: 'torii-ila CI'
-on: [ push, pull_request ]
+name: 'Torii ILA CI'
+on:
+  push:
+    branches-ignore:
+      - 'gh-pages'
+    paths:
+      - '.github/workflows/ci.yml'
+      - 'docs/**'
+      - 'examples/**'
+      - 'tests/**'
+      - 'torii_ila/**'
+      - 'noxfile.py'
+      - 'pyproject.toml'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  pull_request:
+    branches:
+      - main
 
 env:
   TOOL_PYTHON_VERSION: '3.11'
@@ -7,7 +23,7 @@ env:
 jobs:
   lint-torii-ila:
     runs-on: ubuntu-latest
-    name: 'Lint torii-ila'
+    name: 'Lint Torii ILA'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -42,7 +58,8 @@ jobs:
         shell: bash
         continue-on-error: true
         run: |
-          nox -s typecheck
+          nox -s typecheck-mypy
+          nox -s typecheck-pyright
 
   test-torii-ila:
     runs-on: ubuntu-latest
@@ -54,8 +71,10 @@ jobs:
         include:
           - python-version: '3.14-dev'
             allow-failure: true
+          - python-version: 'pypy3.11'
+            allow-failure: true
 
-    name: 'Test torii-ila (Python ${{ matrix.python-version }})'
+    name: 'Test Torii ILA (Python ${{ matrix.python-version }})'
     continue-on-error: ${{ matrix.allow-failure }}
     steps:
       - name: 'Setup Python (${{ matrix.python-version }})'
@@ -101,7 +120,7 @@ jobs:
 
   linkcheck-docs:
     runs-on: ubuntu-latest
-    name: 'torii-ila Docs - Link-check'
+    name: 'Torii ILA Docs - Link-check'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -134,7 +153,7 @@ jobs:
 
   build-docs:
     runs-on: ubuntu-latest
-    name: 'torii-ila Docs - Build'
+    name: 'Torii ILA Docs - Build'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -174,7 +193,7 @@ jobs:
           retention-days: 1
 
   docs:
-    name: 'torii-ila Docs (Meta Job)'
+    name: 'Torii ILA Docs (Meta Job)'
     needs:
       - linkcheck-docs
       - build-docs
@@ -183,7 +202,7 @@ jobs:
       - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
 
   ci-checkpoint:
-    name: 'torii-ila CI Checkpoint (Meta Job)'
+    name: 'Torii ILA CI Checkpoint (Meta Job)'
     needs:
       - lint-torii-ila
       - test-torii-ila
@@ -193,7 +212,7 @@ jobs:
       - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
 
   publish-docs:
-    name: 'Publish torii-ila Docs'
+    name: 'Publish Torii ILA Docs'
     if: github.repository == 'shrine-maiden-heavy-industries/torii-ila' && (github.event.ref == 'refs/heads/main' || startsWith(github.event.ref, 'refs/tags/v')) && github.event_name == 'push'
     needs:
       - ci-checkpoint
@@ -218,7 +237,7 @@ jobs:
           clean: true
 
   publish-pypi:
-    name: 'torii-ila - Publish PyPi package'
+    name: 'Torii ILA - Publish PyPi package'
     if: github.repository == 'shrine-maiden-heavy-industries/torii-ila' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev')
     needs:
       - publish-docs
