@@ -83,7 +83,7 @@ To install Torii ILA as either [standalone](#standalone), with [USB support](#us
 From here on you can head over to [Getting Started] to see the basic usage and the examples.
 
 [Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl/
-[Torii installed]: https://torii.shmdn.link/install.html
+[Torii installed]: https://torii.shmdn.link/latest/install.html
 [ILA Interface]: ./ila/index.md
 [USB]: ./ila/usb.md
 [UART]: ./ila/uart.md
