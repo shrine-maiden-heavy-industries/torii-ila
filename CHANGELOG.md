@@ -36,6 +36,7 @@ Unreleased template stuff
 - Bumped minimum [Torii] version to `v0.8.0`
 - Bumped minimum [Torii-USB] version to `v0.8.0`
 - Bumped minimum [Torii-Boards] version to `v0.8.0`
+- Switched from using the old setuptools `setup.py` over to setuptools via `pyproject.toml`
 
 ### Fixed
 
