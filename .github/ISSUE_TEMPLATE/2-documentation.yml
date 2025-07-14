@@ -27,7 +27,7 @@ body:
     attributes:
       label: 'Documentation Version'
       description: >
-        The version of Torii ILA Documentation this issue is about.
+        The version of the Torii ILA Documentation this issue is about.
 
         If it is the development documentation you can simply specify `dev` as the version.
 
