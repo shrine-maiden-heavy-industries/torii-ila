@@ -224,7 +224,7 @@ No exceptions to this policy will be made.
 The use of Generative AI when contributing or interacting with this project is ***EXPLICITLY FORBIDDEN*** with ***NO EXCEPTIONS*** and if you are found to be using it, you will be banned from the project and your contributions removed.
 
 [BSD-3-Clause]: https://spdx.org/licenses/BSD-3-Clause.html
-[`LICENSE`]: ./LICENSE
+[`LICENSE`]: https://github.com/shrine-maiden-heavy-industries/torii-usb/blob/main/LICENSE
 [CC-BY-SA 4.0]: https://creativecommons.org/licenses/by-sa/4.0/
 [`LICENSE.docs`]: https://github.com/shrine-maiden-heavy-industries/torii-ila/blob/main/LICENSE.docs
 [git repository]: https://github.com/shrine-maiden-heavy-industries/torii-ila
