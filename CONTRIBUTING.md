@@ -23,7 +23,7 @@ The goal for Torii ILA is to be able to be as friendly and powerful as possible,
 
 It is asked that you please report any and all problems you encounter when using Torii ILA, this can be from small things such as typos or weird wording, and unclear/confusing messages and diagnostics, to larger things such as general useability and tool integration.
 
-Reporting an issue with Torii is done through the [issue tracker], the issue templates should guide you through most of the needed information. A quick summary of what would be needed is as follows:
+Reporting an issue with Torii ILA is done through the [issue tracker], the issue templates should guide you through most of the needed information. A quick summary of what would be needed is as follows:
 
 * The version of Torii ILA being used, this can be done by running `python -c "import torii_ila;print(torii_ila.__version__)"`
 * Which version of Python being used, and if it's CPython or PyPy, as we don't support any other Python interpreters at the moment.
@@ -80,7 +80,7 @@ You're now ready to make your changes! Make sure see the [Formatting Code] and [
 
 ### Formatting Code
 
-The overall style guidelines for Torii are not super fixed or well defined at the moment, but the following things are required:
+The overall style guidelines for Torii ILA are not super fixed or well defined at the moment, but the following things are required:
 
 * All strings use single-quotes where possible, this includes doc comments.
 * Indentation is done using hard-tabs, the general tab-stop used is 4, but use what you are happy with.
@@ -154,7 +154,7 @@ So, to put it all together, the following are good examples of how your branch s
 ### Submitting a Pull Request
 
 > [!IMPORTANT]
-> Torii uses a [git rebase] based workflow to maintain a linear history and avoid merge commits.
+> Torii ILA uses a [git rebase] based workflow to maintain a linear history and avoid merge commits.
 
 Once your changes are done, tested, and you're happy with them, then now to open a pull request against the Torii ILA repository.
 
@@ -173,7 +173,7 @@ For example:
 
 After this, run `nox -s lint` in the root of the repository, this will run the code linter and alert you if anything is amiss. This is also run in the CI workflow, and will prevent your pull request from getting merged if it's not happy.
 
-Once your changes are all up to date, make sure that all the tests pass (see the [Testing] section for more info), and then you can then open a [new pull request] against the Torii repository.
+Once your changes are all up to date, make sure that all the tests pass (see the [Testing] section for more info), and then you can then open a [new pull request] against the Torii ILA repository.
 
 Once you've filled out the details about the PR, it will then be reviewed to ensure that it's in line with the various project standards, sometimes you'll nail it the first try, other times there will be feedback and requested changes.
 
