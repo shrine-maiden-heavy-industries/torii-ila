@@ -31,10 +31,6 @@ body:
         Please provide as detailed of a suggestion as possible, such as use cases and upsides, as well as
         any possible downsides or implementation issues can possibly foresee.
 
-
-        For instance, if suggesting a new toolchain to support, please give us a rundown on things such as
-        how easy it is to get a hold of, what platforms it supports, etc.
-
     validations:
       required: true
 
