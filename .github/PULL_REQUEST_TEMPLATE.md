@@ -52,7 +52,7 @@
 
 		If it references a discussion:
 
-			- [discussions/XXXXX](https://github.com/shrine-maiden-heavy-industries/torii-hdl/discussions/XXXXX)
+			- [discussions/XXXXX](https://github.com/shrine-maiden-heavy-industries/torii-ila/discussions/XXXXX)
 -->
 
 <!-- =========================== -->
