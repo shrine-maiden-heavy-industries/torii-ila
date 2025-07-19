@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 ```{toctree}
 :hidden:
 
@@ -42,6 +43,12 @@ The simplest one is the {py:class}`UARTIntegratedLogicAnalyzer <torii_ila.uart.U
 
 To get set up with Torii ILA, follow the [installation instructions], and then head over to the [getting started] page for examples of both the USB and UART ILAs.
 
+## Community
+
+The two primary community spots for Torii and by extension Torii ILA are the `#torii` IRC channel on [libera.chat] (`irc.libera.chat:6697`) which you can join via your favorite IRC client or the [web chat], and the [discussion forum] on GitHub.
+
+Please do join and share your projects using Torii, ask questions, get help with problems, or discuss development.
+
 ## License
 
 Torii ILA is licensed under the [BSD-3-Clause], the full text of which can be found in the [`LICENSE`] file.
@@ -49,5 +56,8 @@ Torii ILA is licensed under the [BSD-3-Clause], the full text of which can be fo
 [Torii]: https://torii.shmdn.link
 [installation instructions]: ./install.md
 [getting started]: ./getting_started.md
+[libera.chat]: https://libera.chat/
+[web chat]: https://web.libera.chat/#torii
+[discussion forum]: https://github.com/shrine-maiden-heavy-industries/torii-ila/discussions
 [BSD-3-Clause]: https://spdx.org/licenses/BSD-3-Clause.html
 [`LICENSE`]: ./license.md
