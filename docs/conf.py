@@ -1,20 +1,17 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
-
-import os, sys, datetime
-from pathlib import Path
-sys.path.insert(0, os.path.abspath('.'))
+from datetime  import date
+from pathlib   import Path
 
 from torii     import __version__ as torii_version
 from torii_ila import __version__ as torii_ila_version
 
 ROOT_DIR = (Path(__file__).parent).parent
 
-
 project   = 'Torii ILA'
 version   = torii_ila_version
 release   = version.split('+')[0]
-copyright = f'{datetime.date.today().year}, Aki Van Ness, et. al.'
+copyright = f'{date.today().year}, Aki Van Ness, et. al.'
 language  = 'en'
 
 extensions = [
