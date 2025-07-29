@@ -17,10 +17,10 @@ from torii.hdl.ast          import Cat, Signal
 from torii.hdl.dsl          import FSM, Module
 from torii.hdl.ir           import Elaboratable
 from torii.hdl.xfrm         import DomainRenamer
+from torii.lib.coding.cobs  import RCOBSEncoder, decode_rcobs
 from torii.lib.stdio.serial import AsyncSerial
 
 from ._bits                 import bits
-from ._cobs                 import RCOBSEncoder, decode_rcobs
 from .backhaul              import ILABackhaulInterface
 from .ila                   import StreamILA
 
@@ -394,7 +394,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 			# Glue the rCOBS encoder to the UARTs face
 			rcobs.raw.eq(data_tx[0:8]),
 			uart.tx.data.eq(rcobs.enc),
-			uart.tx.ack.eq(rcobs.vld),
+			uart.tx.ack.eq(rcobs.valid),
 			rcobs.ack.eq(uart.tx.rdy),
 
 		]
@@ -434,17 +434,17 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						to_send.eq(ila.bytes_per_sample - 1),
 					]
 					# If we're coming out of idle we need to strobe the rCOBS encode to latch
-					m.d.comb += [ rcobs.strb.eq(1), ]
+					m.d.comb += [ rcobs.strobe.eq(1), ]
 
 					m.next = 'TRANSMIT'
 
 			with m.State('TRANSMIT'):
 				# Wait for the rCOBS encoder to tell us to advance
-				with m.If(rcobs.rdy):
+				with m.If(rcobs.ready):
 					# If we still have bytes to send, shift over and send the next one
 					with m.If(to_send > 0):
 						# Tell the rCOBS encoder that data is valid
-						m.d.comb += [ rcobs.strb.eq(1), ]
+						m.d.comb += [ rcobs.strobe.eq(1), ]
 
 						m.d.sync += [
 							to_send.eq(to_send - 1),
@@ -473,14 +473,14 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 			with m.State('FLUSH'):
 				# Wait for the rCOBS encoder to become ready, then tell it to wrap up
-				with m.If(rcobs.rdy):
+				with m.If(rcobs.ready):
 					m.d.comb += [ rcobs.finish.eq(1), ]
 					m.next = 'FRAME'
 
 			with m.State('FRAME'):
 				# Let the rCOBS encoder settle and wait for the UART to become ready so we can
 				# emit our framing byte
-				with m.If(uart.tx.rdy & rcobs.rdy):
+				with m.If(uart.tx.rdy & rcobs.ready):
 					m.d.comb += [
 						uart.tx.data.eq(0x00),
 						uart.tx.ack.eq(1),

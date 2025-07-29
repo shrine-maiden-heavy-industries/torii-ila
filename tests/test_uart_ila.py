@@ -2,26 +2,24 @@
 # SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>
 
 import sys
-from pathlib       import Path
+from pathlib               import Path
 
-from torii.hdl.ast import Signal
-from torii.hdl.dsl import Module
-from torii.hdl.ir  import Elaboratable
-from torii.sim     import Settle
-from torii.test    import ToriiTestCase
+from torii.hdl.ast         import Signal
+from torii.hdl.dsl         import Module
+from torii.hdl.ir          import Elaboratable
+from torii.lib.coding.cobs import decode_rcobs
+from torii.sim             import Settle
+from torii.test            import ToriiTestCase
 
 try:
-	from torii_ila.uart  import UARTIntegratedLogicAnalyzer, UARTILACommand
-	from torii_ila._cobs import decode_rcobs
+	from torii_ila.uart import UARTILACommand, UARTIntegratedLogicAnalyzer
 except ImportError:
 	torii_ila_path = Path(__file__).resolve().parent
 
 	if (torii_ila_path.parent / 'torii_ila').is_dir():
 		sys.path.insert(0, str(torii_ila_path.parent))
 
-	from torii_ila.uart  import UARTIntegratedLogicAnalyzer, UARTILACommand
-	from torii_ila._cobs import decode_rcobs
-
+	from torii_ila.uart import UARTILACommand, UARTIntegratedLogicAnalyzer
 
 a = Signal()
 b = Signal(3)

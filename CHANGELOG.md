@@ -25,7 +25,6 @@ Unreleased template stuff
 
 ### Added
 
-- rCOBS encoder/decoder
 - `ILABackhaulInterface.update` to allow for large multi-sample-buffer ILA dumps
 
 ### Changed
