@@ -49,3 +49,6 @@ tests/**/spec_*/
 
 # Code Editors/IDEs
 .vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
