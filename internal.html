@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://torii-ila.shmdn.link/internal.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
-        <title>Internal Implementation Details - Torii ILA 0.1.1.dev83 documentation</title>
+        <title>Internal Implementation Details - Torii ILA 0.1.1.dev84 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
@@ -178,7 +178,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev83 documentation</div></a>
+      <a href="index.html"><div class="brand">Torii ILA 0.1.1.dev84 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -201,7 +201,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev83 documentation</span>
+  <span class="sidebar-brand-text">Torii ILA 0.1.1.dev84 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -278,61 +278,6 @@ this matches the way integer literals are written, as well as values in datashee
 documentation.</p>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="torii_ila._cobs.RCOBSEncoder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torii_ila._cobs.</span></span><span class="sig-name descname"><span class="pre">RCOBSEncoder</span></span><a class="headerlink" href="#torii_ila._cobs.RCOBSEncoder" title="Link to this definition">¶</a></dt>
-<dd><p>Reverse Consistent Overhead Byte Stuffing (rCOBS) encoder.</p>
-<p>This is an implementation of the rCOBS algorithm. The source of the encoding
-algorithm was originally a Rust crate and can be found at: <a class="reference external" href="https://github.com/Dirbaio/rcobs">https://github.com/Dirbaio/rcobs</a></p>
-<p>The algorithm is fairly simple, for each byte in a message, do the following:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Increment running total byte counter</p></li>
-</ol>
-<p>2. Check if byte is <code class="docutils literal notranslate"><span class="pre">0x00</span></code>
-3a. If it is, then write out the value of the byte counter and reset it
-3b. If it is not, check to see if the running byte counter is about to overflow
-4a. If it is, write out <code class="docutils literal notranslate"><span class="pre">0xFF</span></code> and reset the byte counter
-4b. If it is not, write out the byte itself.</p>
-</div></blockquote>
-<p>This encoder is just a pure implementation of the encoding logic for a single byte, and as such
-has a collection of status and control signals to indicate to the outside world its status.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>raw</strong> (<em>Signal(8), in</em>) – The raw byte to encode.</p></li>
-<li><p><strong>enc</strong> (<em>Signal(8), out</em>) – The rCOBS encoded byte. Not valid unless <code class="docutils literal notranslate"><span class="pre">vld</span></code> signal is high.</p></li>
-<li><p><strong>strb</strong> (<em>Signal, in</em>) – Strobe to signal to encode the byte in <code class="docutils literal notranslate"><span class="pre">raw</span></code>.</p></li>
-<li><p><strong>finish</strong> (<em>Signal, in</em>) – Flush the state of the encoder in preparation for next stream.</p></li>
-<li><p><strong>rdy</strong> (<em>Signal, out</em>) – Encoder ready signal, indicates when the encoder is ready for the next byte.</p></li>
-<li><p><strong>vld</strong> (<em>Signal, out</em>) – Value in <code class="docutils literal notranslate"><span class="pre">enc</span></code> is valid and can be latched.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="torii_ila._cobs.decode_rcobs">
-<span class="sig-prename descclassname"><span class="pre">torii_ila._cobs.</span></span><span class="sig-name descname"><span class="pre">decode_rcobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torii_ila._cobs.decode_rcobs" title="Link to this definition">¶</a></dt>
-<dd><p>Decode an rCOBS encoded message.</p>
-<p>The input data is expected to not contain any <code class="docutils literal notranslate"><span class="pre">0x00</span></code> framing information, it should be a single
-complete rCOBS message.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.13)"><em>bytearray</em></a>) – The rCOBS encoded message.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The rCOBS decoded message.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)">bytes</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the input dat contains a <code class="docutils literal notranslate"><span class="pre">0x00</span></code> byte -OR- the message is improperly encoded.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 
         </article>
@@ -392,8 +337,6 @@ complete rCOBS message.</p>
             <ul>
 <li><a class="reference internal" href="#">Internal Implementation Details</a><ul>
 <li><a class="reference internal" href="#torii_ila._bits.bits"><code class="docutils literal notranslate"><span class="pre">bits</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila._cobs.RCOBSEncoder"><code class="docutils literal notranslate"><span class="pre">RCOBSEncoder</span></code></a></li>
-<li><a class="reference internal" href="#torii_ila._cobs.decode_rcobs"><code class="docutils literal notranslate"><span class="pre">decode_rcobs()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -405,7 +348,7 @@ complete rCOBS message.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=75f203f9"></script>
+</div><script src="_static/documentation_options.js?v=90ec3464"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
