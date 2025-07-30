@@ -1,4 +1,6 @@
 {
+	// !IMPORTANT NOTE!
+	// All user-specific changes should live in a local `.code-workspace` file
 	"flake8.args": [
 		"--config", "${workspaceFolder}/contrib/.flake8"
 	],
