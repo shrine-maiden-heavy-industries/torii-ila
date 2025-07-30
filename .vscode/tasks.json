@@ -7,10 +7,8 @@
 			"type": "process",
 			"command": "python",
 			"args": [
-				"-m",
-				"nox",
-				"-s",
-				"test"
+				"-m", "nox",
+				"-s", "test"
 			],
 			"problemMatcher": "$python"
 		},
@@ -20,10 +18,8 @@
 			"type": "process",
 			"command": "python",
 			"args": [
-				"-m",
-				"nox",
-				"-s",
-				"lint"
+				"-m", "nox",
+				"-s", "lint"
 			],
 			"problemMatcher": "$python"
 		},
