@@ -3,19 +3,17 @@
 # SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>c
 
 import sys
-from pathlib       import Path
-from typing        import Iterable
-from enum          import Enum
+from pathlib             import Path
+from typing              import Iterable
+from enum                import Enum
 
-from torii.hdl.ast import Signal
-from torii.hdl.dsl import Module
-from torii.hdl.ir  import Elaboratable
-from torii.test    import ToriiTestCase
-from torii.hdl.rec import Record, Direction
+from torii.hdl.ast       import Signal
+from torii.hdl.dsl       import Module
+from torii.hdl.ir        import Elaboratable
+from torii.test          import ToriiTestCase
+from torii.hdl.rec       import Record, Direction
 
-from usb_construct.types import (
-	USBRequestRecipient, USBRequestType, USBStandardRequests, USBPacketID, LanguageIDs
-)
+from usb_construct.types import USBStandardRequests, USBPacketID
 
 try:
 	from torii_ila.usb import USBIntegratedLogicAnalyzer

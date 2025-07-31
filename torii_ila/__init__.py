@@ -10,7 +10,7 @@ except ImportError: # :nocov:
 from .ila import IntegratedLogicAnalyzer, StreamILA
 
 try:
-	from .uart import UARTIntegratedLogicAnalyzer, UARTIntegratedLogicAnalyzerBackhaul
+	from .uart import UARTIntegratedLogicAnalyzer, UARTIntegratedLogicAnalyzerBackhaul # noqa: F401
 	_ILA_UART_IMPORTS = ('UARTIntegratedLogicAnalyzer', 'UARTIntegratedLogicAnalyzerBackhaul',)
 	ILA_HAS_UART_SUPPORT = True
 except ImportError:
@@ -18,7 +18,7 @@ except ImportError:
 	ILA_HAS_UART_SUPPORT = False
 
 try:
-	from .usb import USBIntegratedLogicAnalyzer, USBIntegratedLogicAnalyzerBackhaul
+	from .usb import USBIntegratedLogicAnalyzer, USBIntegratedLogicAnalyzerBackhaul # noqa: F401
 	_ILA_USB_IMPORTS = ('USBIntegratedLogicAnalyzer', 'USBIntegratedLogicAnalyzerBackhaul',)
 	ILA_HAS_USB_SUPPORT = True
 except ImportError:

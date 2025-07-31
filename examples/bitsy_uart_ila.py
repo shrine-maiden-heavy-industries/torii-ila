@@ -181,7 +181,6 @@ class Top(Elaboratable):
 		with m.Else():
 			m.d.sync += [ self.timer.eq(self.timer - 1), ]
 
-
 		with m.If(self.other[7] & ~trig):
 			m.d.sync += [ trig.eq(1), ]
 			m.d.comb += [ self.ila.trigger.eq(1) ]

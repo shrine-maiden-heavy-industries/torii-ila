@@ -86,7 +86,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 		for sig in self.ila._signals:
 			#
 			width = len(sig)
-			bits  = raw[pos : (pos + width)]
+			bits  = raw[pos : (pos + width)] # noqa: E203
 			# Advance to the next signal
 			pos += width
 

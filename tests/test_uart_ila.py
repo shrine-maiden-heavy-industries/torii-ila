@@ -117,7 +117,6 @@ class UARTILATests(ToriiTestCase):
 				b'\xf1\x2e\x00\x00\xe2\x4e\x00\x00\xd5\x8e\x00\x00\xc6\x0e\x01\x00'
 			)
 
-
 		@ToriiTestCase.sync_domain(domain = 'sync')
 		def ila(self: UARTILATests):
 			yield from self.step(16)
@@ -131,7 +130,6 @@ class UARTILATests(ToriiTestCase):
 			yield
 			yield from self.step(512)
 			yield from self.uart_write_byte(UARTILACommand.FLUSH)
-
 
 		sig_gen(self)
 		ila(self)

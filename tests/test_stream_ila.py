@@ -93,7 +93,6 @@ class StreamILASameDomainTests(ToriiTestCase):
 			self.assertEqual((yield self.dut.ila.sampling), 0)
 			self.assertEqual((yield self.dut.ila.complete), 1)
 
-
 		@ToriiTestCase.sync_domain(domain = 'sync')
 		def stream_drain(self: StreamILASameDomainTests):
 			yield from self.wait_until_high(self.dut.ila.stream.valid, timeout = 128)
@@ -115,7 +114,6 @@ class StreamILASameDomainTests(ToriiTestCase):
 			self.assertEqual((yield self.dut.ila.stream.valid), 0)
 			self.assertEqual((yield self.dut.ila.stream.last), 0)
 			self.assertEqual((yield self.dut.ila.stream.first), 0)
-
 
 		stream_drain(self)
 		sig_gen(self)

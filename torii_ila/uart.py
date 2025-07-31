@@ -222,7 +222,6 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	_backhaul: UARTIntegratedLogicAnalyzerBackhaul | None = None
 
-
 	def get_backhaul(self: Self, port: Serial) -> UARTIntegratedLogicAnalyzerBackhaul:
 		'''
 		Automatically create a :py:class:`UARTIntegratedLogicAnalyzerBackhaul` from this ILA

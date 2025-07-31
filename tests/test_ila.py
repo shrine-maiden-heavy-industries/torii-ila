@@ -56,7 +56,6 @@ class ILATests(ToriiTestCase):
 		self.assertEqual(self.dut.ila.bits_per_sample, 32)
 		self.assertEqual(self.dut.ila.bytes_per_sample, 4)
 
-
 		@ToriiTestCase.sync_domain(domain = 'sync')
 		def sig_gen(self: ILATests):
 			yield d.eq(1)
@@ -85,7 +84,6 @@ class ILATests(ToriiTestCase):
 			self.assertEqual((yield self.dut.ila.trigger),  0)
 			self.assertEqual((yield self.dut.ila.sampling), 0)
 			self.assertEqual((yield self.dut.ila.complete), 1)
-
 
 		sig_gen(self)
 		ila(self)

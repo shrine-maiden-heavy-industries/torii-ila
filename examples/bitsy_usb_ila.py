@@ -125,7 +125,6 @@ class Top(Elaboratable):
 			bus = 'usb',
 		)
 
-
 	def elaborate(self, platform: ICEBreakerBitsyPlatform) -> Module:
 		m = Module()
 
@@ -173,7 +172,6 @@ class Top(Elaboratable):
 		with m.Else():
 			m.d.sync += [ self.timer.eq(self.timer - 1), ]
 
-
 		with m.If(self.other[7] & ~trig):
 			m.d.sync += [ trig.eq(1), ]
 			m.d.comb += [ self.ila.trigger.eq(1) ]
@@ -206,7 +204,6 @@ def main() -> int:
 		# In that case we don't care there was an error
 		if e.returncode != 251:
 			raise e
-
 
 	print('ILA Info:')
 	print(f'  bytes per sample: {top.ila.bytes_per_sample}')

@@ -112,8 +112,6 @@ class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
 		samples = self._device.read(0x80 | self.ila.BULK_EP_NUM, total_samples, timeout = 0)
 		return list(self._split_samples(samples))
 
-
-
 class USBIntegratedLogicAnalyzer(Elaboratable):
 	'''
 	A simple ILA that produces samples over a USB bulk endpoint.
@@ -322,7 +320,6 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 		self.ila.append_signals(signals)
 
-
 	def add_fsm(self: Self, fsm: FSM) -> None:
 		'''
 		Add a Torii FSM state to the ILA.
@@ -386,7 +383,6 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 		return desc
 
-
 	def elaborate(self: Self, platform: Platform) -> Module:
 		m = Module()
 
@@ -420,7 +416,6 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 				m.d.usb += [ connect.eq(1), ]
 		else:
 			m.d.comb += [ connect.eq(1), ]
-
 
 		# Bolt the streams together and hook up the connection signal.
 		m.d.comb += [

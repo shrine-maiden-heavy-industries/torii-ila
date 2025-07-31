@@ -22,8 +22,8 @@ __all__ = (
 )
 
 
-def _byte_len(l: int) -> int:
-	return (l + 7) // 8
+def _byte_len(length: int) -> int:
+	return (length + 7) // 8
 
 _byterev_lut = bytes(
 	sum(
@@ -124,7 +124,7 @@ class _bits_base(Sequence):
 			raise ValueError(f'wrong bytes length {len(value)} for {cls.__name__} of length {length}')
 		if length % 8:
 			mask = -1 << (length % 8)
-			if value[-1] & (-1 << (length % 8)):
+			if value[-1] & mask:
 				raise ValueError('wrong padding in the last byte')
 		res = object.__new__(cls)
 		res._bytes = value
@@ -200,7 +200,7 @@ class _bits_base(Sequence):
 				# byte-aligned normal fastpath (stop either byte-aligned,
 				# or matches end of sequence)
 				res = object.__new__(self.__class__)
-				res._bytes = self._bytes[start // 8 : (stop + 7) // 8]
+				res._bytes = self._bytes[start // 8 : (stop + 7) // 8] # noqa: E203
 				res._len = stop - start
 				return res
 			else:
@@ -210,7 +210,9 @@ class _bits_base(Sequence):
 			try:
 				key = operator.index(key)
 			except Exception:
-				raise TypeError(f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}')
+				raise TypeError(
+					f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}'
+				)
 			if key < 0:
 				key += self._len
 			if key not in range(self._len):
@@ -425,16 +427,18 @@ class bitarray(_bits_base, MutableSequence):
 			if step != 1:
 				# generic slow path
 				if len(rng) != len(value):
-					raise ValueError(f'attempt to assign sequence of size {len(value)} to extended slice of size {len(rng)}')
+					raise ValueError(
+						f'attempt to assign sequence of size {len(value)} to extended slice of size {len(rng)}'
+					)
 				for di, bit in zip(rng, value):
 					self[di] = bit
 			elif start % 8 == 0 and stop % 8 == 0 and value._len % 8 == 0:
 				# byte-aligned fastpath with aligned ends
-				self._bytes[start // 8 : stop // 8] = value._bytes
+				self._bytes[start // 8 : stop // 8] = value._bytes # noqa: E203
 				self._len += value._len - (stop - start)
 			elif start % 8 == 0 and stop == self._len:
 				# byte-aligned fastpath with no tail
-				self._bytes[start // 8 :] = value._bytes
+				self._bytes[start // 8 :] = value._bytes # noqa: E203
 				self._len = start + value._len
 			elif stop - start == value._len:
 				# slow-ish path, no resize
@@ -455,7 +459,9 @@ class bitarray(_bits_base, MutableSequence):
 			try:
 				key = operator.index(key)
 			except Exception:
-				raise TypeError(f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}')
+				raise TypeError(
+					f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}'
+				)
 			value = operator.index(value)
 			if value not in (0, 1):
 				raise ValueError('bit value must be 0 or 1')
@@ -490,7 +496,7 @@ class bitarray(_bits_base, MutableSequence):
 					self._len = start
 				else:
 					self._len -= stop - start
-				del self._bytes[start // 8 : (stop + 7) // 8]
+				del self._bytes[start // 8 : (stop + 7) // 8] # noqa: E203
 			elif stop == self._len:
 				# simple trim
 				self._resize(start)
@@ -503,12 +509,14 @@ class bitarray(_bits_base, MutableSequence):
 			try:
 				key = operator.index(key)
 			except Exception:
-				raise TypeError(f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}')
+				raise TypeError(
+					f'{self.__class__.__name__} indices must be integers or slices, not {key.__class__.__name__}'
+				)
 			if key < 0:
 				key += self._len
 			if key not in range(self._len):
 				raise IndexError('bits index out of range')
-			del self[key:key+1]
+			del self[key : key + 1] # noqa: E203
 
 	def insert(self: Self, index: SupportsIndex, value: SupportsIndex) -> None:
 		index = operator.index(index)
