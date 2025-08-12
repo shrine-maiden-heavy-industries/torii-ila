@@ -62,7 +62,7 @@ def watch_docs(session: Session) -> None:
 
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
 	session.install('sphinx-autobuild')
-	session.install('-e', '.')
+	session.install('-e', '.[usb,serial]')
 
 	session.run('sphinx-autobuild', str(DOCS_DIR), str(OUTPUT_DIR))
 
@@ -71,7 +71,7 @@ def build_docs(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'docs'
 
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('-e', '.')
+	session.install('-e', '.[usb,serial]')
 
 	session.run('sphinx-build', '-b', 'html', str(DOCS_DIR), str(OUTPUT_DIR))
 
@@ -82,7 +82,7 @@ def build_docs_multiversion(session: Session) -> None:
 	redirect_index = (CNTRB_DIR / 'docs-redirect.html')
 
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('-e', '.')
+	session.install('-e', '.[usb,serial]')
 
 	# Workaround for sphinx-contrib/multiversion#58
 	# Ask git for the list of tags matching `v*`, and sort them in reverse order by name
@@ -131,7 +131,7 @@ def linkcheck_docs(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'docs-linkcheck'
 
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('-e', '.')
+	session.install('-e', '.[usb,serial]')
 
 	session.run('sphinx-build', '-b', 'linkcheck', str(DOCS_DIR), str(OUTPUT_DIR))
 
@@ -143,7 +143,7 @@ def typecheck_mypy(session: Session) -> None:
 	session.install('mypy')
 	session.install('lxml')
 	session.install('types-pyserial')
-	session.install('-e', '.')
+	session.install('-e', '.[usb,serial]')
 
 	session.run(
 		'mypy', '--non-interactive', '--install-types', '--pretty',
