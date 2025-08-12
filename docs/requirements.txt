@@ -1,8 +1,9 @@
-sphinx
 furo
-sphinx-inline-tabs
-sphinxext-opengraph
-sphinx-autodoc-typehints
 matplotlib
 myst-parser
+sphinx
+sphinx-autodoc-typehints
 sphinx-copybutton
+sphinx-inline-tabs
+sphinx-multiversion
+sphinxext-opengraph
