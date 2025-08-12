@@ -331,8 +331,58 @@
       "doc_lineno": 11
     }
   ],
-  "ila/uart": [],
-  "ila/usb": [],
+  "ila/uart": [
+    {
+      "source": "with m.FSM(name = 'Thing') as fsm:\n        ila.add_fsm(fsm)",
+      "names": [],
+      "example": {
+        "document": "ila/uart",
+        "ref_id": "uart-based-integrated-logic-analyzer",
+        "headings": [
+          "UART-Based Integrated Logic Analyzer"
+        ]
+      },
+      "doc_lineno": 3
+    },
+    {
+      "source": "with m.FSM(name = 'Thing') as fsm:\n        ila.add_signal(fsm.state)",
+      "names": [],
+      "example": {
+        "document": "ila/uart",
+        "ref_id": "uart-based-integrated-logic-analyzer",
+        "headings": [
+          "UART-Based Integrated Logic Analyzer"
+        ]
+      },
+      "doc_lineno": 11
+    }
+  ],
+  "ila/usb": [
+    {
+      "source": "with m.FSM(name = 'Thing') as fsm:\n        ila.add_fsm(fsm)",
+      "names": [],
+      "example": {
+        "document": "ila/usb",
+        "ref_id": "usb-based-integrated-logic-analyzer",
+        "headings": [
+          "USB-Based Integrated Logic Analyzer"
+        ]
+      },
+      "doc_lineno": 3
+    },
+    {
+      "source": "with m.FSM(name = 'Thing') as fsm:\n        ila.add_signal(fsm.state)",
+      "names": [],
+      "example": {
+        "document": "ila/usb",
+        "ref_id": "usb-based-integrated-logic-analyzer",
+        "headings": [
+          "USB-Based Integrated Logic Analyzer"
+        ]
+      },
+      "doc_lineno": 11
+    }
+  ],
   "index": [],
   "install": [],
   "internal": [],

@@ -10,18 +10,21 @@
 <meta content="https://torii-ila.shmdn.link/getting_started.html" property="og:url"/>
 <meta content="Torii ILA" property="og:site_name"/>
 <meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:description"/>
-<meta content="https://torii-ila.shmdn.link//_images/og-image.png" property="og:image"/>
-<meta content="Torii ILA" property="og:image:alt"/>
+<meta content="1146" property="og:image:width"/>
+<meta content="600" property="og:image:height"/>
+<meta content="https://torii-ila.shmdn.link/_images/social_previews/summary_getting_started_52b42a9c.png" property="og:image"/>
+<meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:image:alt"/>
 <meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." name="description"/>
+<meta content="summary_large_image" name="twitter:card"/>
 <link href="genindex.html" rel="index" title="Index"/><link href="search.html" rel="search" title="Search"/><link href="ila/index.html" rel="next" title="Integrated Logic Analyzers"/><link href="install.html" rel="prev" title="Installation"/>
 <link href="https://torii-ila.shmdn.link/getting_started.html" rel="canonical"/>
 <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
-<title>Getting Started - Torii ILA 0.1.1.dev97 Documentation</title>
+<title>Getting Started - Torii ILA 0.1.1.dev100 Documentation</title>
 <link href="_static/pygments.css?v=b86133f3" rel="stylesheet" type="text/css"/>
 <link href="_static/styles/furo.css?v=25af2a20" rel="stylesheet" type="text/css"/>
-<link href="_static/tabs.css?v=4c969af8" rel="stylesheet" type="text/css"/>
-<link href="_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="_static/tabs.css?v=4c969af8" rel="stylesheet" type="text/css"/>
 <link href="_static/styles/furo-extensions.css?v=8dab3a3b" rel="stylesheet" type="text/css"/>
 <link href="_static/css/styles.css?v=d73683b3" rel="stylesheet" type="text/css"/>
 <style>
@@ -183,7 +186,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="index.html"><div class="brand">Torii ILA 0.1.1.dev97 documentation</div></a>
+<a href="index.html"><div class="brand">Torii ILA 0.1.1.dev100 documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -205,7 +208,7 @@
 <div class="sidebar-container">
 <div class="sidebar-sticky">
 <a class="sidebar-brand" href="index.html">
-<span class="sidebar-brand-text">Torii ILA 0.1.1.dev97 Documentation</span>
+<span class="sidebar-brand-text">Torii ILA 0.1.1.dev100 Documentation</span>
 </a><form action="search.html" class="sidebar-search-container" method="get" role="search">
 <input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
@@ -379,7 +382,7 @@
 <span class="linenos">100</span>	<span class="n">Qux</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
-<p>Last thing in the constructor is the actual creation of the <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code> itself, we give it all the signals we want to keep track of, how deep we want our sample memory, as well as the sample rate which we got from the PLL config and the USB resource name for it to use.</p>
+<p>Last thing in the constructor is the actual creation of the <a class="reference internal" href="ila/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzer" title="torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a> itself, we give it all the signals we want to keep track of, how deep we want our sample memory, as well as the sample rate which we got from the PLL config and the USB resource name for it to use.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">112</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">USBIntegratedLogicAnalyzer</span><span class="p">(</span>
 <span class="linenos">113</span>			<span class="c1"># The initial set of signals we care about</span>
 <span class="linenos">114</span>			<span class="n">signals</span> <span class="o">=</span> <span class="p">[</span>
@@ -411,7 +414,7 @@
 <span class="linenos">146</span>
 </pre></div>
 </div>
-<p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/v0.8.1/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii v0.8.1.dev221+g59379785d)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
+<p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/v0.8.1/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii v0.8.1.dev227+g4ece02fe)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
 <p>The remainder of the logic in <code class="docutils literal notranslate"><span class="pre">elaborate</span></code> is simply just driving the example signals:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">148</span>			<span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">add_fsm</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="linenos">149</span>
@@ -473,19 +476,19 @@
 <p>Some of these options need explaining, the <code class="docutils literal notranslate"><span class="pre">name</span></code>, and <code class="docutils literal notranslate"><span class="pre">do_program</span></code> are self explanatory, but the last three are a bit more archaic.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">script_after_read</span></code> option is a string that is a Yosys command that is added to the synthesis script right after the design source is read in, this is prior to synthesis actually being executed. What this line is doing, is making <code class="docutils literal notranslate"><span class="pre">abc9</span></code> run twice, to try to better optimize the design. This is used in conjunction with the <code class="docutils literal notranslate"><span class="pre">synth_opts</span></code> option of <code class="docutils literal notranslate"><span class="pre">-abc9</span></code>, which tells Yosys when synthesizing the design to use abc9.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">nextpnr_opts</span></code> is simply passing a PNR seed that was found to work for this design, depending on nextpnr internal changes, the phase of the moon, or how grumpy your cat is that day, you might need to adjust this to make sure timings pass.</p>
-<p>This whole thing is wrapped in a <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">except</span></code> because the <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code> does not set up a fully DFU compliant device, so when <code class="docutils literal notranslate"><span class="pre">dfu-util</span></code> sees the device come back and it is missing the DFU endpoint it gets cranky, but that’s okay.</p>
+<p>This whole thing is wrapped in a <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">except</span></code> because the <a class="reference internal" href="ila/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzer" title="torii_ila.usb.USBIntegratedLogicAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code></a> does not set up a fully DFU compliant device, so when <code class="docutils literal notranslate"><span class="pre">dfu-util</span></code> sees the device come back and it is missing the DFU endpoint it gets cranky, but that’s okay.</p>
 </section>
 <section id="backhaul-and-data-exfiltration">
 <h4>Backhaul and Data Exfiltration<a class="headerlink" href="#backhaul-and-data-exfiltration" title="Link to this heading">¶</a></h4>
 <p>Now that all the gateware specific details have been dealt with, we can get data off the device! Exciting!</p>
-<p>The first little bit just prints out the ILA configuration information for us, it’s not too important, the main focus here is getting our hands on a <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code> interface.</p>
+<p>The first little bit just prints out the ILA configuration information for us, it’s not too important, the main focus here is getting our hands on a <a class="reference internal" href="backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code></a> interface.</p>
 <p>That is a lot more straightforward than it seems:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">217</span>		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ts</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e-9</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> ns:'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See? It’s that easy!</p>
 <p>You can actually do it two ways, the first being getting it from the ILA instance from the gateware, that is what is done above, and it has the advantage of just giving you a fully set up backhaul interface.</p>
-<p>The other way is to manually construct a <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code> and pass the ILA instance into it, so it can read the information it needs.</p>
+<p>The other way is to manually construct a <a class="reference internal" href="backhaul/usb.html#torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul" title="torii_ila.usb.USBIntegratedLogicAnalyzerBackhaul"><code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code></a> and pass the ILA instance into it, so it can read the information it needs.</p>
 <p>In the case of the USB ILA, the VID/PID are fixed, and the backhaul interface looks for them by default.</p>
 <p>Next, we dump the decoded samples to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, this has a whole lot of machinery working behind the scenes to give us a simple signal name:value dictionary out from the USB device.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">219</span>			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
@@ -704,12 +707,12 @@
 </div>
 </aside>
 </div>
-</div><script src="_static/documentation_options.js?v=4c690ef1"></script>
+</div><script src="_static/documentation_options.js?v=59a26d9d"></script>
 <script src="_static/doctools.js?v=9bcbadda"></script>
 <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="_static/scripts/furo.js?v=46bd48cc"></script>
-<script src="_static/tabs.js?v=3ee01567"></script>
 <script src="_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="_static/copybutton.js?v=f281be69"></script>
+<script src="_static/tabs.js?v=3ee01567"></script>
 </body>
 </html>

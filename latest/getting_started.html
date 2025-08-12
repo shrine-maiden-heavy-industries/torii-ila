@@ -10,18 +10,21 @@
 <meta content="https://torii-ila.shmdn.link/getting_started.html" property="og:url"/>
 <meta content="Torii ILA" property="og:site_name"/>
 <meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:description"/>
-<meta content="https://torii-ila.shmdn.link//_images/og-image.png" property="og:image"/>
-<meta content="Torii ILA" property="og:image:alt"/>
+<meta content="1146" property="og:image:width"/>
+<meta content="600" property="og:image:height"/>
+<meta content="https://torii-ila.shmdn.link/_images/social_previews/summary_getting_started_52b42a9c.png" property="og:image"/>
+<meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:image:alt"/>
 <meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." name="description"/>
+<meta content="summary_large_image" name="twitter:card"/>
 <link href="genindex.html" rel="index" title="Index"/><link href="search.html" rel="search" title="Search"/><link href="ila/index.html" rel="next" title="Integrated Logic Analyzers"/><link href="install.html" rel="prev" title="Installation"/>
 <link href="https://torii-ila.shmdn.link/getting_started.html" rel="canonical"/>
 <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
 <title>Getting Started - Torii ILA v0.1.0 Documentation</title>
 <link href="_static/pygments.css?v=b86133f3" rel="stylesheet" type="text/css"/>
 <link href="_static/styles/furo.css?v=25af2a20" rel="stylesheet" type="text/css"/>
-<link href="_static/tabs.css?v=4c969af8" rel="stylesheet" type="text/css"/>
-<link href="_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="_static/tabs.css?v=4c969af8" rel="stylesheet" type="text/css"/>
 <link href="_static/styles/furo-extensions.css?v=8dab3a3b" rel="stylesheet" type="text/css"/>
 <link href="_static/css/styles.css?v=d73683b3" rel="stylesheet" type="text/css"/>
 <style>
@@ -174,7 +177,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="index.html"><div class="brand">Torii ILA 0.1.1.dev97 documentation</div></a>
+<a href="index.html"><div class="brand">Torii ILA 0.1.1.dev100 documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -398,7 +401,7 @@
 <span class="linenos">144</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">append_signals</span><span class="p">([</span><span class="n">wiggle</span><span class="p">,</span> <span class="n">woggle</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/v0.8.1/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii v0.8.1.dev221+g59379785d)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
+<p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/v0.8.1/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii v0.8.1.dev227+g4ece02fe)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
 <p>The remainder of the logic in <code class="docutils literal notranslate"><span class="pre">elaborate</span></code> is simply just driving the example signals:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">146</span>		<span class="c1"># Dummy logic wiggles</span>
 <span class="linenos">147</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
@@ -684,12 +687,12 @@
 </div>
 </aside>
 </div>
-</div><script src="_static/documentation_options.js?v=4c690ef1"></script>
+</div><script src="_static/documentation_options.js?v=59a26d9d"></script>
 <script src="_static/doctools.js?v=9bcbadda"></script>
 <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="_static/scripts/furo.js?v=46bd48cc"></script>
-<script src="_static/tabs.js?v=3ee01567"></script>
 <script src="_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="_static/copybutton.js?v=f281be69"></script>
+<script src="_static/tabs.js?v=3ee01567"></script>
 </body>
 </html>
