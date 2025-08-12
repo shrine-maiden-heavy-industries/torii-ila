@@ -152,6 +152,17 @@ def typecheck_mypy(session: Session) -> None:
 		'-p', 'torii_ila', '--html-report', str(OUTPUT_DIR.resolve())
 	)
 
+@nox.session(name = 'typecheck-pyright', reuse_venv = True)
+def typecheck_pyright(session: Session) -> None:
+	OUTPUT_DIR = BUILD_DIR / 'typing' / 'pyright'
+	OUTPUT_DIR.mkdir(parents = True, exist_ok = True)
+
+	session.install('pyright')
+	session.install('-e', '.[usb,serial]')
+
+	with (OUTPUT_DIR / 'pyright.log').open('w') as f:
+		session.run('pyright', *session.posargs, stdout = f)
+
 @nox.session(reuse_venv = True)
 def lint(session: Session) -> None:
 	session.install('flake8')
