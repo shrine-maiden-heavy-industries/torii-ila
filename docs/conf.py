@@ -26,6 +26,7 @@ extensions = [
 	'sphinx_inline_tabs',
 	'sphinxext.opengraph',
 	'sphinx_copybutton',
+	'sphinx_codeautolink',
 	'sphinx_multiversion',
 ]
 
@@ -64,6 +65,11 @@ napoleon_custom_sections  = [
 
 
 myst_heading_anchors = 3
+
+always_use_bars_union = True
+typehints_defaults = 'braces-after'
+typehints_use_signature = True
+typehints_use_signature_return = True
 
 templates_path = [
 	'_templates',
