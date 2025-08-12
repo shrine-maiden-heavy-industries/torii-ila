@@ -4,6 +4,7 @@ from datetime  import date
 from pathlib   import Path
 
 from torii     import __version__ as torii_version
+from torii_usb import __version__ as torii_usb_version
 from torii_ila import __version__ as torii_ila_version
 
 ROOT_DIR = (Path(__file__).parent).parent
@@ -23,11 +24,11 @@ extensions = [
 	'sphinx.ext.todo',
 	'myst_parser',
 	'sphinx_autodoc_typehints',
-	'sphinx_inline_tabs',
-	'sphinxext.opengraph',
-	'sphinx_copybutton',
 	'sphinx_codeautolink',
+	'sphinx_copybutton',
+	'sphinx_inline_tabs',
 	'sphinx_multiversion',
+	'sphinxext.opengraph',
 ]
 
 source_suffix = {
@@ -48,8 +49,8 @@ todo_include_todos          = True
 
 intersphinx_mapping = {
 	'python': ('https://docs.python.org/3', None),
-	'torii':  (f'https://torii.shmdn.link/v{torii_version}', None),
-	'torii_usb':  ('https://torii-usb.shmdn.link/latest', None),
+	'torii': (f'https://torii.shmdn.link/v{torii_version}', None),
+	'torii_usb': (f'https://torii-usb.shmdn.link/v{torii_usb_version}', None),
 	'serial': ('https://pythonhosted.org/pyserial/', None),
 }
 
@@ -62,7 +63,6 @@ napoleon_use_admonition_for_references = True
 napoleon_custom_sections  = [
 	('Attributes', 'params_style'),
 ]
-
 
 myst_heading_anchors = 3
 
@@ -117,18 +117,20 @@ html_css_files = [
 	'css/styles.css'
 ]
 
-
+# TODO(aki): OpenGraph metadata stuff
 ogp_site_url = html_baseurl
-ogp_image    = f'{html_baseurl}/_images/og-image.png'
-
-autosectionlabel_prefix_document = True
-
-always_use_bars_union = True
+ogp_social_cards = {}
+ogp_image = None
+ogp_image_alt = None
+ogp_custom_meta_tags = list[str]()
+ogp_enable_meta_description = True
 
 linkcheck_retries = 2
 linkcheck_workers = 1 # At the cost of speed try to prevent rate-limiting
-linkcheck_ignore  = []
-
+linkcheck_ignore  = [
+	# SSL Timeout from GitHub actions
+	'https://aur.archlinux.org',
+]
 linkcheck_anchors_ignore_for_url = [
 	r'^https://web\.libera\.chat/',
 ]
