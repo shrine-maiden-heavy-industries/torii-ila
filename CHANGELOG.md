@@ -36,6 +36,7 @@ Unreleased template stuff
 - Bumped minimum [Torii-USB] version to `v0.8.0`
 - Bumped minimum [Torii-Boards] version to `v0.8.0`
 - Switched from using the old setuptools `setup.py` over to setuptools via `pyproject.toml`
+- USB and UART based ILAs are now not optional
 
 ### Fixed
 
