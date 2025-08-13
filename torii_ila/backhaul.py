@@ -3,9 +3,8 @@
 
 from abc             import ABCMeta, abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing          import TypeAlias, Self, TYPE_CHECKING
+from typing          import TYPE_CHECKING, Generic, Self, TypeAlias, TypeVar
 from pathlib         import Path
-
 
 from vcd             import VCDWriter
 from vcd.common      import VarType as VCDVarType
@@ -26,10 +25,12 @@ ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer 
 Sample: TypeAlias = dict[str, bits]
 Samples: TypeAlias = Iterable[Sample]
 
+T = TypeVar('T', bound = ILAInterface)
+
 # TODO(aki): We should probably provide a way to have a live, firehose-like stream output for the backhaul interfaces
 #            it's a little more useful with the UART interface, as the USB interface is capable of doing batching mostly
 #            by itself already.
-class ILABackhaulInterface(metaclass = ABCMeta):
+class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 	'''
 	This represents the API for all ILA backhaul interfaces to implement.
 
@@ -53,7 +54,7 @@ class ILABackhaulInterface(metaclass = ABCMeta):
 		The collected samples from the ILA.
 	'''
 
-	def __init__(self: Self, ila: ILAInterface) -> None:
+	def __init__(self: Self, ila: T) -> None:
 		self.ila = ila
 		self.samples: Samples | None = None
 

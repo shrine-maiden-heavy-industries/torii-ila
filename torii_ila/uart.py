@@ -43,7 +43,7 @@ class UARTILACommand(IntEnum):
 	STOP   = 0x03
 	''' Stop the ILA from sending sample stream down the UART. '''
 
-class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
+class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface['UARTIntegratedLogicAnalyzer']):
 	'''
 	UART-based ILA backhaul interface, used in combination with :py:class:`UARTIntegratedLogicAnalyzer`
 	to automatically set up a communications channel to get ILA samples off-device.

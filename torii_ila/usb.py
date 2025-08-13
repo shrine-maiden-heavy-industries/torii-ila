@@ -31,7 +31,7 @@ __all__ = (
 )
 
 
-class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface):
+class USBIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface['USBIntegratedLogicAnalyzer']):
 	'''
 	USB-based ILA backhaul interface, used in combination with :py:class:`USBIntegratedLogicAnalyzer`
 	to automatically set up a communications channel to get ILA samples off-device.
