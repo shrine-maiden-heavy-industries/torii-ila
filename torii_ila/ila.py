@@ -4,7 +4,7 @@
 from collections.abc         import Iterable
 from typing                  import Self
 
-from torii.hdl.ast           import Cat, Signal
+from torii.hdl.ast           import Cat, Signal, SignalSet
 from torii.hdl.dsl           import FSM, Module
 from torii.hdl.ir            import Elaboratable
 from torii.hdl.mem           import Memory
@@ -99,7 +99,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		be called after elaboration of this module has started.
 		'''
 
-		self._inputs              = Cat(*self._signals)
+		self._inputs              = Cat(iter(self._signals))
 		self.sample_width         = len(self._inputs)
 		self.bytes_per_sample     = (self.sample_width + 7) // 8
 		self.bits_per_sample      = self.bytes_per_sample * 8
@@ -111,19 +111,19 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		signals: Iterable[Signal] = list(), sample_depth: int = 32, sampling_domain: str = 'sync',
 		sample_rate: float = 50e6, prologue_samples: int = 1
 	) -> None:
-		self._sampling_domain       = sampling_domain
-		self._signals: list[Signal] = list(signals)
-		self._inputs                = Cat(*self._signals)
-		self.sample_width           = len(self._inputs)
-		self.sample_depth           = sample_depth
-		self.prologue_samples       = prologue_samples
-		self.sample_rate            = sample_rate
-		self.sample_period          = 1 / sample_rate
+		self._sampling_domain = sampling_domain
+		self._signals         = SignalSet(signals)
+		self._inputs          = Cat(iter(self._signals))
+		self.sample_width     = len(self._inputs)
+		self.sample_depth     = sample_depth
+		self.prologue_samples = prologue_samples
+		self.sample_rate      = sample_rate
+		self.sample_period    = 1 / sample_rate
 
-		self.bytes_per_sample       = (self.sample_width + 7) // 8
-		self.bits_per_sample        = self.bytes_per_sample * 8
+		self.bytes_per_sample = (self.sample_width + 7) // 8
+		self.bits_per_sample  = self.bytes_per_sample * 8
 
-		self._sample_memory    = Memory(
+		self._sample_memory   = Memory(
 			width = self.sample_width, depth = sample_depth, name = 'ila_storage'
 		)
 
@@ -161,8 +161,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		if self._is_elaborating:
 			raise RuntimeError('Can not add signal to ILA after it is elaborated')
 
-		# BUG(aki): We should check to make sure we are not already tracking this signal
-		self._signals.append(sig)
+		self._signals.add(sig)
 
 		self._recompute()
 
@@ -189,8 +188,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		if self._is_elaborating:
 			raise RuntimeError('Can not add signal to ILA after it is elaborated')
 
-		# BUG(aki): We should check to make sure we are not already tracking this signal
-		self._signals.extend(signals)
+		self._signals.update(signals)
 
 		self._recompute()
 
@@ -234,7 +232,7 @@ class IntegratedLogicAnalyzer(Elaboratable):
 		if self._is_elaborating:
 			raise RuntimeError('Can not add signal to ILA after it is elaborated')
 
-		self._signals.append(fsm.state)
+		self._signals.add(fsm.state)
 
 		self._recompute()
 
