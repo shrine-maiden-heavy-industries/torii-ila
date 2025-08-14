@@ -20,6 +20,18 @@ Unreleased template stuff
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [v0.2.0] - 2025-08-14
+
 > [!IMPORTANT]
 > The minimum Python version for Torii and Torii ILA is now 3.11
 
@@ -56,7 +68,8 @@ enough to have it's tires kicked.
 - USB-Based ILA and backhaul interface `torii_ila.usb`
 - UART and USB ILA examples
 
-[Unreleased]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/v0.1.0...main
+[Unreleased]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/v0.2.0...main
+[v0.2.0]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/aa8b192...v0.1.0
 
 [Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl
