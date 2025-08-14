@@ -144,7 +144,6 @@ class Top(Elaboratable):
 
 		wiggle = Signal()
 		woggle = Signal()
-		trig  = Signal()
 
 		# Add some "Private" signals to the ILA
 		self.ila.append_signals([wiggle, woggle])
@@ -177,8 +176,7 @@ class Top(Elaboratable):
 		with m.Else():
 			m.d.sync += [ self.timer.eq(self.timer - 1), ]
 
-		with m.If(self.other[7] & ~trig):
-			m.d.sync += [ trig.eq(1), ]
+		with m.If(self.other[7]):
 			m.d.comb += [ self.ila.trigger.eq(1) ]
 
 		# Glue for the PLL and LEDs
