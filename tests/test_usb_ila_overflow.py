@@ -2,8 +2,6 @@
 # SPDX-FileCopyrightText: 2025 Rachel Mant <git@dragonmux.network>
 # SPDX-FileCopyrightText: 2025 Aki Van Ness <aki@lethalbit.net>c
 
-import sys
-from pathlib             import Path
 from typing              import Iterable
 from enum                import Enum
 
@@ -15,15 +13,7 @@ from torii.hdl.rec       import Record, Direction
 
 from usb_construct.types import USBStandardRequests, USBPacketID
 
-try:
-	from torii_ila.usb import USBIntegratedLogicAnalyzer
-except ImportError:
-	torii_ila_path = Path(__file__).resolve().parent
-
-	if (torii_ila_path.parent / 'torii_ila').is_dir():
-		sys.path.insert(0, str(torii_ila_path.parent))
-
-	from torii_ila.usb import USBIntegratedLogicAnalyzer
+from torii_ila.usb       import USBIntegratedLogicAnalyzer
 
 class EnumValue(Enum):
 	Foo = 0
@@ -368,7 +358,3 @@ class USBILAOverflowTests(ToriiTestCase):
 			self._last_data_recv.byte(), *data, *crc.to_bytes(2, byteorder = 'little')
 		))
 		yield from self.usb_send_ack()
-
-if __name__ == '__main__':
-	from unittest import main
-	main()
