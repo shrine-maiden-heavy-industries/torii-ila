@@ -21,9 +21,9 @@ from torii_usb.usb.usb2.endpoints.stream import USBMultibyteStreamInEndpoint
 
 import usb
 
-from .ila                                import StreamILA
-from .backhaul                           import ILABackhaulInterface
-from ._bits                              import bits
+from ..ila                               import StreamILA
+from ..backhaul                          import ILABackhaulInterface
+from .._bits                             import bits
 
 __all__ = (
 	'USBIntegratedLogicAnalyzerBackhaul',

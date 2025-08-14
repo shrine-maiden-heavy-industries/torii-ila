@@ -12,11 +12,7 @@ license-files = ['LICENSE', 'LICENSE.docs']
 readme = 'README.md'
 requires-python = '>=3.11'
 dependencies = [
-	'libusb1>=1.8.1',
-	'pyserial',
-	'pyusb',
 	'pyvcd', # NOTE(aki): This is constrained by the same version in the Torii dependency list
-	'torii-usb>=0.8.0,<1.0',
 	'torii>=0.8.0,<1.0',
 ]
 keywords = [
@@ -56,7 +52,19 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ['nox']
+dev = [
+	'nox'
+]
+
+usb = [
+	'libusb1>=1.8.1',
+	'pyusb',
+	'torii-usb>=0.8.0,<1.0',
+]
+
+uart = [
+	'pyserial',
+]
 
 examples = [
 	# Board definitions

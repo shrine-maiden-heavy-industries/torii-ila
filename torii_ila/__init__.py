@@ -7,15 +7,10 @@ try:
 except ImportError: # :nocov:
 	__version__ = 'unknown'
 
-from .ila  import IntegratedLogicAnalyzer, StreamILA
-from .uart import UARTIntegratedLogicAnalyzer, UARTIntegratedLogicAnalyzerBackhaul
-from .usb  import USBIntegratedLogicAnalyzer, USBIntegratedLogicAnalyzerBackhaul
+from .uart import ILA_HAS_UART
+from .usb  import ILA_HAS_USB
 
 __all__ = (
-	'IntegratedLogicAnalyzer',
-	'StreamILA',
-	'UARTIntegratedLogicAnalyzer',
-	'UARTIntegratedLogicAnalyzerBackhaul',
-	'USBIntegratedLogicAnalyzer',
-	'USBIntegratedLogicAnalyzerBackhaul',
+	'ILA_HAS_UART',
+	'ILA_HAS_USB',
 )

@@ -20,9 +20,9 @@ from torii.hdl.xfrm         import DomainRenamer
 from torii.lib.coding.cobs  import RCOBSEncoder, decode_rcobs
 from torii.lib.stdio.serial import AsyncSerial
 
-from ._bits                 import bits
-from .backhaul              import ILABackhaulInterface
-from .ila                   import StreamILA
+from .._bits                import bits
+from ..backhaul             import ILABackhaulInterface
+from ..ila                  import StreamILA
 
 __all__ = (
 	'UARTILACommand',
