@@ -23,7 +23,7 @@ __all__ = (
 
 ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer | UARTIntegratedLogicAnalyzer'
 Sample: TypeAlias = dict[str, bits]
-Samples: TypeAlias = Iterable[Sample]
+Samples: TypeAlias = list[Sample]
 
 T = TypeVar('T', bound = ILAInterface)
 
@@ -56,7 +56,7 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 
 	def __init__(self: Self, ila: T) -> None:
 		self.ila = ila
-		self.samples: Samples | None = None
+		self.samples: Samples = list[Sample]()
 
 	@abstractmethod
 	def _ingest_samples(self: Self) -> Iterable[bits]:
@@ -130,7 +130,7 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 		not be contiguous.
 		'''
 
-		if self.samples is None:
+		if len(self.samples) == 0:
 			self.refresh()
 		else:
 			self.samples.extend(self._parse_samples(self._ingest_samples()))
@@ -146,10 +146,12 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 			A stream of (timestamp, sample) tuples
 		'''
 
-		# BUG(aki): This assumes that `refresh()` will always populate the sample buffer, this
-		#           is not correct, and may cause issues.
-		if self.samples is None:
+		if len(self.samples) == 0:
 			self.refresh()
+
+			if len(self.samples) == 0:
+				print('Refresh didn\'t collect any samples, can\'t enumerate!')
+				return
 
 		ts: float = 0
 
