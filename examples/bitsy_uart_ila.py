@@ -28,8 +28,6 @@ from pathlib                    import Path
 from enum                       import Enum
 from subprocess                 import CalledProcessError
 
-from serial                     import Serial
-
 from torii.hdl                  import (
 	ClockDomain, ClockSignal, Const, Elaboratable, Instance, Module, Signal, ResetSignal
 )
