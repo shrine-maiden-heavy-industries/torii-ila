@@ -60,7 +60,7 @@ dev = ['nox']
 
 examples = [
 	# Board definitions
-	'torii-boards>=0.8.0,<1.0',
+	'torii-boards>=0.8.1,<1.0',
 ]
 
 [project.urls]
