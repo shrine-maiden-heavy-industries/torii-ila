@@ -37,6 +37,7 @@ Unreleased template stuff
 - Bumped minimum [Torii-Boards] version to `v0.8.0`
 - Switched from using the old setuptools `setup.py` over to setuptools via `pyproject.toml`
 - Fixed how the USB and Serial ILAs are exported when appropriate deps are installed
+- Changed how UART Backhaul is instantiated
 
 ### Fixed
 

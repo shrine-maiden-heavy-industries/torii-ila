@@ -9,6 +9,7 @@ UART Based ILA and backhaul interface.
 from collections.abc        import Generator, Iterable
 from enum                   import IntEnum, unique
 from itertools              import chain, islice
+from pathlib                import Path
 from typing                 import Self
 
 from serial                 import Serial
@@ -64,15 +65,25 @@ class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface['UARTIntegratedLo
 	ila : UARTIntegratedLogicAnalyzer
 		The ILA being used.
 
-	serial : Serial
-		The serial port the ILA is connected over.
+	port : Path | str
+		The path to the serial port to use for the ILA.
+
+	baudrate : int
+		The BAUD the UART was configured for.
 
 	'''
 
-	def __init__(self: Self, ila: 'UARTIntegratedLogicAnalyzer', serial: Serial) -> None:
+	def __init__(self: Self, ila: 'UARTIntegratedLogicAnalyzer', port: Path | str, baudrate: int) -> None:
 		super().__init__(ila)
 
-		self._port = serial
+		if isinstance(port, Path):
+			if not port.exists():
+				raise RuntimeError(f'Path to serial port {port} does not exist, did you mean to pass a port name?')
+			else:
+				self._port = Serial(port = str(port), baudrate = baudrate)
+		else:
+			self._port = Serial(port = port, baudrate = baudrate)
+
 		self._port.reset_input_buffer()
 
 	def _split_samples(self: Self, samples: bytes) -> Generator[bits]:
@@ -222,15 +233,18 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 	_backhaul: UARTIntegratedLogicAnalyzerBackhaul | None = None
 
-	def get_backhaul(self: Self, port: Serial) -> UARTIntegratedLogicAnalyzerBackhaul:
+	def get_backhaul(self: Self, port: Path | str, baudrate: int) -> UARTIntegratedLogicAnalyzerBackhaul:
 		'''
 		Automatically create a :py:class:`UARTIntegratedLogicAnalyzerBackhaul` from this ILA
 		instance.
 
 		Parameters
 		----------
-		port : serial.Serial
-			The serial port to use to ingest data from.
+		port : Path | str
+			The path to the serial port to use for the ILA.
+
+		baudrate : int
+			The baudrate the UART was configured for.
 
 		Returns
 		-------
@@ -239,7 +253,8 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		'''
 
 		if self._backhaul is None:
-			self._backhaul = UARTIntegratedLogicAnalyzerBackhaul(self, port)
+			self._backhaul = UARTIntegratedLogicAnalyzerBackhaul(ila = self, port = port, baudrate = baudrate)
+
 		return self._backhaul
 
 	@property

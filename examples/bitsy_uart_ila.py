@@ -233,10 +233,8 @@ def main() -> int:
 	print(f'  bits per sample:  {top.ila.bits_per_sample}')
 	print(f'  sample rate:      {top.ila.sample_rate / 1e6} MHz')
 	print(f'  sample period:    {top.ila.sample_period / 1e-9} ns')
-	# Set up the serial port we are going to use to ingest the data
-	serialport = Serial(port = SERIAL_PORT_PATH, baudrate = SERIAL_PORT_BAUD)
 	# Get the backhaul interface from the ILA module
-	backhaul = top.ila.get_backhaul(serialport)
+	backhaul = top.ila.get_backhaul(port = SERIAL_PORT_PATH, baudrate = SERIAL_PORT_BAUD)
 	print('Collecting ILA Samples')
 	for ts, sample in backhaul.enumerate():
 		print(f'{ts / 1e-9:.2f} ns:')
