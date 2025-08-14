@@ -37,16 +37,22 @@ from torii.build                import Resource, Pins, Attrs, Platform
 
 from torii_boards.lattice.ice40 import ICEBreakerBitsyPlatform
 
+
 try:
-	from torii_ila import UARTIntegratedLogicAnalyzer
+	import torii_ila
 except ImportError:
 	torii_ila_path = Path(__file__).resolve().parent
 
 	if (torii_ila_path.parent / 'torii_ila').is_dir():
 		sys.path.insert(0, str(torii_ila_path.parent))
 
-	from torii_ila import UARTIntegratedLogicAnalyzer
+	import torii_ila
 
+if not torii_ila.ILA_HAS_UART:
+	print('Error: Torii ILA was not installed with UART support')
+	raise SystemExit(-1)
+
+from torii_ila.uart import UARTIntegratedLogicAnalyzer
 
 # NOTE(aki): If you are *not* using a tigard, you'll need to change this path
 SERIAL_PORT_PATH = '/dev/serial/by-id/usb-SecuringHardware.com_Tigard_V1.1_TG110e65-if00-port0'

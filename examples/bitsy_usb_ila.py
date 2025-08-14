@@ -29,15 +29,20 @@ from torii.build                import Platform
 from torii_boards.lattice.ice40 import ICEBreakerBitsyPlatform
 
 try:
-	from torii_ila import USBIntegratedLogicAnalyzer
+	import torii_ila
 except ImportError:
 	torii_ila_path = Path(__file__).resolve().parent
 
 	if (torii_ila_path.parent / 'torii_ila').is_dir():
 		sys.path.insert(0, str(torii_ila_path.parent))
 
-	from torii_ila import USBIntegratedLogicAnalyzer
+	import torii_ila
 
+if not torii_ila.ILA_HAS_USB:
+	print('Error: Torii ILA was not installed with USB support')
+	raise SystemExit(-1)
+
+from torii_ila.usb import USBIntegratedLogicAnalyzer
 
 class PLL(Elaboratable):
 	''' 12MHz -> 48MHz PLL '''
