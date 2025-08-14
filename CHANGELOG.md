@@ -33,8 +33,8 @@ Unreleased template stuff
 - USB ILA VID:PID changed from `04A0:ACA7` to `1D50:6190`.
 - UART ILA now has an RX line and no longer sends the stream of ILA data right away after capture completion
 - Bumped minimum [Torii] version to `v0.8.0`
-- Bumped minimum [Torii-USB] version to `v0.8.0`
-- Bumped minimum [Torii-Boards] version to `v0.8.0`
+- Bumped minimum [Torii USB] version to `v0.8.0`
+- Bumped minimum [Torii Boards] version to `v0.8.1`
 - Switched from using the old setuptools `setup.py` over to setuptools via `pyproject.toml`
 - Fixed how the USB and Serial ILAs are exported when appropriate deps are installed
 - Changed how UART Backhaul is instantiated
@@ -60,5 +60,5 @@ enough to have it's tires kicked.
 [v0.1.0]: https://github.com/shrine-maiden-heavy-industries/torii-ila/compare/aa8b192...v0.1.0
 
 [Torii]: https://github.com/shrine-maiden-heavy-industries/torii-hdl
-[Torii-USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb
-[Torii-Boards]: https://github.com/shrine-maiden-heavy-industries/torii-boards
+[Torii USB]: https://github.com/shrine-maiden-heavy-industries/torii-usb
+[Torii Boards]: https://github.com/shrine-maiden-heavy-industries/torii-boards
