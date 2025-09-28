@@ -43,6 +43,8 @@ class UARTILACommand(IntEnum):
 	''' Send the ILA sample memory down the UART until ``UARTILACommand.STOP`` is sent. '''
 	STOP   = 0x03
 	''' Stop the ILA from sending sample stream down the UART. '''
+	RETRIGGER = 0x04
+	''' Retrigger the ILA '''
 
 class UARTIntegratedLogicAnalyzerBackhaul(ILABackhaulInterface['UARTIntegratedLogicAnalyzer']):
 	'''
@@ -297,7 +299,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		self.sample_rate      = self.ila.sample_rate
 		self.sample_period    = self.ila.sample_period
 
-		self.trigger  = self.ila.trigger
+		self.trigger  = Signal()
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
@@ -394,12 +396,13 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		m.submodules.rcobs = rcobs = RCOBSEncoder()
 		m.submodules.uart  = uart  = AsyncSerial(divisor = self.divisor)
 
-		data_tx  = Signal.like(ila.stream.data)
-		data_rx  = Signal.like(uart.rx.data, decoder = UARTILACommand)
-		to_send  = Signal(range(ila.bytes_per_sample + 1))
-		finalize = Signal()
-		send     = Signal()
-		stream   = Signal()
+		data_tx   = Signal.like(ila.stream.data)
+		data_rx   = Signal.like(uart.rx.data, decoder = UARTILACommand)
+		to_send   = Signal(range(ila.bytes_per_sample + 1))
+		finalize  = Signal()
+		send      = Signal()
+		stream    = Signal()
+		retrigger = Signal()
 
 		m.d.comb += [
 			# Connect the UART
@@ -410,7 +413,9 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 			uart.tx.data.eq(rcobs.enc),
 			uart.tx.ack.eq(rcobs.valid),
 			rcobs.ack.eq(uart.tx.rdy),
-
+			# Retrigger machinery
+			retrigger.eq(0),
+			self.ila.trigger.eq(retrigger | self.trigger),
 		]
 
 		with m.FSM(name = 'rx') as fsm:
@@ -432,6 +437,8 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 						]
 					with m.Case(UARTILACommand.STOP):
 						m.d.sync += [ stream.eq(0), ]
+					with m.Case(UARTILACommand.RETRIGGER):
+						m.d.comb += [ retrigger.eq(1), ]
 
 				m.d.sync += [ data_rx.eq(0), ]
 				m.next = 'IDLE'
