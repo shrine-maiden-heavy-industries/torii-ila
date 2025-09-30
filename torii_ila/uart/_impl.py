@@ -298,6 +298,7 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		self.sample_depth     = self.ila.sample_depth
 		self.sample_rate      = self.ila.sample_rate
 		self.sample_period    = self.ila.sample_period
+		self.prologue_samples = self.ila.prologue_samples
 
 		self.trigger  = Signal()
 		self.sampling = self.ila.sampling

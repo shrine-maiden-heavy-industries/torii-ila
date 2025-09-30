@@ -268,6 +268,7 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		self.sample_depth     = self.ila.sample_depth
 		self.sample_rate      = self.ila.sample_rate
 		self.sample_period    = self.ila.sample_period
+		self.prologue_samples = self.ila.prologue_samples
 
 		self.trigger  = self.ila.trigger
 		self.sampling = self.ila.sampling
