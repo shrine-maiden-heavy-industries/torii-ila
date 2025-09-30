@@ -439,10 +439,18 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 					with m.Case(UARTILACommand.STOP):
 						m.d.sync += [ stream.eq(0), ]
 					with m.Case(UARTILACommand.RETRIGGER):
+						m.next = 'RETRIGGER'
 						m.d.comb += [ retrigger.eq(1), ]
 
+				with m.If(data_rx != UARTILACommand.RETRIGGER):
+					m.next = 'IDLE'
+
 				m.d.sync += [ data_rx.eq(0), ]
-				m.next = 'IDLE'
+
+			with m.State('RETRIGGER'):
+				with m.If(self.complete):
+					m.d.sync += [ send.eq(1) ]
+					m.next = 'IDLE'
 
 		with m.FSM(name = 'tx') as fsm:
 			m.d.comb += [ self.idle.eq(fsm.ongoing('IDLE')), ]
