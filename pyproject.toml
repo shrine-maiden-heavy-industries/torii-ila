@@ -71,6 +71,9 @@ examples = [
 	'torii-boards>=0.8.1,<1.0',
 ]
 
+[project.scripts]
+'torii-cli' = 'torii_ila.cli:main'
+
 [project.urls]
 source = 'https://github.com/shrine-maiden-heavy-industries/torii-ila'
 issues = 'https://github.com/shrine-maiden-heavy-industries/torii-ila/issues'
