@@ -186,6 +186,9 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 				# Signal mapping
 				vcd_signals: dict[str, VCDVar] = dict()
 				sig_decoder: dict[str, Callable[[int], str]] = dict()
+				trigger = writer.register_var(
+					'ila', 'ila_trigger', VCDVarType.wire, size = 1, init = 0
+				)
 
 				# If we are adding a matched clock from the ILA then set that up
 				if inject_sample_clock:
@@ -211,6 +214,7 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 				# Wiggle out our captured samples
 				for ts, sample in self.enumerate():
 					last_ts = ts
+
 					# If we are injecting our sample clock, make sure we run it up to the time
 					# of the last sample before we add a new sample
 					if inject_sample_clock:
@@ -218,6 +222,11 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 							writer.change(clk_signal, clk_time / 1e-9, clk_value)
 							clk_value ^= 1 # Tick the clock
 							clk_time += (self.ila.sample_period / 2)
+
+					if ts == self.ila.prologue_samples * self.ila.sample_period:
+						writer.change(trigger, ts / 1e-9, 1)
+					elif ts > self.ila.prologue_samples * self.ila.sample_period:
+						writer.change(trigger, ts / 1e-9, 0)
 
 					# Iterate over the un-packed sample
 					for name, value in sample.items():
