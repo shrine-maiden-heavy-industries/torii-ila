@@ -1,0 +1,291 @@
+{
+  "backhaul/index": [],
+  "backhaul/uart": [],
+  "backhaul/usb": [],
+  "changelog": [],
+  "getting_started": [
+    {
+      "source": "class PLL(Elaboratable):\n\t''' 12MHz -> 48MHz PLL '''\n\tdef __init__(self) -> None:\n\t\tself.locked = Signal()\n\n\tdef elaborate(self, platform: Platform) -> Module:\n\t\tm = Module()\n\n\t\tm.domains.sync    = ClockDomain()\n\t\tm.domains.usb     = ClockDomain()\n\t\tm.domains.usb_io  = ClockDomain()\n\n\t\tplatform.lookup(platform.default_clk).attrs['GLOBAL'] = False\n\n\t\tpll_clk = Signal()\n\t\tusb_clk = Signal()\n\n\t\tm.submodules.pll = Instance(\n\t\t\t'SB_PLL40_PAD',\n\t\t\ti_PACKAGEPIN    = platform.request(platform.default_clk, dir = 'i'),\n\t\t\ti_RESETB        = Const(1),\n\t\t\ti_BYPASS        = Const(0),\n\n\t\t\to_PLLOUTCORE    = pll_clk,\n\t\t\to_LOCK          = self.locked,\n\n\t\t\tp_FEEDBACK_PATH = 'SIMPLE',\n\t\t\tp_PLLOUT_SELECT = 'GENCLK',\n\t\t\tp_DIVR          = 0,\n\t\t\tp_DIVF          = 63,\n\t\t\tp_DIVQ          = 4,\n\t\t\tp_FILTER_RANGE  = 1\n\t\t)\n\n\t\tplatform.add_clock_constraint(pll_clk, 48e6)\n\t\tplatform.add_clock_constraint(usb_clk, 12e6)\n\n\t\tclk_div = Signal(range(4))\n\t\tm.d.usb_io += [ clk_div.inc(), ]\n\n\t\tm.d.comb += [\n\t\t\tusb_clk.eq(clk_div[1]),\n\n\t\t\tClockSignal('sync').eq(pll_clk),\n\t\t\tClockSignal('usb_io').eq(pll_clk),\n\t\t\tClockSignal('usb').eq(usb_clk),\n\n\t\t\tResetSignal('sync').eq(~self.locked),\n\t\t\tResetSignal('usb_io').eq(~self.locked),\n\t\t\tResetSignal('usb').eq(~self.locked),\n\t\t]\n\n\t\treturn m\n",
+      "names": [
+        {
+          "import_components": [
+            "range"
+          ],
+          "code_str": "range",
+          "lineno": 38,
+          "end_lineno": 38,
+          "context": "none",
+          "resolved_location": "range"
+        }
+      ],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "pll-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "PLL Module"
+        ]
+      },
+      "doc_lineno": 28
+    },
+    {
+      "source": "class Top(Elaboratable):\n\tdef __init__(self) -> None:\n\t\tcounter_val = int(48 // 10)\n\t\t# Handful of sample signals for the ILA\n\t\tself.pll_locked = Signal()\n\t\tself.timer      = Signal(range(counter_val), reset = counter_val - 1, decoder = EnumValue)\n\t\tself.flops      = Signal(range(8), reset = 1)\n\t\tself.other      = Signal(8)\n",
+      "names": [
+        {
+          "import_components": [
+            "int"
+          ],
+          "code_str": "int",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "int"
+        },
+        {
+          "import_components": [
+            "range"
+          ],
+          "code_str": "range",
+          "lineno": 6,
+          "end_lineno": 6,
+          "context": "none",
+          "resolved_location": "range"
+        },
+        {
+          "import_components": [
+            "range"
+          ],
+          "code_str": "range",
+          "lineno": 7,
+          "end_lineno": 7,
+          "context": "none",
+          "resolved_location": "range"
+        }
+      ],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 41
+    },
+    {
+      "source": "class EnumValue(Enum):\n\tFoo = 0\n\tBar = 1\n\tBaz = 2\n\tQux = 3\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 50
+    },
+    {
+      "source": "\t\tself.ila = USBIntegratedLogicAnalyzer(\n\t\t\t# The initial set of signals we care about\n\t\t\tsignals = [\n\t\t\t\tself.pll_locked,\n\t\t\t\tself.timer,\n\t\t\t\tself.flops,\n\t\t\t\tself.other,\n\t\t\t],\n\t\t\t# How many samples we want to capture\n\t\t\tsample_depth = 32,\n\t\t\t# How fast our sample domain is, in this case `sync`\n\t\t\tsample_rate  = 48e6,\n\t\t\t# The name of the USB resource to pull from the platform.\n\t\t\tbus = 'usb',\n\t\t)\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 59
+    },
+    {
+      "source": "\t\tm.submodules.ila = self.ila\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 70
+    },
+    {
+      "source": "\t\twiggle = Signal()\n\t\twoggle = Signal()\n\n\t\t# Add some \"Private\" signals to the ILA\n\t\tself.ila.append_signals([wiggle, woggle])\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 79
+    },
+    {
+      "source": "\t\t# Dummy logic wiggles\n\t\twith m.If(self.timer == 0):\n\t\t\tm.d.sync += [\n\t\t\t\tself.timer.eq(self.timer.reset),\n\t\t\t\tself.flops.eq(self.flops.rotate_left(1)),\n\t\t\t]\n\t\t\twith m.If(self.flops[2]):\n\t\t\t\tm.d.sync += [ self.other.inc(), ]\n\n\t\twith m.Else():\n\t\t\tm.d.sync += [ self.timer.eq(self.timer - 1), ]\n\n\n\t\twith m.If(self.other[7]):\n\t\t\tm.d.comb += [ self.ila.trigger.eq(1) ]\n\n\t\tm.d.sync += [\n\t\t\twiggle.eq(self.timer[0]),\n\t\t\twoggle.eq(~wiggle),\n\t\t]\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "top-module",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Gateware",
+          "Top Module"
+        ]
+      },
+      "doc_lineno": 90
+    },
+    {
+      "source": "\ttop      = Top()\n\tvcd_file = Path.cwd() / 'bitsy_usb_ila.vcd'\n\tplat     = ICEBreakerBitsyPlatform()\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "platform-setup-and-building",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Building and Backhaul",
+          "Platform Setup and Building"
+        ]
+      },
+      "doc_lineno": 105
+    },
+    {
+      "source": "\ttry:\n\t\tplat.build(\n\t\t\ttop, name = 'bitsy_usb_ila', do_program = True,\n\t\t\tscript_after_read = 'scratchpad -copy abc9.script.flow3 abc9.script\\n',\n\t\t\tsynth_opts = ['-abc9'],\n\t\t\tnextpnr_opts = [ '--seed 1' ]\n\t\t)\n\texcept CalledProcessError as e:\n\t\t# dfu-util complains because we don't come back as a DFU device\n\t\t# In that case we don't care there was an error\n\t\tif e.returncode != 251:\n\t\t\traise e\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "platform-setup-and-building",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Building and Backhaul",
+          "Platform Setup and Building"
+        ]
+      },
+      "doc_lineno": 114
+    },
+    {
+      "source": "\tbackhaul = top.ila.get_backhaul()\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "backhaul-and-data-exfiltration",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Building and Backhaul",
+          "Backhaul and Data Exfiltration"
+        ]
+      },
+      "doc_lineno": 137
+    },
+    {
+      "source": "\tfor ts, sample in backhaul.enumerate():\n\t\tprint(f'{ts / 1e-9:.2f} ns:')\n\t\tfor name, val in sample.items():\n\t\t\tprint(f'  {name}: {val}')\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "backhaul-and-data-exfiltration",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Building and Backhaul",
+          "Backhaul and Data Exfiltration"
+        ]
+      },
+      "doc_lineno": 154
+    },
+    {
+      "source": "\tbackhaul.write_vcd(vcd_file)\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "backhaul-and-data-exfiltration",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Building and Backhaul",
+          "Backhaul and Data Exfiltration"
+        ]
+      },
+      "doc_lineno": 163
+    },
+    {
+      "source": "\t\tself.ila = UARTIntegratedLogicAnalyzer(\n\t\t\t# UART Divisor (clk // baud)\n\t\t\tdivisor = int(48e6 // SERIAL_PORT_BAUD),\n\t\t\t# UART Transmit pin\n\t\t\ttx = self.tx,\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "conclusion-and-uart-notes",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Conclusion and UART Notes"
+        ]
+      },
+      "doc_lineno": 218
+    },
+    {
+      "source": "\t# Set up the serial port we are going to use to ingest the data\n\tserialport = Serial(port = SERIAL_PORT_PATH, baudrate = SERIAL_PORT_BAUD)\n\t# Get the backhaul interface from the ILA module\n\tbackhaul = top.ila.get_backhaul(serialport)\n",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "conclusion-and-uart-notes",
+        "headings": [
+          "Getting Started",
+          "Example: USB Integrated Logic Analyzer",
+          "Conclusion and UART Notes"
+        ]
+      },
+      "doc_lineno": 229
+    },
+    {
+      "source": "     # In your imports section\n     from torii_ila import USBIntegratedLogicAnalyzer\n\n     # ...\n\n     # In your Torii Elaboratable `__init__`\n     self.ila = USBIntegratedLogicAnalyzer(\n             # The initial set of signals we care about\n             signals = [\n                     # List of Signals\n             ],\n             # How many samples we want to capture\n             sample_depth = 32,\n             # How fast our sample domain is, in this case `sync`\n             sample_rate  = 48e6,\n             # The name of the USB resource to pull from the platform.\n             bus = 'usb',\n     )\n\n     # ...\n\n     # In the def elaborate() method\n\n     m.submodules.ila = self.ila\n\n     # Wherever you need to get the backhaul interface\n\n     backhaul = top.ila.get_backhaul()\n     backhaul.write_vcd(vcd_file)",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "tl-dr",
+        "headings": [
+          "Getting Started",
+          "TL;DR"
+        ]
+      },
+      "doc_lineno": 247
+    },
+    {
+      "source": "     # In your imports section\n     from torii_ila import UARTIntegratedLogicAnalyzer\n\n     # ...\n\n     # In your Torii Elaboratable `__init__`\n     self.ila = UARTIntegratedLogicAnalyzer(\n             # UART Divisor (clk // baud)\n             divisor = int(48e6 // SERIAL_PORT_BAUD),\n             # UART Transmit pin\n             tx = self.tx,\n             # The initial set of signals we care about\n             signals = [\n                     # List of Signals\n             ],\n             # How many samples we want to capture\n             sample_depth = 32,\n             # How fast our sample domain is, in this case `sync`\n             sample_rate  = 48e6\n     )\n\n     # ...\n\n     # In the def elaborate() method\n\n     m.submodules.ila = self.ila\n\n     # Wherever you need to get the backhaul interface\n     backhaul = top.ila.get_backhaul(serialport)\n     backhaul.write_vcd(vcd_file)",
+      "names": [],
+      "example": {
+        "document": "getting_started",
+        "ref_id": "tl-dr",
+        "headings": [
+          "Getting Started",
+          "TL;DR"
+        ]
+      },
+      "doc_lineno": 282
+    }
+  ],
+  "ila/index": [],
+  "ila/uart": [],
+  "ila/usb": [],
+  "index": [],
+  "install": [],
+  "internal": [],
+  "license": []
+}

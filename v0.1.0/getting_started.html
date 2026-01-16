@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" data-content_root="./" lang="en">
+<head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="Getting Started" property="og:title">
+<meta content="website" property="og:type">
+<meta content="https://torii-ila.shmdn.link/getting_started.html" property="og:url"/>
+<meta content="Torii ILA" property="og:site_name"/>
+<meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:description"/>
+<meta content="1146" property="og:image:width"/>
+<meta content="600" property="og:image:height"/>
+<meta content="https://torii-ila.shmdn.link/_images/social_previews/summary_getting_started_52b42a9c.png" property="og:image"/>
+<meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." property="og:image:alt"/>
+<meta content="Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the TL;DR at the end. This section of the docs wi..." name="description"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="genindex.html" rel="index" title="Index"/><link href="search.html" rel="search" title="Search"/><link href="ila/index.html" rel="next" title="Integrated Logic Analyzers"/><link href="install.html" rel="prev" title="Installation"/>
+<link href="https://torii-ila.shmdn.link/getting_started.html" rel="canonical"/>
+<!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+<title>Getting Started - Torii ILA v0.1.0 Documentation</title>
+<link href="_static/pygments.css?v=b86133f3" rel="stylesheet" type="text/css">
+<link href="_static/styles/furo.css?v=7bdb33bb" rel="stylesheet" type="text/css">
+<link href="_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css">
+<link href="_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css">
+<link href="_static/tabs.css?v=4c969af8" rel="stylesheet" type="text/css">
+<link href="_static/styles/furo-extensions.css?v=8dab3a3b" rel="stylesheet" type="text/css"/>
+<link href="_static/css/styles.css?v=d73683b3" rel="stylesheet" type="text/css"/>
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #2672a8;
+  --color-brand-content: #2672a8;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #85C2FE;
+  --color-brand-content: #85C2FE;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #85C2FE;
+  --color-brand-content: #85C2FE;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+      }
+    }
+  }
+</style></link></link></link></link></link></meta></meta></meta></head>
+<body>
+<script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-toc" viewbox="0 0 24 24">
+<title>Contents</title>
+<svg fill="currentColor" stroke="currentColor" stroke-width="0" viewbox="0 0 1024 1024">
+<path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+</svg>
+</symbol>
+<symbol id="svg-menu" viewbox="0 0 24 24">
+<title>Menu</title>
+<svg class="feather-menu" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="3" x2="21" y1="12" y2="12"></line>
+<line x1="3" x2="21" y1="6" y2="6"></line>
+<line x1="3" x2="21" y1="18" y2="18"></line>
+</svg>
+</symbol>
+<symbol id="svg-arrow-right" viewbox="0 0 24 24">
+<title>Expand</title>
+<svg class="feather-chevron-right" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</symbol>
+<symbol id="svg-sun" viewbox="0 0 24 24">
+<title>Light mode</title>
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</symbol>
+<symbol id="svg-moon" viewbox="0 0 24 24">
+<title>Dark mode</title>
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+</svg>
+</symbol>
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+</svg>
+<input class="sidebar-toggle" id="__navigation" name="__navigation" type="checkbox"/>
+<input class="sidebar-toggle" id="__toc" name="__toc" type="checkbox"/>
+<label class="overlay sidebar-overlay" for="__navigation">
+<div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+<div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+<div class="announcement multiver">
+<aside class="announcement-content multiver-content">
+<strong>
+    
+    This is an old version of the Torii documentation, for the stable <code>v0.2.0</code> docs <a href="../v0.2.0/getting_started.html">Click Here</a>.
+    
+    </strong>
+</aside>
+</div>
+<div class="announcement">
+<aside class="announcement-content">
+     This documentation is a work in progress, and you can help us <a href="https://github.com/shrine-maiden-heavy-industries/torii-ila/blob/main/CONTRIBUTING.md">improve it!</a>
+</aside>
+</div>
+<div class="page">
+<header class="mobile-header">
+<div class="header-left">
+<label class="nav-overlay-icon" for="__navigation">
+<div class="visually-hidden">Toggle site navigation sidebar</div>
+<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+</label>
+</div>
+<div class="header-center">
+<a href="index.html"><div class="brand">Torii ILA 0.2.1.dev12 documentation</div></a>
+</div>
+<div class="header-right">
+<div class="theme-toggle-container theme-toggle-header">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-header-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+</header>
+<aside class="sidebar-drawer">
+<div class="sidebar-container">
+<div class="sidebar-sticky">
+<a class="sidebar-brand" href="index.html">
+<span class="sidebar-brand-text">Torii ILA v0.1.0 Documentation</span>
+</a><form action="search.html" class="sidebar-search-container" method="get" role="search">
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="ila/index.html">Integrated Logic Analyzers</a><input aria-label="Toggle navigation of Integrated Logic Analyzers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ila/uart.html">UART-Based Integrated Logic Analyzer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ila/usb.html">USB-Based Integrated Logic Analyzer</a></li>
+</ul>
+</input></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="backhaul/index.html">ILA Backhaul Interface</a><input aria-label="Toggle navigation of ILA Backhaul Interface" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="backhaul/uart.html">UART ILA Backhaul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backhaul/usb.html">USB ILA Backhaul</a></li>
+</ul>
+</input></li>
+<li class="toctree-l1"><a class="reference internal" href="internal.html">Internal Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://torii.shmdn.link">Torii</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/">Source Code</a></li>
+</ul>
+</div>
+<div class="sidebar-tree">
+<p class="caption" role="heading">
+<span class="caption-text">Versions</span>
+</p>
+<a class="reference" href="../main/getting_started.html">Development</a>
+<ul>
+<li class="toctree-l1"><a class="reference" href="../v0.2.0/getting_started.html">v0.2.0</a></li>
+<li class="toctree-l1"><a class="reference" href="getting_started.html">v0.1.0</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="main">
+<div class="content">
+<div class="article-container">
+<a class="back-to-top muted-link" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+</svg>
+<span>Back to top</span>
+</a>
+<div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/blob/main/docs/getting_started.md?plain=true" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div><div class="edit-this-page">
+<a class="muted-link" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/edit/main/docs/getting_started.md" rel="edit" title="Edit this page">
+<svg><use href="#svg-pencil"></use></svg>
+<span class="visually-hidden">Edit this page</span>
+</a>
+</div><div class="theme-toggle-container theme-toggle-content">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-content-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+<article id="furo-main-content" role="main">
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
+<p>Now that you’ve [installed] Torii ILA, you’re all ready to start using it, or if you rather just want something to copy paste, you can find that in the <a class="reference internal" href="#tl-dr">TL;DR</a> at the end.</p>
+<p>This section of the docs will walk you through a very simple initial setup by using one of the <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/blob/main/examples">examples</a> that are provided.</p>
+<p>This guide will cover the USB ILA example <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/torii-ila/blob/main/examples/bitsy_usb_ila.py"><code class="docutils literal notranslate"><span class="pre">bitsy_usb_ila.py</span></code></a>, but we’ll have the small changes in the UART example at the end.</p>
+<section id="example-prerequisites">
+<h2>Example Prerequisites<a class="headerlink" href="#example-prerequisites" title="Link to this heading">¶</a></h2>
+<p>There are a few extra prerequisites needed, in this case you need a <a class="reference external" href="https://1bitsquared.com/products/icebreaker-bitsy">iCEBreaker Bitsy</a> from <a class="reference external" href="https://1bitsquared.com/">1BitSquared</a> and to have <a class="reference external" href="https://torii-boards.shmdn.link/">Torii Boards</a> installed.</p>
+<p>It is also expected you have a VCD viewer installed, such as <a class="reference external" href="https://surfer-project.org/">Surfer</a> or <a class="reference external" href="https://gtkwave.github.io/gtkwave/">gtkwave</a>.</p>
+</section>
+<section id="example-usb-integrated-logic-analyzer">
+<h2>Example: USB Integrated Logic Analyzer<a class="headerlink" href="#example-usb-integrated-logic-analyzer" title="Link to this heading">¶</a></h2>
+<p>Now, with all of the prerequisites sorted, lets guide you through the example and how to set up a <a class="reference internal" href="ila/usb.html"><span class="std std-doc">USB</span></a> based Torii ILA.</p>
+<section id="gateware">
+<h3>Gateware<a class="headerlink" href="#gateware" title="Link to this heading">¶</a></h3>
+<p>First up is the actual gateware that will be run on the device, it’s the example ILA along with some example signals and support bits.</p>
+<section id="pll-module">
+<h4>PLL Module<a class="headerlink" href="#pll-module" title="Link to this heading">¶</a></h4>
+<p>The first big chunk is the PLL elaboratable, this is platform specific, but it shows how to set up an ICE40UP5K PLL for use as a USB device with <a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/sol">SOL</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">41</span><span class="k">class</span><span class="w"> </span><span class="nc">PLL</span><span class="p">(</span><span class="n">Elaboratable</span><span class="p">):</span>
+<span class="linenos">42</span><span class="w">	</span><span class="sd">''' 12MHz -&gt; 48MHz PLL '''</span>
+<span class="linenos">43</span>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">44</span>		<span class="bp">self</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span>	<span class="k">def</span><span class="w"> </span><span class="nf">elaborate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform</span><span class="p">:</span> <span class="n">Platform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
+<span class="linenos">47</span>		<span class="n">m</span> <span class="o">=</span> <span class="n">Module</span><span class="p">()</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span>		<span class="n">m</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">sync</span>    <span class="o">=</span> <span class="n">ClockDomain</span><span class="p">()</span>
+<span class="linenos">50</span>		<span class="n">m</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">usb</span>     <span class="o">=</span> <span class="n">ClockDomain</span><span class="p">()</span>
+<span class="linenos">51</span>		<span class="n">m</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">usb_io</span>  <span class="o">=</span> <span class="n">ClockDomain</span><span class="p">()</span>
+<span class="linenos">52</span>
+<span class="linenos">53</span>		<span class="n">platform</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">default_clk</span><span class="p">)</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">'GLOBAL'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span>		<span class="n">pll_clk</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">56</span>		<span class="n">usb_clk</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">57</span>
+<span class="linenos">58</span>		<span class="n">m</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">pll</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span>
+<span class="linenos">59</span>			<span class="s1">'SB_PLL40_PAD'</span><span class="p">,</span>
+<span class="linenos">60</span>			<span class="n">i_PACKAGEPIN</span>    <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">default_clk</span><span class="p">,</span> <span class="nb">dir</span> <span class="o">=</span> <span class="s1">'i'</span><span class="p">),</span>
+<span class="linenos">61</span>			<span class="n">i_RESETB</span>        <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="linenos">62</span>			<span class="n">i_BYPASS</span>        <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+<span class="linenos">63</span>
+<span class="linenos">64</span>			<span class="n">o_PLLOUTCORE</span>    <span class="o">=</span> <span class="n">pll_clk</span><span class="p">,</span>
+<span class="linenos">65</span>			<span class="n">o_LOCK</span>          <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">locked</span><span class="p">,</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span>			<span class="n">p_FEEDBACK_PATH</span> <span class="o">=</span> <span class="s1">'SIMPLE'</span><span class="p">,</span>
+<span class="linenos">68</span>			<span class="n">p_PLLOUT_SELECT</span> <span class="o">=</span> <span class="s1">'GENCLK'</span><span class="p">,</span>
+<span class="linenos">69</span>			<span class="n">p_DIVR</span>          <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos">70</span>			<span class="n">p_DIVF</span>          <span class="o">=</span> <span class="mi">63</span><span class="p">,</span>
+<span class="linenos">71</span>			<span class="n">p_DIVQ</span>          <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="linenos">72</span>			<span class="n">p_FILTER_RANGE</span>  <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">73</span>		<span class="p">)</span>
+<span class="linenos">74</span>
+<span class="linenos">75</span>		<span class="n">platform</span><span class="o">.</span><span class="n">add_clock_constraint</span><span class="p">(</span><span class="n">pll_clk</span><span class="p">,</span> <span class="mf">48e6</span><span class="p">)</span>
+<span class="linenos">76</span>		<span class="n">platform</span><span class="o">.</span><span class="n">add_clock_constraint</span><span class="p">(</span><span class="n">usb_clk</span><span class="p">,</span> <span class="mf">12e6</span><span class="p">)</span>
+<span class="linenos">77</span>
+<span class="linenos">78</span>		<span class="n">clk_div</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="linenos">79</span>		<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">usb_io</span> <span class="o">+=</span> <span class="p">[</span> <span class="n">clk_div</span><span class="o">.</span><span class="n">inc</span><span class="p">(),</span> <span class="p">]</span>
+<span class="linenos">80</span>
+<span class="linenos">81</span>		<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">comb</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">82</span>			<span class="n">usb_clk</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">clk_div</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+<span class="linenos">83</span>
+<span class="linenos">84</span>			<span class="n">ClockSignal</span><span class="p">(</span><span class="s1">'sync'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">pll_clk</span><span class="p">),</span>
+<span class="linenos">85</span>			<span class="n">ClockSignal</span><span class="p">(</span><span class="s1">'usb_io'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">pll_clk</span><span class="p">),</span>
+<span class="linenos">86</span>			<span class="n">ClockSignal</span><span class="p">(</span><span class="s1">'usb'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">usb_clk</span><span class="p">),</span>
+<span class="linenos">87</span>
+<span class="linenos">88</span>			<span class="n">ResetSignal</span><span class="p">(</span><span class="s1">'sync'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">locked</span><span class="p">),</span>
+<span class="linenos">89</span>			<span class="n">ResetSignal</span><span class="p">(</span><span class="s1">'usb_io'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">locked</span><span class="p">),</span>
+<span class="linenos">90</span>			<span class="n">ResetSignal</span><span class="p">(</span><span class="s1">'usb'</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">locked</span><span class="p">),</span>
+<span class="linenos">91</span>		<span class="p">]</span>
+<span class="linenos">92</span>
+<span class="linenos">93</span>		<span class="k">return</span> <span class="n">m</span>
+</pre></div>
+</div>
+<p>The big thing to note here, as we will need it later, is the resulting frequency of the <code class="docutils literal notranslate"><span class="pre">sync</span></code> domain, which in this case is <code class="docutils literal notranslate"><span class="pre">48e6Hz</span></code> or <code class="docutils literal notranslate"><span class="pre">48MHz</span></code>.</p>
+</section>
+<section id="top-module">
+<h4>Top Module<a class="headerlink" href="#top-module" title="Link to this heading">¶</a></h4>
+<p>Next up is the main elaboratable module we will be synthesizing, in this case called <code class="docutils literal notranslate"><span class="pre">Top</span></code>. We set up a few example signals for us to capture on the FPGA so we can be sure that the ILA is doing something.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">101</span><span class="k">class</span><span class="w"> </span><span class="nc">Top</span><span class="p">(</span><span class="n">Elaboratable</span><span class="p">):</span>
+<span class="linenos">102</span>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">103</span>		<span class="n">counter_val</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#int" title="int"><span class="nb">int</span></a><span class="p">(</span><span class="mi">48</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span>
+<span class="linenos">104</span>		<span class="c1"># Handful of sample signals for the ILA</span>
+<span class="linenos">105</span>		<span class="bp">self</span><span class="o">.</span><span class="n">pll_locked</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">106</span>		<span class="bp">self</span><span class="o">.</span><span class="n">timer</span>      <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="n">counter_val</span><span class="p">),</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">counter_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">decoder</span> <span class="o">=</span> <span class="n">EnumValue</span><span class="p">)</span>
+<span class="linenos">107</span>		<span class="bp">self</span><span class="o">.</span><span class="n">flops</span>      <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">reset</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">108</span>		<span class="bp">self</span><span class="o">.</span><span class="n">other</span>      <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">timer</span></code> signal has an enum based decoder attached to it, this helps us show that the resulting VCD from the ILA retains signal decoders and emits them properly in the trace, it looks as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">95</span><span class="k">class</span><span class="w"> </span><span class="nc">EnumValue</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="linenos">96</span>	<span class="n">Foo</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">97</span>	<span class="n">Bar</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">98</span>	<span class="n">Baz</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">99</span>	<span class="n">Qux</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Last thing in the constructor is the actual creation of the <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code> itself, we give it all the signals we want to keep track of, how deep we want our sample memory, as well as the sample rate which we got from the PLL config and the USB resource name for it to use.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">111</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">USBIntegratedLogicAnalyzer</span><span class="p">(</span>
+<span class="linenos">112</span>			<span class="c1"># The initial set of signals we care about</span>
+<span class="linenos">113</span>			<span class="n">signals</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos">114</span>				<span class="bp">self</span><span class="o">.</span><span class="n">pll_locked</span><span class="p">,</span>
+<span class="linenos">115</span>				<span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">,</span>
+<span class="linenos">116</span>				<span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="p">,</span>
+<span class="linenos">117</span>				<span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="p">,</span>
+<span class="linenos">118</span>			<span class="p">],</span>
+<span class="linenos">119</span>			<span class="c1"># How many samples we want to capture</span>
+<span class="linenos">120</span>			<span class="n">sample_depth</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+<span class="linenos">121</span>			<span class="c1"># How fast our sample domain is, in this case `sync`</span>
+<span class="linenos">122</span>			<span class="n">sample_rate</span>  <span class="o">=</span> <span class="mf">48e6</span><span class="p">,</span>
+<span class="linenos">123</span>			<span class="c1"># The name of the USB resource to pull from the platform.</span>
+<span class="linenos">124</span>			<span class="n">bus</span> <span class="o">=</span> <span class="s1">'usb'</span><span class="p">,</span>
+<span class="linenos">125</span>		<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we move on to the <code class="docutils literal notranslate"><span class="pre">elaborate</span></code> method, most of the stuff in here is just to support the example, but here we also ensure the ILA is a submodule, and also show an example of adding “private” signals to the ILA for capture.</p>
+<p>Adding the ILA as a submodule is typical to torii:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">138</span>		<span class="n">m</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ila</span>
+</pre></div>
+</div>
+<p>The important thing in here is just below that, it’s where we create two module internal signals, and add them to the ILA for capture.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">140</span>		<span class="n">wiggle</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">141</span>		<span class="n">woggle</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span>		<span class="c1"># Add some "Private" signals to the ILA</span>
+<span class="linenos">144</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">append_signals</span><span class="p">([</span><span class="n">wiggle</span><span class="p">,</span> <span class="n">woggle</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Along with <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.append_signals" title="torii_ila.ila.IntegratedLogicAnalyzer.append_signals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_signals</span></code></a> there is also an <a class="reference internal" href="ila/index.html#torii_ila.ila.IntegratedLogicAnalyzer.add_signal" title="torii_ila.ila.IntegratedLogicAnalyzer.add_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal</span></code></a> that lets you add a single <a class="reference external" href="https://torii.shmdn.link/v0.8.1/api/hdl/ast.html#torii.hdl.ast.Signal" title="(in Torii v0.8.1.dev417+gabe654f19)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code></a> at a time rather than an iterable of them.</p>
+<p>The remainder of the logic in <code class="docutils literal notranslate"><span class="pre">elaborate</span></code> is simply just driving the example signals:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">146</span>		<span class="c1"># Dummy logic wiggles</span>
+<span class="linenos">147</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">148</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">149</span>				<span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">),</span>
+<span class="linenos">150</span>				<span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="o">.</span><span class="n">rotate_left</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+<span class="linenos">151</span>			<span class="p">]</span>
+<span class="linenos">152</span>			<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flops</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+<span class="linenos">153</span>				<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="o">.</span><span class="n">inc</span><span class="p">(),</span> <span class="p">]</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">Else</span><span class="p">():</span>
+<span class="linenos">156</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">]</span>
+<span class="linenos">157</span>
+<span class="linenos">158</span>
+<span class="linenos">159</span>		<span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="p">[</span><span class="mi">7</span><span class="p">]):</span>
+<span class="linenos">160</span>			<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">comb</span> <span class="o">+=</span> <span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">]</span>
+<span class="linenos">161</span>
+<span class="linenos">162</span>		<span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos">163</span>			<span class="n">wiggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+<span class="linenos">164</span>			<span class="n">woggle</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="o">~</span><span class="n">wiggle</span><span class="p">),</span>
+<span class="linenos">165</span>		<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="building-and-backhaul">
+<h3>Building and Backhaul<a class="headerlink" href="#building-and-backhaul" title="Link to this heading">¶</a></h3>
+<p>Now that we have been aquatinted with the <a class="reference internal" href="#gateware">gateware</a>, we can move on to the more exciting bits, actually building it, loading it onto a device, and getting real ILA samples back.</p>
+<section id="platform-setup-and-building">
+<h4>Platform Setup and Building<a class="headerlink" href="#platform-setup-and-building" title="Link to this heading">¶</a></h4>
+<p>The first handful of lines after <code class="docutils literal notranslate"><span class="pre">main()</span></code> are just setup, we create an instance of our <code class="docutils literal notranslate"><span class="pre">Top</span></code> module, set the VCD destination file name, and create the platform for the <a class="reference external" href="https://1bitsquared.com/products/icebreaker-bitsy">iCEBreaker Bitsy</a> that we are targeting.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">178</span>	<span class="n">top</span>      <span class="o">=</span> <span class="n">Top</span><span class="p">()</span>
+<span class="linenos">179</span>	<span class="n">vcd_file</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s1">'bitsy_usb_ila.vcd'</span>
+<span class="linenos">180</span>	<span class="n">plat</span>     <span class="o">=</span> <span class="n">ICEBreakerBitsyPlatform</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After that is the actual gateware synthesis and upload, we simply call <code class="docutils literal notranslate"><span class="pre">plat.build</span></code> with a handful of arguments to get everything handled for us.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">183</span>	<span class="k">try</span><span class="p">:</span>
+<span class="linenos">184</span>		<span class="n">plat</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+<span class="linenos">185</span>			<span class="n">top</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'bitsy_usb_ila'</span><span class="p">,</span> <span class="n">do_program</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="linenos">186</span>			<span class="n">script_after_read</span> <span class="o">=</span> <span class="s1">'scratchpad -copy abc9.script.flow3 abc9.script</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span>
+<span class="linenos">187</span>			<span class="n">synth_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'-abc9'</span><span class="p">],</span>
+<span class="linenos">188</span>			<span class="n">nextpnr_opts</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">'--seed 1'</span> <span class="p">]</span>
+<span class="linenos">189</span>		<span class="p">)</span>
+<span class="linenos">190</span>	<span class="k">except</span> <span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="linenos">191</span>		<span class="c1"># dfu-util complains because we don't come back as a DFU device</span>
+<span class="linenos">192</span>		<span class="c1"># In that case we don't care there was an error</span>
+<span class="linenos">193</span>		<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">251</span><span class="p">:</span>
+<span class="linenos">194</span>			<span class="k">raise</span> <span class="n">e</span>
+</pre></div>
+</div>
+<p>Some of these options need explaining, the <code class="docutils literal notranslate"><span class="pre">name</span></code>, and <code class="docutils literal notranslate"><span class="pre">do_program</span></code> are self explanatory, but the last three are a bit more archaic.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">script_after_read</span></code> option is a string that is a Yosys command that is added to the synthesis script right after the design source is read in, this is prior to synthesis actually being executed. What this line is doing, is making <code class="docutils literal notranslate"><span class="pre">abc9</span></code> run twice, to try to better optimize the design. This is used in conjunction with the <code class="docutils literal notranslate"><span class="pre">synth_opts</span></code> option of <code class="docutils literal notranslate"><span class="pre">-abc9</span></code>, which tells Yosys when synthesizing the design to use abc9.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nextpnr_opts</span></code> is simply passing a PNR seed that was found to work for this design, depending on nextpnr internal changes, the phase of the moon, or how grumpy your cat is that day, you might need to adjust this to make sure timings pass.</p>
+<p>This whole thing is wrapped in a <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">except</span></code> because the <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzer</span></code> does not set up a fully DFU compliant device, so when <code class="docutils literal notranslate"><span class="pre">dfu-util</span></code> sees the device come back and it is missing the DFU endpoint it gets cranky, but that’s okay.</p>
+</section>
+<section id="backhaul-and-data-exfiltration">
+<h4>Backhaul and Data Exfiltration<a class="headerlink" href="#backhaul-and-data-exfiltration" title="Link to this heading">¶</a></h4>
+<p>Now that all the gateware specific details have been dealt with, we can get data off the device! Exciting!</p>
+<p>The first little bit just prints out the ILA configuration information for us, it’s not too important, the main focus here is getting our hands on a <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code> interface.</p>
+<p>That is a lot more straightforward than it seems:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">203</span>	<span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See? It’s that easy!</p>
+<p>You can actually do it two ways, the first being getting it from the ILA instance from the gateware, that is what is done above, and it has the advantage of just giving you a fully set up backhaul interface.</p>
+<p>The other way is to manually construct a <code class="xref py py-class docutils literal notranslate"><span class="pre">USBIntegratedLogicAnalyzerBackhaul</span></code> and pass the ILA instance into it, so it can read the information it needs.</p>
+<p>In the case of the USB ILA, the VID/PID are fixed, and the backhaul interface looks for them by default.</p>
+<p>Next, we dump the decoded samples to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, this has a whole lot of machinery working behind the scenes to give us a simple signal name:value dictionary out from the USB device.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">205</span>	<span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">backhaul</span><span class="o">.</span><span class="n">enumerate</span><span class="p">():</span>
+<span class="linenos">206</span>		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ts</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e-9</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> ns:'</span><span class="p">)</span>
+<span class="linenos">207</span>		<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">208</span>			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After we list out the collected samples to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, we then write a VCD file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">210</span>	<span class="n">backhaul</span><span class="o">.</span><span class="n">write_vcd</span><span class="p">(</span><span class="n">vcd_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-the-example">
+<h3>Running the Example<a class="headerlink" href="#running-the-example" title="Link to this heading">¶</a></h3>
+<p>Now we’re ready to run!</p>
+<p>Hold down the button on the bitsy next to the USB port while you plug it in, this will cause it to boot into bootloader mode. This will be indicated by a flashing blue on the RGB LED.</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">lsusb</span> <span class="pre">-d</span> <span class="pre">1d50:6146</span></code> should show the <code class="docutils literal notranslate"><span class="pre">OpenMoko,</span> <span class="pre">Inc.</span> <span class="pre">iCEBreaker</span> <span class="pre">bitsy</span> <span class="pre">v1.x</span> <span class="pre">(DFU)</span></code> device.</p>
+<p>Next, simply run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">bitsy_usb_ila.py</span></code>, you should see it say <code class="docutils literal notranslate"><span class="pre">Building</span> <span class="pre">gateware...</span></code> followed by a bit of a delay. After that <code class="docutils literal notranslate"><span class="pre">dfu-util</span></code> should show that it is programming the device.</p>
+<p>After another short delay of the device coming back, you should see the following output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ILA Info:</span>
+<span class="go">  bytes per sample: 2</span>
+<span class="go">  bits per sample:  16</span>
+<span class="go">  sample rate:      48.0 MHz</span>
+<span class="go">  sample period:    20.833333333333332 ns</span>
+<span class="go">Collecting ILA Samples</span>
+<span class="go">0.00 ns:</span>
+<span class="go">  pll_locked: 1</span>
+<span class="go">  timer: 11</span>
+<span class="go">  flops: 001</span>
+<span class="go">  other: 10000000</span>
+<span class="go">  wiggle: 0</span>
+<span class="go">  woggle: 0</span>
+
+<span class="go">-- SNIP --</span>
+
+<span class="go">Writing to VCD: /path/to/bitsy_usb_ila.vcd</span>
+</pre></div>
+</div>
+<p>With that you should now have a VCD to load and look at, feel free to poke around, but it should look something like the following:</p>
+<p><img alt="A screenshot of Surfer showing all the signals hooked up to the ILA" src="_images/example_usb_vcd.png"/></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Hot tip, you can use the web version of Surfer at https://app.surfer-project.org/ to load the VCD in your web browser</p>
+</div>
+<p>You may have noticed the <code class="docutils literal notranslate"><span class="pre">ila_clk</span></code> signal in the list and wonder where it came from. It’s a synthetic signal that is generated using the sample rate you gave the ILA. It is effectively the sample clock used in the ILA, but is not a direct capture of it.</p>
+</section>
+<section id="conclusion-and-uart-notes">
+<h3>Conclusion and UART Notes<a class="headerlink" href="#conclusion-and-uart-notes" title="Link to this heading">¶</a></h3>
+<p>And with that, you’re done! You’re all ready to go and use Torii ILA in your projects.</p>
+<p>The <a class="reference internal" href="ila/uart.html"><span class="std std-doc">UART</span></a> ILA is much the same, the interface for everything is basically identical except in two spots. The first being in the actual construction of the ILA module itself:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">109</span>		<span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">UARTIntegratedLogicAnalyzer</span><span class="p">(</span>
+<span class="linenos">110</span>			<span class="c1"># UART Divisor (clk // baud)</span>
+<span class="linenos">111</span>			<span class="n">divisor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">48e6</span> <span class="o">//</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">),</span>
+<span class="linenos">112</span>			<span class="c1"># UART Transmit pin</span>
+<span class="linenos">113</span>			<span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>It has 2 extra kwargs, the first being <code class="docutils literal notranslate"><span class="pre">divisor</span></code>, this is the divisor used to drive the UART to reach the requested baud on the output clock domain, it should be <code class="docutils literal notranslate"><span class="pre">int(clk_speed</span> <span class="pre">//</span> <span class="pre">baud)</span></code>. The second is the <code class="docutils literal notranslate"><span class="pre">tx</span></code> parameter, this is an input signal that should be tied to the boards UART transmit pin, as the UART ILA is unidirectional it only needs <code class="docutils literal notranslate"><span class="pre">tx</span></code>, not <code class="docutils literal notranslate"><span class="pre">rx</span></code>.</p>
+<p>The second difference is in the backhaul interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">213</span>	<span class="c1"># Set up the serial port we are going to use to ingest the data</span>
+<span class="linenos">214</span>	<span class="n">serialport</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="n">SERIAL_PORT_PATH</span><span class="p">,</span> <span class="n">baudrate</span> <span class="o">=</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">)</span>
+<span class="linenos">215</span>	<span class="c1"># Get the backhaul interface from the ILA module</span>
+<span class="linenos">216</span>	<span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">(</span><span class="n">serialport</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The UART backhaul specifically wants a pre-configured <a class="reference external" href="https://github.com/pyserial/pyserial">pyserial</a> <a class="reference external" href="https://pythonhosted.org/pyserial/pyserial_api.html#serial.Serial" title="(in pySerial v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serial</span></code></a> object due to the nature of the interface.</p>
+<p>Other than that, the rest of the API is identical.</p>
+</section>
+</section>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">¶</a></h2>
+<p>If you really just need something to drop in,</p>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">USB</label><div class="tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>     <span class="c1"># In your imports section</span>
+<span class="linenos"> 2</span>     <span class="kn">from</span><span class="w"> </span><span class="nn">torii_ila</span><span class="w"> </span><span class="kn">import</span> <span class="n">USBIntegratedLogicAnalyzer</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>     <span class="c1"># ...</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>     <span class="c1"># In your Torii Elaboratable `__init__`</span>
+<span class="linenos"> 7</span>     <span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">USBIntegratedLogicAnalyzer</span><span class="p">(</span>
+<span class="linenos"> 8</span>             <span class="c1"># The initial set of signals we care about</span>
+<span class="linenos"> 9</span>             <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos">10</span>                     <span class="c1"># List of Signals</span>
+<span class="linenos">11</span>             <span class="p">],</span>
+<span class="linenos">12</span>             <span class="c1"># How many samples we want to capture</span>
+<span class="linenos">13</span>             <span class="n">sample_depth</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+<span class="linenos">14</span>             <span class="c1"># How fast our sample domain is, in this case `sync`</span>
+<span class="linenos">15</span>             <span class="n">sample_rate</span>  <span class="o">=</span> <span class="mf">48e6</span><span class="p">,</span>
+<span class="linenos">16</span>             <span class="c1"># The name of the USB resource to pull from the platform.</span>
+<span class="linenos">17</span>             <span class="n">bus</span> <span class="o">=</span> <span class="s1">'usb'</span><span class="p">,</span>
+<span class="linenos">18</span>     <span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>     <span class="c1"># ...</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>     <span class="c1"># In the def elaborate() method</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>     <span class="n">m</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ila</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span>     <span class="c1"># Wherever you need to get the backhaul interface</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>     <span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">()</span>
+<span class="linenos">29</span>     <span class="n">backhaul</span><span class="o">.</span><span class="n">write_vcd</span><span class="p">(</span><span class="n">vcd_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--0-input--2" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--2">UART</label><div class="tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>     <span class="c1"># In your imports section</span>
+<span class="linenos"> 2</span>     <span class="kn">from</span><span class="w"> </span><span class="nn">torii_ila</span><span class="w"> </span><span class="kn">import</span> <span class="n">UARTIntegratedLogicAnalyzer</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>     <span class="c1"># ...</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>     <span class="c1"># In your Torii Elaboratable `__init__`</span>
+<span class="linenos"> 7</span>     <span class="bp">self</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="n">UARTIntegratedLogicAnalyzer</span><span class="p">(</span>
+<span class="linenos"> 8</span>             <span class="c1"># UART Divisor (clk // baud)</span>
+<span class="linenos"> 9</span>             <span class="n">divisor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">48e6</span> <span class="o">//</span> <span class="n">SERIAL_PORT_BAUD</span><span class="p">),</span>
+<span class="linenos">10</span>             <span class="c1"># UART Transmit pin</span>
+<span class="linenos">11</span>             <span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span>
+<span class="linenos">12</span>             <span class="c1"># The initial set of signals we care about</span>
+<span class="linenos">13</span>             <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos">14</span>                     <span class="c1"># List of Signals</span>
+<span class="linenos">15</span>             <span class="p">],</span>
+<span class="linenos">16</span>             <span class="c1"># How many samples we want to capture</span>
+<span class="linenos">17</span>             <span class="n">sample_depth</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+<span class="linenos">18</span>             <span class="c1"># How fast our sample domain is, in this case `sync`</span>
+<span class="linenos">19</span>             <span class="n">sample_rate</span>  <span class="o">=</span> <span class="mf">48e6</span>
+<span class="linenos">20</span>     <span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>     <span class="c1"># ...</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>     <span class="c1"># In the def elaborate() method</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span>     <span class="n">m</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">ila</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ila</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>     <span class="c1"># Wherever you need to get the backhaul interface</span>
+<span class="linenos">29</span>     <span class="n">backhaul</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">ila</span><span class="o">.</span><span class="n">get_backhaul</span><span class="p">(</span><span class="n">serialport</span><span class="p">)</span>
+<span class="linenos">30</span>     <span class="n">backhaul</span><span class="o">.</span><span class="n">write_vcd</span><span class="p">(</span><span class="n">vcd_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</input></input></div>
+</section>
+</section>
+</article>
+</div>
+<footer>
+<div class="related-pages">
+<a class="next-page" href="ila/index.html">
+<div class="page-info">
+<div class="context">
+<span>Next</span>
+</div>
+<div class="title">Integrated Logic Analyzers</div>
+</div>
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+</a>
+<a class="prev-page" href="install.html">
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+<div class="page-info">
+<div class="context">
+<span>Previous</span>
+</div>
+<div class="title">Installation</div>
+</div>
+</a>
+</div>
+<div class="bottom-of-page">
+<div class="left-details">
+<div class="copyright">
+                Copyright © 2026, Aki Van Ness, et. al.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+</div>
+<div class="right-details">
+</div>
+</div>
+</footer>
+</div>
+<aside class="toc-drawer">
+<div class="toc-sticky toc-scroll">
+<div class="toc-title-container">
+<span class="toc-title">
+            On this page
+          </span>
+</div>
+<div class="toc-tree-container">
+<div class="toc-tree">
+<ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#example-prerequisites">Example Prerequisites</a></li>
+<li><a class="reference internal" href="#example-usb-integrated-logic-analyzer">Example: USB Integrated Logic Analyzer</a><ul>
+<li><a class="reference internal" href="#gateware">Gateware</a><ul>
+<li><a class="reference internal" href="#pll-module">PLL Module</a></li>
+<li><a class="reference internal" href="#top-module">Top Module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-and-backhaul">Building and Backhaul</a><ul>
+<li><a class="reference internal" href="#platform-setup-and-building">Platform Setup and Building</a></li>
+<li><a class="reference internal" href="#backhaul-and-data-exfiltration">Backhaul and Data Exfiltration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-the-example">Running the Example</a></li>
+<li><a class="reference internal" href="#conclusion-and-uart-notes">Conclusion and UART Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tl-dr">TL;DR</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div><script src="_static/documentation_options.js?v=1df8162d"></script>
+<script src="_static/doctools.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="_static/scripts/furo.js?v=46bd48cc"></script>
+<script src="_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="_static/copybutton.js?v=f281be69"></script>
+<script src="_static/tabs.js?v=3ee01567"></script>
+</body>
+</html>
