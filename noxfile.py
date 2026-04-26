@@ -37,6 +37,8 @@ def test(session: Session) -> None:
 
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	if ENABLE_COVERAGE:
@@ -66,6 +68,8 @@ def watch_docs(session: Session) -> None:
 	session.install('sphinx-autobuild')
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	session.run('sphinx-autobuild', str(DOCS_DIR), str(OUTPUT_DIR))
@@ -77,6 +81,8 @@ def build_docs(session: Session) -> None:
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	session.run('sphinx-build', '-b', 'html', str(DOCS_DIR), str(OUTPUT_DIR))
@@ -90,6 +96,8 @@ def build_docs_multiversion(session: Session) -> None:
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	# Workaround for sphinx-contrib/multiversion#58
@@ -183,6 +191,8 @@ def linkcheck_docs(session: Session) -> None:
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	session.run('sphinx-build', '-b', 'linkcheck', str(DOCS_DIR), str(OUTPUT_DIR))
@@ -197,6 +207,8 @@ def typecheck_mypy(session: Session) -> None:
 	session.install('types-pyserial')
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+	# TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	session.run(
@@ -214,6 +226,8 @@ def typecheck_pyright(session: Session) -> None:
 	session.install('pyright')
 	# TODO(aki): Removed once we can rely on the Torii version in PyPi
 	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-hdl.git')
+    # TODO(aki): Removed once we can rely on the Torii USB version in PyPi
+	session.install('git+https://github.com/shrine-maiden-heavy-industries/torii-usb.git')
 	session.install('--pre', '-e', '.[usb,uart]')
 
 	with (OUTPUT_DIR / 'pyright.log').open('w') as f:
