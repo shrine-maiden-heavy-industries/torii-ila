@@ -13,7 +13,7 @@ readme = 'README.md'
 requires-python = '>=3.11'
 dependencies = [
 	'pyvcd', # NOTE(aki): This is constrained by the same version in the Torii dependency list
-	'torii>=0.8.0,<1.0',
+	'torii>=1.0.0a0,<2.0',
 ]
 keywords = [
 	'Torii',
@@ -68,7 +68,7 @@ uart = [
 
 examples = [
 	# Board definitions
-	'torii-boards>=0.8.1,<1.0',
+	'torii-boards>=1.0.0a,<2.0',
 ]
 
 [project.scripts]
