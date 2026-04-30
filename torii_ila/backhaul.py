@@ -10,6 +10,8 @@ from vcd             import VCDWriter
 from vcd.common      import VarType as VCDVarType
 from vcd.writer      import Variable as VCDVar
 
+from torii.hdl.ast   import SignalDict
+
 from .ila            import IntegratedLogicAnalyzer
 from ._bits          import bits
 
@@ -22,7 +24,7 @@ __all__ = (
 )
 
 ILAInterface: TypeAlias = 'IntegratedLogicAnalyzer | USBIntegratedLogicAnalyzer | UARTIntegratedLogicAnalyzer'
-Sample: TypeAlias = dict[str, bits]
+Sample: TypeAlias = SignalDict[bits | int]
 Samples: TypeAlias = list[Sample]
 
 T = TypeVar('T', bound = ILAInterface)
@@ -81,7 +83,7 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 		'''
 
 		pos = 0
-		sample: Sample = dict()
+		sample: Sample = SignalDict()
 
 		# BUG(aki): This *might* not be 100% stable if the signal orders shift around under us.
 		for sig in self.ila._signals:
@@ -91,7 +93,7 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 			# Advance to the next signal
 			pos += width
 
-			sample[sig.name] = bits
+			sample[sig] = bits
 
 		return sample
 
@@ -184,8 +186,9 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 		with vcd_file.open('w') as vcd_stream:
 			with VCDWriter(vcd_stream, timescale = '1 ns', comment = 'Torii ILA Dump') as writer:
 				# Signal mapping
-				vcd_signals: dict[str, VCDVar] = dict()
-				sig_decoder: dict[str, Callable[[int], str]] = dict()
+				vcd_signals: SignalDict[VCDVar] = SignalDict()
+				sig_decoder: SignalDict[Callable[[int], str]] = SignalDict()
+
 				trigger = writer.register_var(
 					'ila', 'ila_trigger', VCDVarType.wire, size = 1, init = 0
 				)
@@ -198,16 +201,21 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 						'ila', 'ila_clk', VCDVarType.wire, size = 1, init = clk_value ^ 1
 					)
 
-				for sig in self.ila._signals:
-					if sig.decoder is not None:
-						sig_decoder[sig.name] = sig.decoder
-						vcd_signals[sig.name] = writer.register_var(
-							'ila', sig.name, VCDVarType.string, size = 1,
-							init = sig_decoder[sig.name](sig.reset).expandtabs().replace(' ', '_')
+				for signal in self.ila._signals:
+					if hierarchy := self.ila._platform._name_map[signal]:
+						sig_hierarchy = hierarchy
+					else:
+						sig_hierarchy = 'ila'
+
+					if signal.decoder is not None:
+						sig_decoder[signal] = signal.decoder
+						vcd_signals[signal] = writer.register_var(
+							sig_hierarchy, signal.name, VCDVarType.string, size = 1,
+							init = sig_decoder[signal](signal.reset).expandtabs().replace(' ', '_')
 						)
 					else:
-						vcd_signals[sig.name] = writer.register_var(
-							'ila', sig.name, VCDVarType.wire, size = len(sig), init = sig.reset
+						vcd_signals[signal] = writer.register_var(
+							sig_hierarchy, signal.name, VCDVarType.wire, size = len(signal), init = signal.reset
 						)
 
 				last_ts: float = 0.0
@@ -229,12 +237,12 @@ class ILABackhaulInterface(Generic[T], metaclass = ABCMeta):
 						writer.change(trigger, ts / 1e-9, 0)
 
 					# Iterate over the un-packed sample
-					for name, value in sample.items():
-						if (decoder := sig_decoder.get(name)) is not None:
+					for signal, value in sample.items():
+						if (decoder := sig_decoder.get(signal)) is not None:
 							decoded_val = decoder(value.to_int()).expandtabs().replace(' ', '_')
-							writer.change(vcd_signals[name], ts / 1e-9, decoded_val)
+							writer.change(vcd_signals[signal], ts / 1e-9, decoded_val)
 						else:
-							writer.change(vcd_signals[name], ts / 1e-9, value.to_int())
+							writer.change(vcd_signals[signal], ts / 1e-9, value.to_int())
 
 				# Append any needed post-steps, but only if we have a sample clock to tick
 				if inject_sample_clock:

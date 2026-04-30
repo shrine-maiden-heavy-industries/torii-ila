@@ -10,10 +10,10 @@ import time
 from collections.abc                     import Generator, Iterable
 from typing                              import Self
 
+from torii.build.plat                    import Platform
 from torii.hdl.ast                       import Cat, Signal
 from torii.hdl.dsl                       import FSM, Module
 from torii.hdl.ir                        import Elaboratable
-from torii.build.plat                    import Platform
 
 from usb_construct.emitters              import DeviceDescriptorCollection
 from torii_usb.usb.usb2.device           import USBDevice
@@ -274,6 +274,8 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
+		self._platform: Platform | None = None
+
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
 		Add a signal to the ILA capture list.
@@ -384,7 +386,9 @@ class USBIntegratedLogicAnalyzer(Elaboratable):
 
 		return desc
 
-	def elaborate(self: Self, platform: Platform) -> Module:
+	def elaborate(self: Self, platform: Platform | None) -> Module:
+		self._platform = platform
+
 		m = Module()
 
 		m.submodules.ila = ila = self.ila

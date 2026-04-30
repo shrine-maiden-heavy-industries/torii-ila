@@ -14,6 +14,7 @@ from typing                 import Self
 
 from serial                 import Serial
 
+from torii.build.plat       import Platform
 from torii.hdl.ast          import Cat, Signal
 from torii.hdl.dsl          import FSM, Module
 from torii.hdl.ir           import Elaboratable
@@ -304,6 +305,8 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 		self.sampling = self.ila.sampling
 		self.complete = self.ila.complete
 
+		self._platform: Platform | None = None
+
 	def add_signal(self: Self, sig: Signal) -> None:
 		'''
 		Add a signal to the ILA capture list.
@@ -390,7 +393,9 @@ class UARTIntegratedLogicAnalyzer(Elaboratable):
 
 		self.ila.add_fsm(fsm)
 
-	def elaborate(self: Self, _) -> Module:
+	def elaborate(self: Self, platform: Platform | None) -> Module:
+		self._platform = platform
+
 		m = Module()
 
 		m.submodules.ila   = ila   = self.ila
